@@ -1,2 +1,45 @@
-build/
+# OS files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# LaTeX outputs
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.pdfsync
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.vrb
+*.nav
+*.snm
+*.idx
+*.ilg
+*.ind
+*.ist
+*.glo
+*.glg
+*.gls
+*.spl
+
+# Generated trees
+paper/build/
+preprint/
+__pycache__/
+*.py[cod]
+.pytest_cache
+build/
