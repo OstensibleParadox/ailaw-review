@@ -4,8 +4,8 @@ OUTPUT := output/pdf
 DOCX_OUTPUT := output/docx
 # Keep the generated English DOCX aligned with the published document title,
 # rather than with the internal TeX source filename.
-DOCX_STEM := Who-Controls-Who-Answers-Liability-in-the-AI-Control-Stack-English
-DOCX_TITLE := Who Controls, Who Answers: Liability in the AI Control Stack
+DOCX_STEM := Before-the-Merits-A-Deployment-Front-Door-for-High-Impact-AI-Litigation
+DOCX_TITLE := Before the Merits: A Deployment Front Door for High-Impact AI Litigation
 DOCX_FILE := $(DOCX_OUTPUT)/$(DOCX_STEM).docx
 DOCX_REVIEW := $(DOCX_OUTPUT)/$(DOCX_STEM).review.json
 PYTHON ?= python3

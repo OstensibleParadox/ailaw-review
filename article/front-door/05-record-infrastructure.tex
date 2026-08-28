@@ -1,0 +1,112 @@
+\section{The Record Infrastructure}
+\label{sec:infrastructure}
+
+The front door can disclose only what the deployment has made observable. Ordinary discovery reaches existing matter within a party's possession, custody, or control. It cannot recreate an unrecorded version, an undocumented release decision, a complaint that reached no assigned owner, or stop authority that no one possessed. The deployment-record duty therefore begins as operating infrastructure and later becomes litigation infrastructure.
+
+This Part turns that premise into an administrable record. Section A recasts the responsibility charter as a deployment-specific data structure. Section B separates stable identity, continuing feedback, and event records. Section C identifies two institutional comparators---FAA safety-management rules and the FTC's companion-chatbot information demands---that demonstrate feasibility without converting either regime into an AI-liability standard. Section D protects the reporting and provenance needed to keep the record accurate. Section E explains why the same infrastructure supplies affirmative defenses as well as claims.
+
+\subsection{The Charter Is the Deployment Record's Control Sheet}
+
+For a designated high-impact deployment, the operator should adopt a written responsibility charter before release. The name can suggest a broad ethics code; its legal function here is narrower. It is the control sheet for a named deployment, version family, operating context, and risk category. It links technical identifiers to organizational authority and establishes where continuing records will be kept.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}p{0.33\textwidth} >{\raggedright\arraybackslash}p{0.32\textwidth}}
+\caption{Minimum Deployment-Record Infrastructure}\label{tab:charter}\\
+\toprule
+Component & Required allocation & Front-door function \\
+\midrule
+\endfirsthead
+\toprule
+Component & Required allocation & Front-door function \\
+\midrule
+\endhead
+Identity and scope & Application and model versions; purpose; affected population; data; retrieval; tools; credentials; vendors; limits; material-change threshold. & Defines the deployment and distinguishes versions, component changes, and independent modification. \\
+Risk and release owners & Responsible executive and operational owner for each designated risk; approvers; authority and resources; conditions and review date. & Identifies who receives information and who can commission mitigation or withhold release. \\
+Evaluation and decision record & Protocols, populations, thresholds, results, exceptions, rejected or conditional mitigations, and unresolved risk decisions. & Records the basis for authorization and supplies both knowledge and reasonableness evidence. \\
+Feedback and escalation & Complaint and incident categories; monitoring; protected escalation; recipient; response deadline; decision and corrective action. & Preserves notice, separates report from response, and makes continuing control observable. \\
+Intervention & Actors authorized to restrict, revoke credentials, update, pause, roll back, or terminate; triggers, response times, and tested procedures. & Establishes practical authority and whether a proposed intervention was available at the relevant time. \\
+Provenance and retention & Version lineage; material configuration changes; event identifiers; record custodians; third-party locations; retention and hold procedures. & Enables identification, authentication, preservation, proportional production, and safe exit. \\
+External-rights savings clause & Statement that internal allocation and contract labels do not waive affected-person rights or determine ultimate liability. & Prevents the record from operating as a private exculpatory agreement. \\
+\bottomrule
+\end{longtable}
+
+The record should identify roles and offices as well as names. Personnel change; statutory responsibility should survive turnover. A deployment ID links the approved control sheet to the live configuration, and a versioned amendment records material change. The operator can then answer a front-door notice by retrieving a defined record rather than assembling an organizational history after the event.
+
+The material-change threshold is especially important for learning and composite systems. A model update can alter capability while leaving the application version unchanged. A new retrieval source, memory setting, tool credential, ranking threshold, user population, or downstream purpose can change risk without changing model weights. The charter should identify which changes require renewed evaluation or approval and which enter a lower-burden change log. A provider and operator can use different internal systems so long as the deployment record links them by version, time, and control lane.
+
+Possession of a completed form supplies only the beginning of proof. Front-door production asks whether the people assigned to receive a signal had practical authority and resources, whether reports reached them, whether intervention procedures worked, and whether material changes triggered review. Unless positive law gives compliance another effect, a complete record supplies evidence of conduct rather than a conclusive defense.\lrfootnote{See \bluecite[\S~16(a)]{restatementPhysicalEmotional2010}; \bluecite[\S~4(b)]{restatementProducts1998}. Jurisdictions may assign statutory compliance a different effect.}
+
+\subsection{The Record Has a Standard Interface}
+
+The minimum record should operate as an information plane across the deployment rather than as a mandate to centralize every underlying artifact. The visible operator keeps a closed manifest: deployment ID; covered purpose and population; application and model versions; material components and suppliers; record custodians; risk and release owners; relevant contract rights; and the event schema used for consequential actions. Each control holder keeps the deeper materials assigned to its lane. Stable identifiers join the manifest to those materials when a notice or regulator demand arrives.
+
+Three identifiers do most of the work. A \term{deployment identifier} distinguishes the covered use from the same model used elsewhere. A \term{component-version identifier} ties model, application, retrieval, tool, policy, and configuration changes to a time interval. An \term{event identifier} connects an affected person or consequential decision to the versions and records that governed it. The event identifier can be pseudonymous and separately linked to personal data. The system therefore retrieves the relevant slice without exposing unrelated users or requiring a later investigator to infer lineage from timestamps alone.
+
+The interface should use a sectoral data dictionary. ``Model version'' can otherwise mean a marketing name, weight snapshot, API alias, application release, policy bundle, or customer configuration. The designation should define the fields needed to reproduce the legally relevant identity: supplier identifier; immutable or otherwise auditable version reference; activation window; configuration owner; material change; downstream integration; output type; and custodian. An enterprise may keep its own engineering format, but the first answer translates that format into the defined fields and identifies the source system from which each field came.
+
+Integrity requires lineage rather than a self-authenticating compliance certificate. A manifest should record who created and approved it, the date, later amendments, and the source records supporting the entry. Automated logs can carry hashes, signatures, or append-only controls where appropriate; lower-technology sectors can use ordinary version control and attestation. The legal function is the same: preserve a contestable trail from the live event to the record, not establish conclusively that every listed control operated as designed.
+
+Supplier contracts implement the interface. A covered operator should receive current component and version identifiers, material-change notice, an event-resolution method, a responsive agent, and a right to retrieve the minimum supplier fields on demand. The supplier should receive the operator's deployment identifier, designated purpose, configured population, material customer settings, and preservation contact. Acquisition, subcontracting, model substitution, and service termination should carry successor and export duties for the retained period. These terms keep the record reachable when corporate and technical boundaries change after deployment.
+
+The architecture controls cost by keeping routine manifest fields separate from retrieval after a defined event. Release and asset-management systems can supply version and supplier identity. Transaction, decision, and incident systems can supply event fields. Deeper evaluation, complaint, and source materials stay with their custodians unless a risk-specific request justifies access. Standardization moves expense toward one-time design and retrieval by identifier, away from repeated forensic reconstruction across every dispute.
+
+Quality assurance can also be bounded. The operator periodically reconciles the live deployment against the manifest, tests whether an event identifier resolves to the governing versions, confirms that supplier contacts and retrieval rights remain usable, and records exceptions. A regulator can audit samples without obtaining every event. The check asks whether the front door will open when needed: can the operator identify what ran, locate the holder, preserve the slice, and exercise the retrieval path?
+
+\subsection{Identity, Feedback, and Event Records Have Different Clocks}
+
+A usable infrastructure contains three linked records.
+
+The \term{identity record} changes when the deployment changes. It contains the versioned architecture, purpose, population, component suppliers, material configuration, data and tool interfaces, owners, and intervention rights. Its retention period should cover the ordinary period in which a claim involving that deployment can arise, with sector-specific extensions for minors, latent physical injury, or continuing public entitlements.
+
+The \term{feedback record} accumulates during operation. It contains defined complaints, evaluations, incident classifications, monitoring signals, escalations, decisions, and corrective actions. The designation should specify which events require individual retention, which may be aggregated, and which content should be minimized. A service can record that a crisis detector triggered, which policy and version governed, and what intervention followed without preserving every unrelated intimate conversation indefinitely.
+
+The \term{event record} freezes a bounded slice when a consequential action or identified incident occurs. In employment it may contain the application, input fields, model and configuration versions, score or recommendation, threshold, downstream human action, notice, and review. In benefits it may contain the assessment data, calculation version, output, governing policy, explanation, appeal, and correction. In a companion deployment it may contain the account and age status, relevant interaction window, governing relational and crisis policies, detections, interventions, warnings, and account restrictions. The event record anchors causal sequence while leaving unrelated people and periods outside production.
+
+These clocks improve privacy and accuracy simultaneously. A blanket command to retain all interactions invites excess. A deployment ID, event schema, and material-change log preserve the facts needed to identify the relevant window. Sectoral lawmakers can then choose periods and minimization rules that fit the interest rather than defaulting to permanent surveillance.
+
+Retention should follow the legal and factual life of the interest. Employment and credit records can track the limitations and administrative-charge periods governing the designated decision, with a defined post-notice extension. A public-benefits event may need to persist through reconsideration, appeal, and the period for judicial review. A clinical deployment may require longer identity and validation lineage where injury can appear later, while still minimizing raw patient content under health-information rules. A relational service involving a minor can preserve crisis and intervention events for a longer protected period without retaining every ordinary conversation. The designation should state the clock, trigger, and lawful deletion rule rather than asking operators to guess from a generic command to keep ``AI data.''
+
+Different clocks also prevent a change from overwriting history. A current model card cannot establish what governed an earlier event; a current contract cannot prove who controlled retrieval before an acquisition; a revised policy cannot show which warning appeared to an earlier user. The identity record freezes each material interval. The event record points to that interval. The feedback record then shows what the organization learned and changed between intervals. This structure turns evolution from an obstacle into an auditable sequence.
+
+Responsibility for legal holds should also appear in the record. The verified notice described in Part II identifies the event, period, user or decision, and risk. The operator's hold reaches the matching identity, feedback, and event materials and gives identified control holders a common reference. If a record no longer exists, the response identifies the deletion rule, date, custodian, and possible substitute. That information permits a court to distinguish ordinary expiration, negligent noncompliance, and intentional concealment.
+
+\subsection{Existing Regimes Demonstrate Administrability}
+
+The proposal borrows implementation forms, not liability conclusions. Two regimes perform the strongest comparator roles.
+
+\subsubsection{FAA Safety Management Systems}
+
+FAA Part 5 requires covered aviation organizations, on the applicable schedule, to develop and maintain an organization-wide safety management system. The rules assign an accountable executive, require management authority to accept safety risk, specify hazard identification and risk control, require assurance and corrective action, and preserve records. For specified organizations, the system includes confidential employee reporting without fear of reprisal.\lrfootnote{See \statcite{faaSMSPart5}, \S\S~5.1--5.17, 5.21--5.25, 5.53--5.57, 5.71--5.75, 5.95--5.97; \bluecite{faaSMS2026}.}
+
+Part 5 demonstrates four institutional facts. A safety system can attach to an organization rather than a single component. Named executive and operational authority can coexist. Continuing assessment and correction can be recorded as operating requirements. Retention can be specified without waiting for a lawsuit. AI deployments involve different technologies and protected interests, so the aviation standard does not define reasonable AI care. It proves that authority, feedback, intervention, and records can form a mandatory operating system rather than an aspirational policy.
+
+Aviation reporting supplies a related design lesson. Candid incident and near-miss information has prevention value, while a system that treats every report as a confession encourages silence. The Aviation Safety Reporting Program uses third-party reporting and a qualified, nonpunitive enforcement policy rather than blanket immunity.\lrfootnote{See \bluecite{aviationReporting}.} The front-door record can follow the same incentive logic: protect good-faith reporting and evidence preservation while retaining consequences for falsification, concealment, retaliation, and unauthorized bypass.
+
+\subsubsection{The FTC Companion-Chatbot Orders}
+
+The Federal Trade Commission's 2025 section 6(b) study shows that AI-deployment records can be specified with considerably more precision than ``produce the algorithm.'' The Commission ordered named firms to identify organizational roles, predeployment standards and thresholds, deployment approvers, considered and rejected mitigations, post-deployment monitoring, complaints, employee concerns, escalation, and response.\lrfootnote{See \bluecite{ftcCompanionInquiry2025}; \bluecite{ftcCompanionOrder2025}, specifications 3, 11--17. The study orders gather information; they are not findings that a recipient violated law.}
+
+Those specifications map directly onto the front-door functions. Organizational roles identify the control lane. Thresholds and approvers define release authority. Rejected mitigations record a decision without deciding whether it was unreasonable. Monitoring, complaints, employee concerns, escalation, and response create a time-stamped feedback path. A sectoral statute can standardize the same categories prospectively and permit a court to request only the subset connected to a verified risk.
+
+NIST's AI Risk Management Framework can supply terminology for lifecycle roles, executive responsibility, third-party components, testing, feedback, monitoring, and decommissioning.\lrfootnote{See \bluecite{nistAIRMF2023}.} Its voluntary framework remains a vocabulary source. FAA rules and a sector-specific statute supply legal obligation; the FTC orders demonstrate that the responsive information can be operationally defined.
+
+Together, the comparators answer the feasibility objection at the right level. The proposal asks firms already capable of version control, release management, access logging, vendor management, incident response, and legal retention to connect those systems for designated deployments. It does not require a universal explanation of every internal model state.
+
+\subsection{Accurate Records Require Protected Escalation}
+
+A reliable record duty depends on candid reporting by the people closest to a risk. The infrastructure should therefore include protected reporting and a defined response path. A worker who, in good faith and on an objectively reasonable basis, documents a designated risk, uses the authorized escalation or intervention channel, and preserves evidence should receive protection against retaliation and the defense or indemnification permitted by governing law. The protection attaches to the report and authorized conduct, not to every act by the reporter.
+
+The exceptions preserve record integrity. Intentional or reckless infliction of harm, knowing falsification or destruction, concealment of a material incident, retaliation against another reporter, corruption of an evaluation, and unauthorized removal of a safety constraint remain outside. The charter should identify the decisionmaker and review process before senior management becomes implicated.
+
+This allocation aligns information with authority. A safety engineer may understand a failure mode without controlling budget or release. A product manager may control schedule without receiving the technical signal. An operating professional may see an abnormal output without access to the model's evaluation history. The record shows what moved between them, when it moved, and who could act. Protecting a documented escalation makes the record more reliable; preserving recourse for suppression makes it consequential.
+
+Existing compliance and whistleblower regimes confirm the institutional principle while supplying different scopes and remedies. The Organizational Sentencing Guidelines treat leadership responsibility, adequate authority and resources, reporting without fear of retaliation, enforcement, response, and periodic risk assessment as components of an effective program.\lrfootnote{See U.S. Sent'g Guidelines Manual \S~8B2.1, \bluecite{ussgCompliance2025}.} Sectoral statutes protect specified reports and refusals under defined causation and remedy standards.\lrfootnote{See, e.g., \statcite{energyReorgWhistleblower}, \S~5851(b)(3); \casecite[9--13]{whirlpool1980}.} A front-door enactment should state its own scope rather than import every privilege or immunity from those regimes.
+
+\subsection{The Record Is Also a Defense Asset}
+
+The front door is an information rule, and information can defeat a claim. A version record can show that the challenged feature was inactive. A configuration log can show that an independent deployer supplied the tool or removed a safeguard. An incident sequence can show that a warning appeared, an intervention fired, or a user edited the relevant content. Evaluation and approval records can show that the enterprise tested the asserted risk, adopted a response supported by the information then available, and monitored operation. A stop record can show that an actor lacked the practical authority the claimant alleges.
+
+This defense value is especially important for stochastic systems. ``The model can be unpredictable'' states a general property. A record can show whether the particular event fell within an evaluated range, which controls were active, which feedback arrived, and whether the proposed alternative would have changed the sequence. It permits a defendant to establish reasonable preparation, intervening modification, user circumvention, or unavoidable residual risk with evidence rather than a category label.
+
+The record also disciplines historical claims. Research published after an event may identify a variable worth testing without proving what a defendant knew earlier. A mitigation developed later may show a technically describable control without establishing that it was feasible, required, or admissible for the earlier deployment.\lrfootnote{See Fed. R. Evid. 407.} Versioned evaluations, resource decisions, complaints, and contemporaneous alternatives locate the inquiry at the correct time.
+
+The infrastructure therefore serves both sides of the core proposition. It prevents a claimant from losing because the relevant deployment was invisible. It prevents an enterprise from losing because a court must infer a deployment from a frightening output alone. The front door makes the record reachable; the record allows ordinary law to distinguish the two.
