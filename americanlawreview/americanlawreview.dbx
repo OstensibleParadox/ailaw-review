@@ -22,6 +22,7 @@
   jurisdiction,
   code,
   section,
+  congress,
   clause,
   amendment,
   parenthetical}
@@ -77,6 +78,18 @@
   year,
   date,
   jurisdiction,
+  parenthetical}
+
+\DeclareDatamodelEntryfields[legislation]{
+  title,
+  shorttitle,
+  shorthand,
+  congress,
+  section,
+  year,
+  date,
+  url,
+  urldate,
   parenthetical}
 
 \DeclareDatamodelEntryfields[lawreview]{

@@ -31,7 +31,7 @@
 \DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat{shorthand}{#1}
 
-\DeclareLabeltitle[case,statute,constitution,regulation,lawreview]{
+\DeclareLabeltitle[case,statute,constitution,regulation,legislation,lawreview]{
   \field{shorttitle}
   \field{title}}
 
@@ -100,6 +100,19 @@
   \newunit\newblock
   \printfield{parenthetical}}
 
+\newbibmacro*{alr:legislationcite}{%
+  \printfield{title}%
+  \setunit{\addcomma\space}%
+  \printfield{congress}%
+  \iffieldundef{postnote}
+    {\iffieldundef{section}
+       {}
+       {\addspace\S\addnbspace\printfield{section}}}
+    {\addspace\S\addnbspace\printfield{postnote}}%
+  \usebibmacro{alr:yearparen}%
+  \newunit\newblock
+  \printfield{parenthetical}}
+
 \newbibmacro*{alr:constitutioncite}{%
   \iffieldundef{title}
     {\printfield{jurisdiction}\setunit{\addspace}Const.}
@@ -160,6 +173,12 @@
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
   \usebibmacro{alr:statutecite}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{legislation}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:legislationcite}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{lawreview}{%

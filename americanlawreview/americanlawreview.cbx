@@ -74,6 +74,19 @@
     {\printfield{shorthand}%
      \usebibmacro{alr:atpostnote}}}
 
+\newbibmacro*{alr:shortlegislation}{%
+  \iffieldundef{shorthand}
+    {\iffieldundef{shorttitle}
+       {\printfield{title}}
+       {\printfield{shorttitle}}%
+     \iffieldundef{postnote}
+       {\iffieldundef{section}
+          {}
+          {\addspace\S\addnbspace\printfield{section}}}
+       {\addspace\S\addnbspace\printfield{postnote}}}
+    {\printfield{shorthand}%
+     \usebibmacro{alr:atpostnote}}}
+
 \newbibmacro*{alr:shortconstitution}{%
   \iffieldundef{shorthand}
     {\iffieldundef{shorttitle}
@@ -96,11 +109,13 @@
        {\usebibmacro{alr:shortcase}}
        {\ifentrytype{statute}
           {\usebibmacro{alr:shortstatute}}
-          {\ifentrytype{regulation}
-             {\usebibmacro{alr:shortstatute}}
-             {\ifentrytype{constitution}
-                {\usebibmacro{alr:shortconstitution}}
-                {\usebibmacro{alr:supranote}}}}}}
+          {\ifentrytype{legislation}
+             {\usebibmacro{alr:shortlegislation}}
+             {\ifentrytype{regulation}
+                {\usebibmacro{alr:shortstatute}}
+                {\ifentrytype{constitution}
+                   {\usebibmacro{alr:shortconstitution}}
+                   {\usebibmacro{alr:supranote}}}}}}}
     {\printfield{shorthand}%
      \usebibmacro{alr:atpostnote}}}
 
