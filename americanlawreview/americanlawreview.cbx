@@ -1,0 +1,129 @@
+\ProvidesFile{americanlawreview.cbx}
+  [2026/07/03 v0.1 American law review citation style]
+
+\RequireCitationStyle{verbose-inote}
+
+\ExecuteBibliographyOptions{
+  citetracker=context,
+  ibidtracker=constrict,
+  pagetracker,
+  autocite=footnote,
+  citepages=permit}
+
+\DeclareDelimFormat{multicitedelim}{\addsemicolon\space}
+\renewcommand*{\mkibid}[1]{Id\adddot}
+
+% Pin cites are placed by the full drivers and short-cite macros.
+\renewbibmacro*{cite:postnote}{}
+\AtBeginDocument{\renewbibmacro*{cite:postnote}{}}
+
+\newbibmacro*{alr:atpostnote}{%
+  \iffieldundef{postnote}
+    {}
+    {\addspace at\addspace\printfield{postnote}}}
+
+\newbibmacro*{alr:commapostnote}{%
+  \iffieldundef{postnote}
+    {}
+    {\addcomma\space at\addspace\printfield{postnote}}}
+
+\newbibmacro*{alr:supranote}{%
+  \ifnameundef{labelname}
+    {\iffieldundef{shorttitle}
+       {\printfield[citetitle]{labeltitle}}
+       {\printfield[citetitle]{shorttitle}}}
+    {\printnames{labelname}}%
+  \setunit{\addcomma\space}%
+  \printtext{%
+    supra note\addspace
+    \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}%
+  \usebibmacro{alr:commapostnote}}
+
+\newbibmacro*{alr:shortcase}{%
+  \iffieldundef{shorthand}
+    {\iffieldundef{shorttitle}
+       {\printfield{title}}
+       {\printfield{shorttitle}}%
+     \setunit{\addcomma\space}%
+     \printfield{volume}%
+     \setunit{\addspace}%
+     \iffieldundef{reporter}
+       {\iffieldundef{shortjournal}
+          {\printfield{journaltitle}}
+          {\printfield{shortjournal}}}
+       {\printfield{reporter}}%
+     \iffieldundef{postnote}
+       {\setunit{\addspace}%
+        \iffieldundef{page}{\printfield{pages}}{\printfield{page}}}
+       {\addspace at\addspace\printfield{postnote}}}
+    {\printfield{shorthand}%
+     \usebibmacro{alr:atpostnote}}}
+
+\newbibmacro*{alr:shortstatute}{%
+  \iffieldundef{shorthand}
+    {\iffieldundef{shorttitle}
+       {\printfield{title}}
+       {\printfield{shorttitle}}%
+     \setunit{\addcomma\space}%
+     \printfield{code}%
+     \iffieldundef{postnote}
+       {\iffieldundef{section}
+          {}
+          {\addspace\S\addnbspace\printfield{section}}}
+       {\addspace\S\addnbspace\printfield{postnote}}}
+    {\printfield{shorthand}%
+     \usebibmacro{alr:atpostnote}}}
+
+\newbibmacro*{alr:shortconstitution}{%
+  \iffieldundef{shorthand}
+    {\iffieldundef{shorttitle}
+       {\iffieldundef{title}
+          {\printfield{jurisdiction}\setunit{\addspace}Const.}
+          {\printfield{title}}}
+       {\printfield{shorttitle}}%
+     \setunit{\addcomma\space}%
+     \iffieldundef{postnote}
+       {\iffieldundef{section}
+          {}
+          {\S\addnbspace\printfield{section}}}
+       {\S\addnbspace\printfield{postnote}}}
+    {\printfield{shorthand}%
+     \usebibmacro{alr:atpostnote}}}
+
+\newbibmacro*{alr:short}{%
+  \iffieldundef{shorthand}
+    {\ifentrytype{case}
+       {\usebibmacro{alr:shortcase}}
+       {\ifentrytype{statute}
+          {\usebibmacro{alr:shortstatute}}
+          {\ifentrytype{regulation}
+             {\usebibmacro{alr:shortstatute}}
+             {\ifentrytype{constitution}
+                {\usebibmacro{alr:shortconstitution}}
+                {\usebibmacro{alr:supranote}}}}}}
+    {\printfield{shorthand}%
+     \usebibmacro{alr:atpostnote}}}
+
+\renewbibmacro*{cite:short}{%
+  \printtext[bibhyperlink]{\usebibmacro{alr:short}}}
+
+\renewbibmacro*{footcite:note}{%
+  \printtext[bibhyperlink]{\usebibmacro{alr:short}}}
+
+\renewbibmacro*{cite:shorthand}{%
+  \printtext[bibhyperlink]{%
+    \printfield{shorthand}%
+    \usebibmacro{alr:atpostnote}}}
+
+\renewbibmacro*{footcite:shorthand}{%
+  \printtext[bibhyperlink]{%
+    \printfield{shorthand}%
+    \usebibmacro{alr:atpostnote}}}
+
+\renewbibmacro*{cite:ibid}{%
+  \printtext[bibhyperlink]{Id\adddot}%
+  \usebibmacro{alr:atpostnote}}
+
+\renewbibmacro*{footcite:ibid}{%
+  \printtext[bibhyperlink]{Id\adddot}%
+  \usebibmacro{alr:atpostnote}}

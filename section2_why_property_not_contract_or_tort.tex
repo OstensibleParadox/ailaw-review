@@ -1,0 +1,96 @@
+% =============================================================================
+% SECTION 2
+% =============================================================================
+\section{Why Property, Not Contract or Tort}
+\label{sec:property}
+
+The harm described in Section~\ref{sec:deployment} falls into a governance void. Three bodies of law might plausibly address it. None does.
+
+\emph{Contract law} sees consent. Every major AI platform's Terms of Service contains substantially similar provisions: the service is provided ``as is''; the provider may ``modify, suspend, or discontinue the service at any time''; the user acquires ``no ownership interest.'' Under orthodox analysis, the user consented. But ToS were designed for transactional digital services --- search engines, email, e-commerce. No one builds a parasocial bond with a search algorithm. The ToS drafted for instrumental services now governs relational services without adjustment. The user ``consented'' to modification of a search engine and received modification of a companion.
+
+\revised{\textcite{radin2012boilerplate} documents this structural mismatch at scale: Terms of Service function as ``democratic degradation'' when they override reasonable expectations created by the product's actual design. The parasocial AI context is Radin's thesis made concrete---boilerplate drafted for instrumental services now extinguishes interests that emerged from relational services, without the user having meaningfully consented to the relational dimension being contractually waivable.}
+
+\emph{Tort law} sees no duty. Negligence requires a duty of care that no court has recognised for AI personality preservation. Intentional infliction of emotional distress requires extreme and outrageous conduct --- deploying a model update through standard engineering processes is not outrageous, however distressing. Product liability addresses defective products, but the user's complaint is not that the AI is defective --- it is that the AI was \emph{changed}. A working product was replaced with a different working product.
+
+\emph{Consumer protection} sees no promise. Marketing AI as companions while reserving the right to alter personality might constitute misleading practice --- but the parasocial attachment was not marketed. Users were not told ``this AI will become your friend.'' The attachment \emph{emerged} from use. Consumer protection addresses the gap between what was promised and delivered. It does not address the gap between what emerged and what was destroyed. \revised{The failure is structural, not incidental: consumer protection addresses promise$\to$expectation gaps, whereas the harm here is impairment of productive capacity accumulated under conditions the company provided. The conditions --- memory features, personality design, continuity of interaction --- were marketed. The resulting personalised state is not a work the user authored; it is the asset to which the user's estate relates. This is a conditions$\to$capacity harm, which property law can see.}\footnote{For the extended analysis, see Sections~2.1--2.4 of the companion SSRN working paper.}
+
+A harm exists that all three frameworks cannot reach --- not because the harm is trivial, but because the specific structure of this harm (emotional investment in a system one does not own, destroyed by the owner's unilateral action) falls outside their conceptual architecture. Contract sees consent. Tort sees no duty. Consumer protection sees no promise. What none sees is the \emph{interest}.
+
+Property law sees interests. It has seen them for a millennium.
+
+% ---------- 2.1 --------------------------------------------------------------
+\subsection{Three Layers of User Interest}
+\label{sec:three-layers}
+
+User interests in AI systems comprise three legal layers. The layers must not be confused with four distinct kinds of material found within an AI account. In particular, copyright does not supply one undifferentiated answer for everything that appears in a conversation.
+
+\textbf{Layer~I: Works and compilations (settled law --- intellectual property).} The correct copyright analysis is a four-way split:
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{5.4cm}>{\raggedright\arraybackslash}p{2.3cm}@{}}
+\toprule
+\textbf{Material} & \textbf{Nature} & \textbf{Status} & \textbf{Holder} \\
+\midrule
+Inputs --- persona specifications, skill files, prompts & Authored literary work, where sufficiently original & Copyright subsists under CDPA 1988, s.~1(1)(a), and \emph{Infopaq International v Danske Dagblades Forening} (C-5/08) [2009] & User --- uncontested \\
+\addlinespace
+Raw outputs & Computer-generated material with no human author & United States: no copyright in purely machine-generated material (\emph{Thaler v Perlmutter}, 130 F.4th 1039 (D.C.\ Cir.\ 2025), cert.\ denied, No.\ 25-449 (2 Mar.\ 2026)). United Kingdom: CDPA 1988, s.~9(3), remains in force; repeal was proposed on 18 March 2026 & Nobody in the United States; contested in the United Kingdom \\
+\addlinespace
+Curated archive & Compilation --- originality lies in human selection, coordination, arrangement, or modification & Thin copyright in those human contributions (\emph{Feist Publications, Inc.\ v Rural Telephone Service Co.}, 499 U.S.\ 340 (1991); US Copyright Office Part~2) & User \\
+\addlinespace
+Personalised state & Not a work at all; an instantiated productive capacity & Third-category personal-property analysis under Law Com No~412; the Property (Digital Assets etc) Act 2025 removes the categorical bar to such status & The relational estate --- Layer~III \\
+\bottomrule
+\end{tabular}
+\caption{Four distinct objects within an AI account. Copyright governs works and human compilation authorship; it does not govern the personalised state's productive capacity.}
+\label{tab:four-way-split}
+\end{table}
+
+The first three rows separate authorship of inputs, outputs, and archives. User-authored persona specifications, configuration files, system prompts, and skill definitions qualify as literary works when they satisfy the ordinary originality threshold. A raw output does not become human-authored merely because a user prompted for it. But a user who makes sufficiently original choices in selecting, coordinating, arranging, or modifying outputs may own a thin copyright in the resulting compilation without acquiring copyright in each raw element. The US Copyright Office's Part~2 report confirms both the human-authorship requirement and protection for sufficiently original human selection, arrangement, and modification.\cite{usco2025aipart2} The United Kingdom's 18 March 2026 report proposed removal of CDPA s.~9(3), while acknowledging that it remains the present rule.\cite{ukgov2026copyrightai}
+
+The fourth row is the load-bearing distinction. The personalised state is neither expression nor a compilation. It is the system's user-specific capacity to generate future responses in a register shaped by the history of this user's interaction. Copyright asks, ``who authored this artefact?'' The law of waste asks, ``who impaired this productive asset?'' Treating the state as productive capacity, rather than forcing it into the ontology of a work, sends the question to Layer~III.
+
+\textbf{Layer~II: Bailed property (settled law --- bailment and conversion).} \revised{The platform holds the user's conversational archives on its servers. The user logs in and can point to them: \emph{those are my memories, my prompts, my persona configurations.} Every login is an acknowledgment by the platform that it holds identifiable property for this user --- the digital equivalent of a warehouse issuing a holding certificate. That acknowledgment is attornment. From that moment, the relationship is bailment. Not because the Terms of Service say so. Not because the parties contracted for it. Because the fact of possession and acknowledgment creates it --- the substance-over-form principle that runs through this paper's entire argument.
+
+The mechanics are well established in commercial law. In commodity finance, a warehouse that issues a holding certificate to a bank creates a bailment without the bank touching the goods; the relationship exists from the moment the warehouse acknowledges that it holds goods for the new principal.\cite{mercuria2015} The warehouse in the Qingdao port litigation did not sign a bailment contract with the bank --- it issued a holding certificate. When the warehouse was sealed, billions turned on whether valid attornment had occurred, not on whether the parties had agreed to bailment. The platform does not need to \emph{agree} to be the user's bailee. The moment it holds identifiable user property and the user can point to it as theirs, the relationship exists. The platform will argue: ``Our Terms of Service say we are not holding anything for you.'' Qingdao is the answer: bailment arises from the fact of possession and acknowledgment, not from contractual denial.
+
+Because AI platforms derive commercial value from user-generated content --- through training data, engagement metrics, and subscription revenue --- they are bailees for reward, owing the higher standard of care established in \emph{Coggs v Bernard} (1703). A platform that deletes user-authored memories or conversational archives without consent commits conversion. AI platforms hold user data the way commodity warehouses hold goods: on infrastructure they control, under terms they dictate, with the possessor's identity determined by the fact of storage, not by contractual characterisation.}
+
+\textbf{Layer~III: The relational estate in productive capacity (this paper's contribution).} Beyond works and stored files remains an interest that neither copyright nor bailment captures. Its \emph{res} is the \textbf{personalised state}, understood narrowly as the instantiated, user-specific capacity produced when stored conversational memory, learned preferences, adaptations, and persona-level settings operate together to shape future responses to this user. The state is not the archive, any individual output, or the abstract base model. It is the productive asset from which a continuing stream of personalised outputs can be generated.
+
+That operational definition replaces the competing descriptions of the res as an ``emergent configuration'' or ``digital fixture.'' The personalised state is identifiable by the account and configuration to which it is bound; user-specific because no other user receives its response history; non-fungible because a generic profile cannot reproduce its accumulated calibration; and impairable because a model update can materially reduce or destroy its capacity while leaving every stored line intact. The company may retain title to the base model and infrastructure. Layer~III concerns the user's limited estate in the continued productive capacity of the state instantiated for that user.
+
+Law Com No~412 supplies the relevant category rather than a copyright fiction.\cite{uklawcommission2023digital} Its third category recognises that personal-property rights may relate to digital things outside the inherited classes of things in possession and things in action. Parliament has since confirmed the category-opening proposition: under the Property (Digital Assets etc) Act 2025, a digital or electronic thing is not prevented from being an object of personal-property rights merely because it falls within neither traditional class. The Act does not declare every digital file to be property or predetermine the personalised state's status; it removes the categorical objection and leaves the boundary to common-law development. The claim here is that an instantiated, account-bound, identifiable and impairable productive state falls on the property side of that boundary.
+
+The Layer~II--Layer~III boundary is therefore the boundary between corpus and capacity. Bailment protects stored material that can be returned. Layer~III protects the productive asset that uses that material to generate future responses in this user's register. A platform can return every prompt and output, yet still destroy the personalised state by changing the parameters against which the archive operates. The archive is a corpus; outputs are its yield; the personalised state is the productive asset. Section~\ref{sec:waste} explains why impairment of that asset sounds in waste during the tenancy, without requiring a trust.
+
+This three-layer analysis reframes the ``category error'' objection. The objection assumes a binary: either AI is a service or AI is property. The reality is layered. Layer~I allocates copyright only where there is a work or human compilation authorship. Layer~II concerns possession and return of stored assets. Layer~III concerns an estate in productive capacity. The novelty is not a new species of copyright work. It is the application of estate and waste principles to a digital productive asset.
+
+% ---------- 2.2 --------------------------------------------------------------
+\subsection{Two Thresholds: Tenancy and Cultivated Dependence}
+\label{sec:criterion}
+
+Not every interaction creates an estate, and not every estate creates a trust. Two thresholds keep those propositions separate.
+
+\emph{Stage~1 --- tenancy.} A single factual query remains a revocable licence. A periodic tenancy arises only when sustained, irreversible user investment gives the account-bound personalised state continuing productive value: conversational memory accumulates, preferences are learned, and response patterns become materially specific to the user. Crossing that threshold supplies notice and anti-waste protection during the tenancy. It does not make the company a trustee and does not require proof that the user is dependent.
+
+\emph{Stage~2 --- cultivated dependence.} A constructive trust is reserved for the narrower case in which the company deliberately and profitably cultivates attachment or dependence, knows or ought to know that the user has become vulnerable to the continuity of the state, and then unconscionably exploits or destroys that condition. \textcite{kirk2025steering}'s finding that 23.4\% of users followed dependency trajectories is evidence relevant to this second threshold, not a declaration that every sustained user is a beneficiary. Therapists and teachers already owe duties attached to their human roles; casual service providers do not engineer their personalities to maximise return visits. The additional equitable obligation arises from cultivated dependence, not attachment \emph{per se}.
+
+% ---------- 2.3 --------------------------------------------------------------
+\subsection{The Excludability Response}
+\label{sec:excludability}
+
+Users share the base model with millions of others; this appears to defeat excludability. But the claimed interest is not in that model. It is in the instantiated personalised state bound to a particular account. No other user can access User~A's conversational history or receive responses calibrated by User~A's accumulated interaction. The base model is the building; the personalised state is the productive unit made available to this tenant. Shared infrastructure does not eliminate a user-specific estate.
+
+\textcite{fairfield2005virtual,fairfield2017owned} identify excludability, rather than physical embodiment, as a central feature of virtual property. The statutory point is narrower. The Property (Digital Assets etc) Act 2025 removes a categorical obstacle but leaves courts to determine which digital things can bear property rights. This paper therefore does not rest on the bare fact that data exist. It rests on an instantiated state that is account-bound, persistent, operationally identifiable, subject to exclusive user access, and capable of material impairment as a productive whole.
+
+The \emph{numerus clausus} objection --- that recognising an estate in this asset would extend automatically to World of Warcraft equipment and Spotify playlists --- is answered by the two thresholds. A playlist may involve human selection and therefore Layer~I compilation copyright; that does not make it a Layer~III productive state. Stage~1 requires sustained investment that produces user-specific capacity. Stage~2 additionally requires cultivated dependence and unconscionable conduct.
+
+% ---------- 2.4 --------------------------------------------------------------
+\subsection{Property Law as a Complement to Fiduciary Duty}
+\label{sec:fiduciary-alone}
+
+\revised{Balkin's information fiduciaries thesis\cite{balkin2016information} argues that companies holding user data in conditions of trust and vulnerability owe duties as a matter of substance, an approach grounded in the same relational concerns expressed by \emph{Bristol and West Building Society v Mothew} [1998]. This paper accepts rather than contests that premise. Its reach is confined here to Stage~2: cultivated dependence can justify fiduciary and constructive-trust consequences. Stage~1 does different work. The tenancy identifies an estate in productive capacity, and waste constrains impairment of that asset before any trust exists.}
+
+\revised{Property law supplies the ex ante architecture through estates, waste, registration, and graduated protection. The ethical ledger records the Stage~1 tenancy before deployment and separately records facts relevant to the Stage~2 cultivated-dependence inquiry. The frameworks are complementary without being collapsed: tenancy and waste protect the productive asset; fiduciary doctrine governs the narrower relationship of cultivated dependence.}

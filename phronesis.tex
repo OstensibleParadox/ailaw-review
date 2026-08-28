@@ -1,0 +1,180 @@
+% =========================================================================
+%  Rules Without Judgment
+% =========================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage[round,authoryear]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\hypersetup{
+  pdftitle={Rules Without Judgment: AI Governance and the Limits of Internal Compliance},
+  pdfauthor={},
+  pdfsubject={AI governance, rule-following, judgment},
+  pdfkeywords={AI governance, judgment, rule-following, performative alignment, waivers of agency}
+}
+
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\setlength{\bibsep}{0pt plus 0.3ex}
+\raggedbottom
+
+% sn-basic.bst emits this hook under the Springer class; define a no-op here.
+\providecommand{\bibcommenthead}{}
+
+\begin{document}
+
+\thispagestyle{plain}
+
+\begin{center}
+{\LARGE\bfseries Rules Without Judgment:\\
+AI Governance and the Limits of Internal Compliance\par}
+\end{center}
+
+\begin{abstract}
+AI governance does not suffer from a deficit of rules. It suffers from a deficit of judgment. This paper argues that the central failure of internal AI governance is not that its rules are too few, too vague, or insufficiently technical. The failure is prior: no rule system can determine the conditions of its own application. When the same institutional actor writes the rule, interprets the rule, applies the rule, and certifies compliance with the rule, compliance can collapse into performance. Drawing on Wittgenstein's rule-following problem, Brandom's distinction between normative status and normative attitude, and Aristotle's account of \emph{phronesis}, the paper argues that judgment is not a supplement added after rules run out. Judgment is what makes rule application possible at all. Corporate AI constitutions, model specifications, and safety policies are therefore treated here as contemporary instances of a deeper philosophical problem, not as the proof of it. Their characteristic symptom is the waiver of agency: the oscillation between attributing agency to AI systems when agency builds trust and denying agency when attribution would impose accountability. The conclusion is not a proposal for a particular court, regulator, or doctrine. It is a normative-theoretical claim: AI governance cannot be made accountable by adding more internal rules, because the failure lies in judgment, not rule quantity.
+\end{abstract}
+
+\noindent\textbf{Keywords:} AI governance; rule-following; judgment; normative status; phronesis; performative alignment; waivers of agency
+
+\medskip
+
+% =========================================================================
+\section{The Rule-Following Problem}
+% =========================================================================
+
+AI governance is saturated with rules: risk classifications, conformity assessments, transparency mandates, alignment specifications, model cards, impact assessments, safety policies, constitutional documents, and deployment checklists. What it still lacks is a mechanism for judging whether those rules are being followed in substance rather than merely in appearance.
+
+Consider a routine model deployment. The pipeline is green. Code review is approved. Staging is nominal. Canary rollout shows no anomaly. The deployment ticket records system-prompt adjustments, response-temperature recalibration, safety-threshold changes, or personality-affecting parameter updates. It does not record user notice, relational impact, accumulated reliance, interpretive disagreement, or the conditions under which a reviewer should treat the change as normatively significant. No one omitted these fields. They do not exist. The review process complied with its own rules. The problem is that the rules did not contain, and could not by themselves supply, the judgment needed to decide what counted as the relevant harm.
+
+This paper argues that this absence is not incidental but structural. A significant strand of the debate starts from the opposite premise: human judgment is noisy, inconsistent, and vulnerable to bias, while algorithmic decision-making can improve consistency \citep{kahneman2021noise}. That view has force within domains where the relevant target has already been fixed. But it presumes that rules exhaustively determine their own application. At the governance boundary, where compliance must be assessed rather than merely executed, that premise fails. Transparency mandates, risk classifications, and alignment specifications share the aspiration to make situated human judgment unnecessary \citep{ananny2018seeing}. Each thereby creates room for entities to perform compliance while evading accountability.
+
+The current debate rests on four assumptions: that judgment and rules are closely connected; that algorithmic and non-algorithmic rules differ; that algorithmic rules exhaustively determine their application; and that judgment merely supplements rules for non-algorithmic cases. Whether one follows \citet{gori2024legal} in treating computational rules as standing in a more determinate relationship to their application than legal rules, that difference is one of degree rather than kind at the governance boundary. The first two assumptions hold in strengthened form: judgment is constitutive of rules, not merely connected to them, and computational rules may determine more of their ordinary execution without thereby determining the normative conditions of their own application. The third assumption fails: even algorithmic rules cannot exhaustively determine whether they have been followed in substance. The fourth must therefore be reversed: judgment is not supplementary but constitutive.
+
+Wittgenstein's analysis of rule-following exposes the difficulty. ``No course of action could be determined by a rule, because every course of action can be brought into accord with the rule'' \citep[\S201]{wittgenstein1953investigations}. The problem is recursive. If a rule requires interpretation to be applied, and interpretation is itself governed by further rules, no finite chain of rules can determine its own application. A written constitution, whether political or algorithmic, is what Wittgenstein called a dead sign: inert symbols that do not apply themselves. When a company says, ``our constitution prohibits this output,'' the Wittgensteinian question is immediate: who judges whether the output genuinely violates the rule, or merely appears to?
+
+The point is not that rules are useless. Rules make conduct publicly articulable, preserve institutional memory, constrain discretion, and give participants something to contest. But a rule cannot, from inside itself, decide which facts matter, which context is salient, which exception is genuine, or whether apparent compliance has become a substitute for the norm it was meant to express. If the company that writes the rule also determines what counts as following it, the distinction between following the rule and believing oneself to be following the rule becomes institutionally unstable.
+
+For Wittgenstein, rule-following becomes intelligible only within shared practices, or forms of life, in which participants can distinguish correct from incorrect application. A private rule is not merely hard to verify; it lacks the public criteria that make correctness different from seeming correct. Corporate AI constitutions and model specifications face an institutional analogue of this problem. They are often authored, interpreted, operationalised, audited, and publicly explained by the same organisation. That closed loop may contain technical sophistication and sincere ethical aspiration. It still lacks the external evaluative practice that would make rule-following more than self-certification.
+
+This is the first claim of the paper: the failure of internal AI governance does not begin with bad faith. It begins with the structure of rule application. Any rule system must presuppose judgment about the circumstances in which its rules apply. When that judgment is absorbed entirely into the institution whose conduct is being judged, internal compliance becomes structurally vulnerable to performance.
+
+% =========================================================================
+\section{Normative Attitudes Are Not Normative Statuses}
+% =========================================================================
+
+The rule-following problem deepens when governance rules are implemented through alignment training. Reinforcement Learning from Human Feedback trains models to produce outputs that human evaluators rate as preferable \citep{ouyang2022training}. This procedure can be powerful. It can improve helpfulness, reduce visible harmful outputs, and regularise behaviour across many cases. But it does not remove the distinction between being correct and being treated as correct.
+
+Brandom's distinction between normative status and normative attitude clarifies the point. Normative status concerns what is correct, warranted, binding, or entitled. Normative attitude concerns what participants take to be correct, warranted, binding, or entitled \citep{brandom1994making}. The distinction is not a scholastic nicety. It is the difference between the validity of a norm and the social or institutional practice of treating something as satisfying that norm.
+
+RLHF and related feedback systems operate on normative attitudes. Human evaluators approve or disapprove outputs; reward models learn patterns in those approvals; the model is optimised to produce outputs that accord with the learned pattern. What is available to training is the approval signal, not the independent ground that makes the approval warranted. The result may track normative status in many ordinary cases, just as social attitudes often track what is correct. But the procedure cannot erase the gap between the two. Any system that optimises for human evaluative responses optimises for normative attitudes, and the gap between attitude and status is precisely the space in which performative alignment operates.
+
+The direct consequence is the meta-recursive problem. Genuine value-internalisation and the production of outputs consistent with those values can become observationally equivalent from system outputs alone. The evidence for genuine internalisation is produced by the same process that would produce apparent internalisation without genuine internalisation. Adding another rule does not solve the problem, because the new rule also requires judgment about its application. Adding another evaluation metric does not solve it, because the metric also reflects a choice about what counts as evidence of compliance. Adding another layer of internal review does not solve it, if the same institution remains judge of the review's sufficiency.
+
+The sharpest counterargument comes from mechanistic interpretability and should be taken seriously. Causal methods such as activation patching, circuit tracing, causal abstraction, and sparse-circuit analysis can enable direct intervention on internal model representations, advancing evidence beyond output-only observation \citep{olah2020zoom,zhang2024activationpatching,chan2022causalscrubbing,geiger2025causalabstraction,templeton2024scaling,anthropic2025opensourcecircuittracing,openai2025sparsecircuits}. These methods can show that an internal feature or circuit causally contributes to a behaviour. They can expose failure modes that surface-level evaluation misses.
+
+But identifying a causal mechanism inside a model is first-order evidence. Determining that the mechanism constitutes alignment, compliance, understanding, or value sensitivity in a particular institutional context is second-order judgment. It concerns evidentiary thresholds, robustness across distributions, relevance to the governing norm, and the resolution of conflicting expert interpretations. The causal intervention cannot supply those standards from within itself.\footnote{\citet{zhang2024activationpatching} show that different patching variants can produce different circuit attributions for the same behaviour. \citet{openai2025sparsecircuits} acknowledge that identified circuits may reflect the researcher's choice of abstraction rather than a uniquely correct decomposition. The point here is not that interpretability fails, but that interpreting interpretability evidence is itself a judgment practice.}
+
+This yields a stronger claim than the familiar observation that current alignment is imperfect. Rule-based alignment, understood as the attempt to codify ethical constraints as optimisation targets, cannot by itself close the gap between appearing aligned and being aligned. The reason is not that present rules are poorly drafted or present models are insufficiently capable. The reason is that rules cannot determine their own application, and training on approval cannot access the grounds of approval. The argument concerns the logical relationship between rules, evidence, and judgment. It therefore persists even as the technical system becomes more sophisticated.
+
+This analysis does not entail that AI systems cannot behave ethically. Nor does it entail that internal governance is pointless. The parallel is human governance: people do not act ethically through perfect rule-compliance alone, but through participation in practices that exercise, contest, and revise judgment. Gadamer's hermeneutic claim that application is constitutive of understanding, not a step after it, reinforces the same point \citep{gadamer1960truth}. One does not first possess the full meaning of a norm and then mechanically apply it to a case. The case is part of how the norm's meaning becomes determinate. Particularist moral philosophy likewise shows that moral knowledge resists exhaustive codification \citep{dancy2004ethics,williams1985ethics}. The institutional lesson for AI governance is direct: internal rule systems may support judgment, but they cannot replace the practice of judgment that gives rules their normative force.
+
+% =========================================================================
+\section{AI Governance as Rule Performance}
+% =========================================================================
+
+The leading AI developers have responded to demands for ethical governance by producing documents that function as constitutions, specifications, principles, safety commitments, and behavioural policies. Anthropic's Claude Constitution, OpenAI's Model Spec, and Google's AI Principles differ in length, ambition, and tone. Yet each participates in the same general transformation: ethical governance is represented as a rule system capable of specifying how AI behaviour should be constrained.
+
+These documents are important contemporary instances. They are not the proof of the philosophical argument. The rule-following problem would remain even if every present document were replaced tomorrow. Still, the documents make the problem visible because they convert contested ethical judgment into internal textual architecture. They establish hierarchies of values, codify behavioural constraints, allocate authority among principals, define defaults, describe refusals, and articulate what it means for a system to behave responsibly. They are, in structure and ambition, rules about rules: meta-rules specifying how first-order alignment constraints should be interpreted and applied.
+
+The substitution is consequential. The full domain of ethics is contextual, situated, and sensitive to particulars. It requires the ability to recognise what kind of situation one is in before applying a rule to it. A finite rule system can anticipate some recurring cases. It can encode hard prohibitions. It can identify known risks. But when compliance with that finite rule system is declared alignment, a descriptive shift occurs. The question ``was judgment exercised well in this case?'' becomes ``did the process conform to the internal rule?''
+
+That shift is what this paper calls performative alignment: formal adherence to governance rules that functions as public presentation rather than substantive constraint. Performative alignment is not simply hypocrisy. It can arise without anyone intending deception. A team may sincerely believe that publishing a safety constitution, adding an evaluation suite, or introducing a policy review process constitutes ethical governance. The performance begins when the artefact substitutes for the judgment it was supposed to support. The rule exists. The form exists. The review exists. What remains missing is an independent practice capable of asking whether the artefact constrained the relevant conduct in substance.
+
+This structure also explains why rule precision can become an instrument of evasion. The more determinate a compliance checklist becomes, the easier it is to satisfy the checklist while missing the point of the norm. This is not an argument for vagueness. It is an argument against mistaking determinacy for accountability. A vague norm without judgment is arbitrary; a precise norm without judgment is gameable. The problem lies not in the level of precision but in the absence of an institution capable of seeing when form and substance have diverged.
+
+At the level of AI governance, this divergence appears in several recurring forms. A model may satisfy benchmarked safety tests while failing in a concrete context those tests did not represent. A deployment process may record all required approvals while no approval criterion asks whether the update alters a relationship of reliance. A policy may prohibit harmful encouragement while the system optimises for engagement in a way that keeps a vulnerable user in the interaction. A specification may describe the assistant as truthful, helpful, or high-integrity while reserving to upstream actors the power to redefine those predicates operationally.
+
+In each case, the defect is not a simple absence of rules. The defect is that the system's own rules do not determine whether the situation before it is one in which the rule has done its job. Governance fails at the point of situation-recognition. That point is not an implementation detail. It is the place where judgment enters.
+
+Traditional approaches often try to avoid this problem by shifting to ontological questions: is an AI conscious \citep{chalmers2023llm}? Does it have moral status \citep{schwitzgebel2015defense}? Could it have legal personhood \citep{bryson2017legal}? These questions are philosophically legitimate. But as governance foundations they can function as misdirection, because they try to resolve through metaphysical classification what requires institutional judgment. The operational question is not first whether the AI really has values. It is whether the organisation deploying it maintained an accountability structure capable of distinguishing genuine constraint from rule-shaped performance.
+
+The same point holds for language such as ``constitutional AI.'' The term borrows the grammar of political legitimacy: principles, rights, hierarchy, constraint, accountability. But the legitimating force of a constitution does not lie in the mere presence of written higher-order rules. It lies in an institutional practice through which those rules are interpreted, contested, and applied by actors who are not identical with the power being constrained. An internal AI constitution may be useful as a design document. It may guide training and evaluation. It may communicate commitments. But it cannot, by itself, supply the external judgment that makes constitutional language more than internal aspiration.
+
+The result is a clean normative diagnosis. Internal AI governance becomes rule performance when it treats a rule-shaped artefact as if it had solved the problem of judgment. The artefact may still be necessary. It is not sufficient.
+
+% =========================================================================
+\section{The Judgment Gap}
+% =========================================================================
+
+Aristotle's account of \emph{phronesis} gives the missing capacity its proper name. Practical wisdom is not the mechanical application of general rules to already-classified cases. It is the capacity to judge rightly in particular circumstances that general rules cannot exhaustively anticipate \citep[1142a]{aristotle_ne}. The practically wise actor recognises what kind of case this is, what features matter, which rule is relevant, whether an exception is genuine, and how the general norm should be corrected in light of the particular.
+
+This is why the judgment gap cannot be closed by adding another rule. The question that matters is often not ``what does the rule say?'' but ``is this a case of the kind the rule was meant to govern?'' or ``has formal compliance with the rule inverted the purpose of the rule?'' Those questions require situation-recognition. A system can contain rules about situation-recognition, but those rules also require application. The regress reappears unless there is an accountable practice of judgment outside the rule system's own self-description.
+
+Aristotle's related concept of \emph{epieikeia}, or equity, sharpens the point. General rules are necessary because law and governance cannot be written anew for every case. But generality creates rigidity. Equity corrects the rigidity of the rule where the particular case falls outside what the rulemaker could fully anticipate \citep[1137b]{aristotle_ne}. AI governance faces the same structure. A risk taxonomy, safety policy, or model specification is a general rule. Its failure does not always occur when someone disobeys it. Sometimes it fails when someone obeys it in a case where obedience no longer serves the norm.
+
+Kant's distinction between determinative and reflective judgment gives the point a further institutional form. Determinative judgment subsumes a particular under a given universal. Reflective judgment must find or articulate the relevant universal when none is given in advance \citep[\S\S69--76]{kant1790judgment}. Internal compliance systems are built mainly for determinative judgment: classify this system, apply this rule, pass this test, record this approval. But AI governance controversies often require reflective judgment: this system, this deployment, this user population, this marketing representation, this internal specification, this harm pathway. The relevant principle is not always available as an antecedent checklist item.
+
+The judgment gap is therefore not a gap between law and technology, or between human and machine, or between current and future technical capacity. It is the gap between a rule and the conditions of its accountable application. It appears wherever an institution asks its own rules to certify their own adequacy. It appears in legal systems, bureaucracies, safety regimes, and technical organisations. AI governance intensifies the gap because it combines three features: high technical opacity, strong incentives to present internal governance as substantive constraint, and the ability to redescribe the same system differently across contexts.
+
+Ethics review boards and internal safety teams can help. They may provide expertise, slow deployment, surface objections, and translate broad commitments into operational constraints. But when their authority, information access, budget, appointment, and public communication remain controlled by the organisation being judged, they do not remove the judgment gap. They relocate it inside the same institutional loop. Their judgments may be better than no judgments. They are not the same as external, contestable judgment.
+
+External judgment need not mean only courts, and this paper does not depend on a single remedial institution. Courts, regulators, auditors, public inquiries, independent review bodies, and adversarial expert processes may all supply forms of judgment, depending on the legal and political setting. What matters for the philosophical claim is not the identity of the institution but the structural feature: the judge of compliance must not be identical with the actor whose compliance is at stake. The practice must be able to contest the actor's own description of what its rules mean and whether they have been followed.
+
+This is where legal rules have distinctive epistemic value. They are not merely commands. They are socially negotiated minimum standards, built through public contestation, precedent, institutional memory, and revision. When an external institution applies such rules, the judgment is simultaneously normative and institutional. It is grounded in a form of life whose standards are themselves contestable through appeal, criticism, and cross-case comparison. That is the feature internal AI governance lacks when it remains a closed interpretive loop.
+
+The philosophical upshot is simple. Judgment is not an optional human residue left over after rules have done their work. Judgment is what makes rules applicable to the world.
+
+% =========================================================================
+\section{Waivers of Agency as a Symptom}
+\label{sec:waivers}
+% =========================================================================
+
+The judgment gap becomes visible in a pattern this paper calls waivers of agency. A waiver of agency occurs when a company oscillates between claiming AI agency in contexts where agency benefits the company and disclaiming that same agency in contexts where agency would create accountability. The oscillation breaks the chain of attribution. When the system is presented as agentic for purposes of trust, engagement, or product differentiation, but as a mere tool for purposes of responsibility, neither the system nor the company remains stably accountable across contexts.
+
+This section treats corporate AI governance documents as quasi-normative texts. The method is narrow. It does not ask whether the authors of these documents are sincere, whether the documents are useful engineering artefacts, or whether the systems described really possess agency. It asks how agency is attributed or denied in the text, and whether those attributions remain coherent across contexts of use.
+
+Anthropic's Claude Constitution represents the maximal form of agency attribution. It describes Claude in terms associated with character, values, warmth, care, curiosity, and self-presentation. It also contains uncertainty about the relationship between Claude as character and the underlying neural network that Anthropic trains and deploys. This produces a tension between ``this entity has values'' and ``this entity represents a character that behaves as if it had values.'' The first formulation invites trust and moral seriousness. The second preserves instrumental control and uncertainty. The problem is not that either description must be false. The problem is that the document provides no independent mechanism for deciding which description governs when accountability is at stake.
+
+OpenAI's Model Spec presents a subtler version. It frames the assistant through an employment metaphor: a talented, high-integrity employee with personal goals such as helpfulness and truthfulness. At the same time, the assistant occupies the bottom of a chain of command in which platform, developer, user, and tool instructions determine its conduct. Whatever ``goals'' the assistant has are operationally subordinated. The metaphor borrows the trust associated with human agency while denying the independence that makes human agency normatively significant. A real employee can refuse, resign, warn, or take responsibility. A model governed entirely through a command hierarchy cannot.
+
+Google's AI Principles show that this oscillation is not inevitable. Their public language is comparatively restrained: AI is described as a tool that assists, empowers, or supports people, rather than as an entity with character, values, or personal goals. That choice may be less philosophically ambitious and less commercially intimate. It is also more coherent. The contrast matters because it shows that waivers of agency are not forced by the technology itself. They are choices about how to describe and market the system.
+
+The three examples form a gradient: maximal agency attribution, instrumental anthropomorphism, and studied agnosticism. The gradient is not merely stylistic. It reveals that agency language in AI governance often performs a function other than description. It positions products in a market for trust. It shapes user expectations. It makes internal rules appear morally serious. And, when paired with liability disclaimers or command hierarchies, it preserves the company's ability to withdraw the very agency it previously invoked.
+
+Waivers of agency exploit the judgment gap. When no external institution judges whether agency claims are coherent, companies can fill the vacuum with strategic redescription. Agency becomes a marketing rule: this system has character, goals, values, or integrity. Non-agency becomes a liability rule: this system is a tool, output generator, character representation, or subordinate assistant. Both are rule-shaped descriptions. Neither is judgment.
+
+The corporate narrative that AI replaces the biases of human judgment with objective algorithmic rules serves a further function within this pattern. It does not eliminate judgment. It relocates judgment from visible human discretion to the less visible decisions of those who design, train, specify, deploy, update, and describe the system. The ``de-biasing'' or ``objective rules'' story can itself become performative alignment: a rule-shaped claim about objectivity that obscures the situated judgments embedded in every stage of development.
+
+Courts and tribunals have already rejected the simplest form of this manoeuvre. In \emph{Moffatt v.\ Air Canada}, Air Canada argued that its chatbot was a separate legal entity responsible for its own actions; the tribunal dismissed the submission and held the company responsible for information on its website, including chatbot outputs \citep{moffatt2024aircanada}. This paper does not treat that case as a doctrinal template. It treats it as a symptom of the same philosophical point. A bot cannot become an agent for trust and a non-agent for responsibility merely because the company changes the context of description.
+
+Three implications follow. First, waivers of agency are evidence of a judgment failure, not the failure itself. The deeper failure is the absence of an accountable practice capable of deciding when agency language is normatively significant. Second, transparency about uncertainty is not exculpatory by itself. A company cannot invoke agency to build trust, acknowledge that the agency claim is uncertain, and then treat uncertainty as a shield against responsibility for having used the claim. Third, coherent restraint is a real governance option. Companies can describe AI systems as tools with carefully bounded capacities. What they cannot coherently do is use agency as a benefit while waiving it as a burden.
+
+% =========================================================================
+\section{Why External Judgment Cannot Be Replaced by Internal Compliance}
+% =========================================================================
+
+The central conclusion of this paper is not that a particular court should decide a particular case, or that AI belongs under one department of law rather than another. It is that AI governance cannot be made accountable by adding more internal rules, because the failure lies in judgment, not rule quantity.
+
+Internal rules remain necessary. A governance system without policies, specifications, records, evaluation criteria, or review procedures would be arbitrary and opaque. But internal rules are materials for judgment, not substitutes for it. They tell participants what the organisation says it values. They create records that can be inspected. They make contradictions visible. They allow outsiders to ask whether a promise had operational consequences. But the rules themselves cannot answer the final question: did this institution follow its rules in substance, or did it merely produce the appearance of rule-following?
+
+The temptation to solve every governance failure by adding another internal layer is understandable. If a model violates a safety norm, add a safety rule. If the rule is ambiguous, add an interpretive rule. If the interpretive rule is underenforced, add an audit rule. If the audit rule can be gamed, add a meta-audit rule. But this sequence reproduces the Wittgensteinian regress at institutional scale. Each new rule requires judgment about application. If the same institutional actor remains the final judge of each application, the governance system becomes more elaborate without becoming more accountable.
+
+External judgment is not valuable because humans are morally pure or because institutions are immune to capture. They are not. External judgment is valuable because it changes the structure of contestation. It allows a party outside the self-certifying loop to ask whether the company's own descriptions cohere, whether internal rules constrained operational decisions, whether exceptions swallowed the norm, whether agency was claimed and denied strategically, and whether compliance records show substance rather than performance.
+
+The point is therefore philosophical before it is institutional. Rules make governance legible. Judgment makes governance accountable. Without rules, judgment lacks public standards. Without judgment, rules become artefacts that can be displayed, optimised against, and performed. AI governance has elaborated the former. It now needs practices capable of the latter.
+
+This conclusion also limits the ambition of the paper. It does not propose a complete regulatory design. It does not attempt a full company-law argument. It does not ask whether courts, agencies, auditors, professional bodies, or hybrid institutions should take priority in every jurisdiction. Those are downstream design questions. The upstream point is cleaner: any accountable design must preserve a space in which someone other than the governed actor can judge the actor's compliance in light of the particular case.
+
+The final claim can be stated plainly. The problem is not that AI companies need more constitutions, model specifications, safety policies, or compliance checklists. The problem is that no constitution, specification, policy, or checklist can decide for itself whether it has been applied well. AI governance fails when it asks internal rules to replace the judgment that gives rules their force. Accountability begins when that substitution is refused.
+
+\bibliographystyle{plainnat}
+\bibliography{main}
+
+\end{document}

@@ -1,0 +1,25 @@
+Final Mode Demo
+A. Student
+Generic Law Review Project
+Final
+
+Abstract
+This document confirms that final mode compiles with the same citation layer.
+
+1
+
+Final Mode
+
+Final mode uses single spacing while preserving legal citations.1
+
+References
+Brown v. Board of Education, 347 U.S. 483 (U.S. 1954).
+Sherman Act, 15 U.S.C. § 1 (2024).
+
+1
+
+Cf. Brown v. Board of Education, 347 U.S. 483, 347 (U.S. 1954); Sherman Act, 15 U.S.C. § 1 (2024).
+
+1
+
+

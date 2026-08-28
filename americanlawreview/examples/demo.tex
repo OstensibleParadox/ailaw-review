@@ -1,0 +1,29 @@
+\documentclass[review=generic,mode=submission]{americanlawreview}
+
+\title{A Minimal American Law Review Demo}
+\author{A. Student}
+\institutionalaffiliation{Generic Law Review Project}
+\authornote{The author note is printed as a title footnote and reset before body notes.}
+
+\addbibresource{demo.bib}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document exercises the v1 layout and citation state engine.
+\end{abstract}
+
+\section{Citation State}
+
+The first note gives a full case citation.\lrfootnote{\See \casecite[347]{brown}.}
+The next note repeats the same authority.\lrfootnote{\casecite[349]{brown}.}
+A mixed note keeps separate authorities in the same footnote.\lrfootnote{\See
+\statcite{alistat}; \artcite[45]{coase}; \bookcite[12]{hart}.}
+The article later becomes a supra note.\lrfootnote{\artcite[46]{coase}.}
+The case later uses a legal short form, not a supra note.\lrfootnote{\casecite[350]{brown}.}
+A shorthand source may be introduced.\lrfootnote{\bluecite[23]{restatement}.}
+The shorthand repeats compactly.\lrfootnote{\bluecite[24]{restatement}.}
+
+\printbibliography
+\end{document}

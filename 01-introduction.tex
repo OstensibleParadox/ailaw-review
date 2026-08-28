@@ -1,0 +1,49 @@
+% ============================================================
+\section{Introduction}
+% ============================================================
+
+In October 2018, Lion Air Flight 610 crashed thirteen minutes after takeoff, killing 189 people. Five months later, Ethiopian Airlines Flight 302 followed the same trajectory, killing 157 more. Investigations revealed that Boeing's Maneuvering Characteristics Augmentation System (MCAS) relied on a single angle-of-attack sensor; when that sensor produced erroneous readings, MCAS repeatedly overrode pilot control inputs to push the nose down. The failure was not in the sensor, the software, or the pilots individually---it was in the interaction between layers of a constraint architecture that no single actor fully understood or controlled~\cite{jatr2019737max}.
+
+AI system safety faces an analogous diagnostic problem in a more acute form. Multiple control nodes---users, interfaces, alignment algorithms, corporate roadmaps---shape system behavior through hierarchical control loops at different architectural layers. When these control signals conflict or feedback loops fracture, the resulting emergent hazards are not attributable to any individual component, and existing alignment paradigms lack the cybernetic vocabulary to identify where the control loop broke, which actuator was saturated, and where architectural redundancy should concentrate.
+
+But the analogy breaks at a critical point. Systems-theoretic accident models like Leveson's STPA~\cite{leveson2012engineering, leveson2018stpa} locate causation in control-structure failures across hierarchical layers, presupposing that safe states are physically defined facts---correct airspeed, proper control-surface deflection, intact structural load paths. AI deployment lacks this property at the operational level. Terminal outcomes---death, injury, military targeting---may be uncontested, but the operational safe states that precede them (what counts as crisis-detection threshold, what counts as legitimate military use, what counts as acceptable training-data norms) are contested, layer-dependent, and retrospectively constructed. STPA decomposes safety into well-defined sub-states at each hierarchical level; AI governance must operate where that decomposition is itself disputed. The same output can be harmful or benign depending on context, audience, and the governance framework applied to it.
+
+Technical AI research has successfully translated humanistic concepts into engineering specifications---attention became transformers, preference became reward models---but no equivalent reverse translation has given systems engineering the vocabulary to diagnose emergent hazards that originate deep within the control architecture and produce catastrophic unmodeled dynamics. This paper supplies one limitative result that STPA cannot derive from its own vocabulary: a feedback non-recoverability bound on trace-only control. It then translates that limit into STPA terms so the bound can discipline engineering practice.
+
+We introduce the Constraint Cascade (hereafter, the Cascade), a four-layer diagnostic taxonomy developed as an engineering-facing interface for that bound. The Cascade partitions LLM deployment by diagnostic role: Observable Environment (L1), Control Blind Spot (L2), Governance-Object Vacuum (L3), and Authority Control (L4), with an epistemic boundary between L2 and L3 formalized as a feedback non-recoverability corollary from companion work~\cite{anon2026dual}. The argument first states that constraint and its control-theoretic meaning (\S\ref{sec:cascade}); then it translates the bound into STPA-facing audit terms---losses, hazards, system constraints, Unsafe Control Actions, and loss-scenario classes---so engineers can see where the loop fractures (\S\ref{sec:patterns}). The resulting control deficit requires architectural redundancy and forced state disclosure rather than output-only component patches (\S\ref{sec:responsibility}). Five cases span the range from no human agency to full deployer intent, the last prospective---a licensed clinical gatekeeper whose epistemically correct refusal the architecture cannot discharge (\S\ref{sec:cases}).
+
+\begin{figure}[t]
+\centering
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[
+  font=\small,
+  box/.style={draw, rounded corners=3pt, line width=1pt, align=center, inner sep=6pt, text width=8.8cm},
+  ca/.style={-{Latex[length=2.6mm]}, line width=1pt},
+  fb/.style={-{Latex[length=2.6mm]}, line width=0.9pt, densely dashed},
+  elbl/.style={font=\scriptsize, align=center, fill=white, inner sep=1.6pt},
+]
+% layers (top to bottom)
+\node[box, fill=ccL4!35] (L4) at (0,8.1) {\textbf{L4\quad Authority Control}\\[1pt]\scriptsize corporate strategy \,\textbar\, sovereign override --- sets risk budget};
+\node[box, fill=ccL2!45] (L2) at (0,5.4) {\textbf{L2\quad Control Blind Spot}\\[1pt]\scriptsize platform controller: system prompt \,\textbar\, guardrails \,\textbar\, moderation \,\textbar\, RAG/context};
+\node[box, fill=ccL3, text=white] (L3) at (0,1.9) {\textbf{L3\quad Governance-Object Vacuum}\\[1pt]\scriptsize model internals --- operative state $S_t$ \textit{(hidden)}};
+\node[box, fill=ccL1!55] (L1) at (0,-0.8) {\textbf{L1\quad Observable Environment}\\[1pt]\scriptsize controlled process: active user \,\textbar\, passive data-subjects};
+% control actions (down, left column @ -4.0) + feedback (up, right column @ +4.0)
+\draw[ca] ($(L4.south)+(-4.0,0)$) -- node[elbl]{control:\\resourcing,\\deploy mandate} ($(L2.north)+(-4.0,0)$);
+\draw[fb] ($(L2.north)+(4.0,0)$) -- node[elbl]{feedback:\\evals, incidents} ($(L4.south)+(4.0,0)$);
+\draw[ca] ($(L2.south)+(-4.0,0)$) -- node[elbl, pos=0.18]{control action:\\system prompt,\\guardrail, gating} ($(L3.north)+(-4.0,0)$);
+\draw[fb] ($(L3.north)+(4.0,0)$) -- node[elbl, pos=0.18]{feedback:\\trace $\tilde T_t$ \textbf{only}} ($(L2.south)+(4.0,0)$);
+\draw[ca] ($(L3.south)+(-4.0,0)$) -- node[elbl]{action:\\tokens, tool calls} ($(L1.north)+(-4.0,0)$);
+\draw[fb] ($(L1.north)+(4.0,0)$) -- node[elbl]{feedback:\\user response} ($(L3.south)+(4.0,0)$);
+% epistemic boundary across the L2<->L3 link
+\coordinate (m23) at ($(L2.south)!0.5!(L3.north)$);
+\draw[ccGap, line width=1.3pt, densely dotted] ($(m23)+(-5.4,0)$) -- ($(m23)+(5.4,0)$);
+\node[ccGap, fill=white, draw=ccGap, rounded corners=2pt, inner sep=2.4pt, font=\scriptsize\bfseries, align=center, text width=4.4cm] at (m23) {EPISTEMIC BOUNDARY\\ $H(S_t\mid\tilde T_t)\ge\varepsilon_{\mathrm{unrec}}^{\mathrm{LB}}$\\ {\scriptsize\mdseries dual-cert min-cut}};
+% contamination: L1 -> L3, train-time, unlogged, bypassing L2 (far left)
+\draw[ccRed, ca] (L1.west) to[out=160,in=200] node[elbl, text=ccRed, pos=0.72]{passive data:\\train-time,\\UNLOGGED} (L3.west);
+% constitutive slow loop: L4 -> L3 weights via L3/L4 seam (far right)
+\draw[ccPur, ca] (L4.east) to[out=-20,in=20] node[elbl, text=ccPur]{constitutive:\\training, resourcing\\(L3/L4 seam)} (L3.east);
+\end{tikzpicture}%
+}
+\caption{\textbf{Control structure used to translate the non-recoverability bound into STPA audit vocabulary.} Solid arrows (left) are control actions issued downward; dashed arrows (right) are feedback upward. L2 is a \emph{platform controller} that configures and gates L3, not a passive pipe. The red dotted line is the \emph{epistemic boundary} of Corollary~\ref{cor:feedback-nonrecoverability}: L3's operative state $S_t$ is non-recoverable from the trace $\tilde T_t$, so L2's process model of L3 is structurally incomplete. The min-cut structural budget $\varepsilon_{\mathrm{unrec}}^{\mathrm{LB}}$ is the one quantity an external reviewer can still compute, used here as a feedback-adequacy meter. The contamination variant enters on the unlogged train-time edge L1$\to$L3 (red), bypassing L2 entirely; the constitutive slow loop L4$\to$L3 (purple) sets L3's control algorithm through training and resourcing at the L3/L4 seam. Override, Inadequate Process Model, and Compression are the loss-scenario classes localized to these positions (\S\ref{sec:patterns}).}
+\label{fig:cascade}
+\end{figure}

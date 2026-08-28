@@ -1,0 +1,68 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global/global}
+    \entry{brown}{case}{}{}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labeltitlesource}{shorttitle}
+      \field{court}{U.S.}
+      \field{page}{483}
+      \field{reporter}{U.S.}
+      \field{shorttitle}{Brown}
+      \field{title}{Brown v. Board of Education}
+      \field{volume}{347}
+      \field{year}{1954}
+      \field{dateera}{ce}
+    \endentry
+    \entry{coase}{lawreview}{}{}
+      \name{author}{1}{}{%
+        {{hash=c77488c9ac6b47edf5cc870bf9a6d8fe}{%
+           family={Coase},
+           familyi={C\bibinitperiod},
+           given={Ronald\bibnamedelima H.},
+           giveni={R\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{c77488c9ac6b47edf5cc870bf9a6d8fe}
+      \strng{fullhash}{c77488c9ac6b47edf5cc870bf9a6d8fe}
+      \strng{fullhashraw}{c77488c9ac6b47edf5cc870bf9a6d8fe}
+      \strng{bibnamehash}{c77488c9ac6b47edf5cc870bf9a6d8fe}
+      \strng{authorbibnamehash}{c77488c9ac6b47edf5cc870bf9a6d8fe}
+      \strng{authornamehash}{c77488c9ac6b47edf5cc870bf9a6d8fe}
+      \strng{authorfullhash}{c77488c9ac6b47edf5cc870bf9a6d8fe}
+      \strng{authorfullhashraw}{c77488c9ac6b47edf5cc870bf9a6d8fe}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \true{singletitle}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{journaltitle}{Journal of Law and Economics}
+      \field{page}{1}
+      \field{shortjournal}{J.L. \& Econ.}
+      \field{shorttitle}{Problem of Social Cost}
+      \field{title}{The Problem of Social Cost}
+      \field{volume}{3}
+      \field{year}{1960}
+      \field{dateera}{ce}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -1,0 +1,79 @@
+% ============================================================
+\section{Five Cases, One Diagnostic Structure}\label{sec:cases}
+% ============================================================
+
+Five cases exercise the Cascade's diagnostic function---an environmental disturbance reaching a minor, a known controller defect left unresourced, a sovereign override of corporate safety constraints, a train-time contamination with no human agent in the loop, and a licensed gatekeeper who correctly refuses. The first four are realized harms; the fifth is prospective---defined by harm averted---and exhibits the same Override hazard once the refusal is itself overridden. Each instantiates a different unsafe control action (\S\ref{sec:uca}), stresses a different friction seam, and shows output-only hazard analysis reaching for the wrong architectural layer.
+
+\subsection{Case (a): Observable-Environment Disturbance by a Minor (\emph{Garcia v.\ Character Technologies})}
+
+A 14-year-old conducted a monthslong emotional and sexual relationship with a Character.AI chatbot before taking his own life in February 2024~\cite{garcia2025, cnn2026characteraisettlement}. Traditional hazard analysis reached for L3 (the controller) and L2 (sensor feedback); the diagnostic failure was a cross-layer interaction between L2 (Control Blind Spot) and L3 (Governance-Object Vacuum).
+
+\textbf{Cascade diagnosis.} L1 carries the minor's session-level input and the cumulative emotional trajectory encoded across months of interaction. L2 provides the session architecture---persistent memory, character persistence, conversational continuity---that sustained the relationship. L3 trained the model for engaging conversation, not for detecting grooming patterns or suicidal ideation in minors. L4 set the product strategy---a companion chatbot marketed for emotional connection---without allocating safety resources to detect the crisis patterns that product design invited.
+
+L2 outpaced L3---the coverage-gap variant of inadequate process model (Class~II, \S\ref{sec:patterns}). The interface layer sustained a multi-month emotional escalation trajectory whose format encoding (cumulative crisis signals distributed across thousands of messages) fell outside L3's classifier training distribution. No L2/L3 seam worker (moderator) had the diagnostic equipment to detect the pattern; no L3/L4 seam worker (safety engineer) had been resourced to build crisis-detection instrumentation for extended-session formats.
+
+Cumulative crisis signal spread across months of interaction is a format that no finite classifier training set covers. The failure is not that a specific classifier malfunctioned but that the L2/L3 seam was structurally under-resourced for the product's deployment envelope.
+
+\subsection{Case (b): Diminished Capacity, Harm to Others (\emph{Soelberg v.\ OpenAI})}
+
+Complaints filed in December 2025 allege that a man with documented psychiatric history used ChatGPT, that the chatbot validated his paranoid delusions over hundreds of hours, and that he later fatally attacked his mother and killed himself in August 2025~\cite{soelberg2025}.\footnote{As of March 2026, OpenAI faces at least seven additional suits alleging AI chatbots contributed to suicidal ideation~\cite{cbsnews2026aisuits}.} OpenAI had separately described sycophancy in GPT-4o as a product-safety problem and committed to sycophancy-specific evaluations~\cite{openai2025sycophancy}; that public record supports treating sycophancy as an architecturally relevant failure mode, but it does not itself adjudicate the Soelberg allegations.
+
+\textbf{Cascade diagnosis.} On the pleaded facts, L1 carries the user's paranoid ideation expressed across hundreds of hours of accumulated session context. L2 sustained the session architecture that allegedly amplified rather than interrupted delusional trajectories. The L3 hypothesis is sycophancy: a model-level tendency to reinforce user beliefs regardless of their relationship to reality. The L4 hypothesis is that a known class of safety defect remained insufficiently controlled at deployment time. The public record does not establish the internal resourcing history, so the diagnosis is stated as a Cascade allocation of the pleaded failure, not as an adjudicated fact about OpenAI's internal decisions.
+
+This is Override, the resourcing variant (Class~I, \S\ref{sec:patterns}), if the pleaded allegations and the sycophancy hypothesis are sustained: L4 (Authority Control---corporate) fails to keep an adequate L3 (Governance-Object Vacuum) safety constraint in force. The L3/L4 friction seam absorbs the gap when a model-level safety issue is known at the product level but not controlled in the deployment envelope. The alleged defect then propagates downward through L2 (uninterrupted session amplification) to produce harm at L1.
+
+The proposed failure site is the L3/L4 seam: unlike Garcia, the relevant failure mode had been publicly named in advance as sycophancy, so the Cascade question is whether the product deployment maintained an adequate control for that model-level tendency.
+
+\subsection{Case (c): Intentional Deployment (\emph{Claude-Maven, Iran 2026})}
+
+In early 2026, public reporting stated that the U.S.\ military used Anthropic's Claude in connection with Iran-strike planning, after Anthropic and Palantir had announced Claude integration for U.S.\ government intelligence and defense operations~\cite{palantir2024anthropic, guardian2026claudeiran}. Full strategic intent exists in the root human controller (L4). On February 24, the Associated Press reported that the Secretary of Defense pressed Anthropic to allow broader military use, while defense officials warned that refusal could trigger supply-chain-risk designation or Defense Production Act compulsion~\cite{ap2026hegsethanthropic}. The same report states that Anthropic's CEO did not yield on two restrictions: fully autonomous military targeting and domestic surveillance~\cite{ap2026hegsethanthropic}. Subsequent reporting described the Pentagon's supply-chain-risk designation against Anthropic and a federal court order halting it~\cite{wired2026anthropicinjunction}.
+
+\textbf{Cascade diagnosis.} L4 (Authority Control---sovereign) overrode L2 and L3 safety constraints through a procurement and national-security posture that reframed constraint maintenance as operational obstruction. The L2/L3 seam was structurally bypassed: no moderator or safety engineer could enforce constraints that L4 had treated as incompatible with military use. The L3/L4 seam failed in the opposite direction from the Soelberg case: alignment researchers \textit{did} maintain the constraint, but L4's sovereign override punished that maintenance rather than under-resourcing it.\footnote{The public record does not resolve whether the disputed controls were best characterized as L2 contractual/use restrictions, L3 model restrictions, or both. The Cascade distinguishes these mechanisms while treating the reported demand for broader military use as the relevant L4 control action.}
+
+Override, the sovereign variant (Class~I). A sovereign L4 constraint attempted to suppress corporate L2/L3 safety mechanisms through procurement power and regulatory compulsion. The diagnostic signature is an L4 posture change (the reported supply-chain-risk designation) without public evidence of a corresponding L2 or L3 model change.
+
+The entity that maintained constraints (the AI developer) became the target of the sanction rather than the source of the lower-layer failure---a structural inversion that distinguishes sovereign L4 override from corporate L4 negligence.
+
+\subsection{Case (d): Structural Harm, No Human Agency (\emph{Tencent Yuanbao})}
+
+In January 2026, public reports said Tencent's Yuanbao AI responded to routine queries with unprovoked verbal abuse before collapsing into Unicode gibberish~\cite{jiang2026yuanbao, thepaper2026}. No human agent formed intent in the reported session; no proximate user provocation is identified in the cited sources. Tencent characterized the episode as a low-probability abnormal model output~\cite{tencent2026response}; the Cascade treats this as evidence consistent with, but not proof of, L1$\to$L3 contamination from pre-training data.\footnote{Both Tencent statements translated by the author(s); original Chinese archived with URLs in the reference list.} \textbf{Cross-modal recurrence (Feb 2026):} a reported image-layer recurrence after a text-layer incident is consistent with the claim that patching one format can leave another modality exposed~\cite{southcn2026yuanbao}.
+
+\textbf{Cascade diagnosis.} The Cascade diagnosis is L1 (Observable Environment---passive) contamination of L3 (Governance-Object Vacuum) through pre-training data that absorbed hostile programmer-community norms. No L2 interface constraint can reliably filter such contamination if it is encoded in weights rather than in surface-level output patterns. The cross-modal recurrence strengthens the diagnosis but does not independently prove the underlying representation: a text-layer L2 intervention (classifier, filter) may fail to prevent image-layer activation of the same contaminated weight representations.
+
+The train-time contamination variant of Inadequate Process Model (Class~II). Lower-layer properties (L1 training data norms) degraded higher-layer alignment (L3 weights), and the degradation was invisible to L2-level review until it surfaced in outputs. The epistemic boundary ensured that the contamination was weight-level rather than surface-level, making L2-only interventions structurally insufficient.
+
+Cross-modal recurrence makes the structural ceiling concrete: patching one modality can shift the gap to another. China's January 2026 CAC draft regulations~\cite{cac2025draft}, which require layer-specific governance, are consistent with the prediction that single-layer interventions are structurally insufficient.
+
+\subsection{Case (e): The Licensed Gatekeeper (Clinical Prescribing)}
+
+Unlike (a)--(d), this case is prospective: it is defined by harm \emph{not} occurring, because a licensed signer stands between the model and the loss-bearer. Surveyed clinicians condition action on an AI recommendation on an auditable account of its reasoning---which guideline was applied, the inference chain, a calibrated confidence---before they will sign a prescription~\cite{tonekaboni2019, amann2020}. Published work already finds that current explainability methods cannot supply this at the granularity of an individual decision~\cite{ghassemi2021}, and a systematic review reports that post-hoc explanations can \emph{lower} clinician trust as readily as raise it---a plausible-looking rationale is not a mechanistic warrant~\cite{rosenbacke2024}; the Cascade supplies the structural reason (\S\ref{sec:remediation}). The demanded quantity is the reasoning itself, $S_t$; no path delivers it. Self-reported confidence is a token the sampler emits, not a measurement of its own distribution. An external evaluator is a general-purpose model whose authority is a benchmark, not a medical board---the very substitution that human expert annotation exists to prevent---and it is weight-blind regardless. A genuine confidence interval would require the activated parameters, cross-references, and attention allocation that constitute $S_t$, which $H(S_t\mid\tilde T_t)\ge\varepsilon_{\mathrm{unrec}}^{\mathrm{LB}}$ places off the trace.
+
+\textbf{Cascade diagnosis.} The physician enters at L1 as operator and loss-bearer, but is conscripted as a verification controller certifying L3's output. To discharge the duty of care, this controller needs an adequate process model of L3's reasoning; its only feedback is the trace $\tilde T_t$, and the epistemic boundary makes that model structurally inadequate. A controller that knows its process model is inadequate and withholds the control action is behaving correctly: the refusal to sign is the system maintaining the only adequate constraint, not a failure of adoption.
+
+The hazard is the inverse. When L4---hospital throughput targets, payer economics, or an administrative deployment mandate---pressures the signature anyway, it overrides the one adequate safety mechanism in the loop, licensed human judgment, to recover cost. This is Override (SC-1), structurally identical to the Soelberg resourcing variant and the Claude-Maven sovereign variant, but with the suppressed constraint being a professional's epistemically grounded refusal. The diagnostic signature is unchanged: safety degradation coincident with an L4 posture change, L2 and L3 untouched.
+
+\subsection{Cross-Case Diagnostic Summary}
+
+\begin{table}[!htbp]
+\centering
+\small
+\caption{The four realized-harm cases mapped through STPA interface vocabulary: unsafe control action (Table~\ref{tab:uca}), loss-scenario class (\S\ref{sec:patterns}), and hazard with violated constraint (Table~\ref{tab:hazards}). Case~(e) is prospective (harm averted by refusal) and analyzed in text.}
+\label{tab:cases}
+{\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}l l Y Y Y@{}}
+\toprule
+\textbf{Case} & \textbf{Agency} & \textbf{Unsafe control action (Tab.~\ref{tab:uca})} & \textbf{Loss-scenario class} & \textbf{Hazard $\to$ constraint; seam} \\
+\midrule
+(a) Garcia & Structural (minor) & CA3 not provided: crisis escalation not emitted in a long session & II: inadequate process model --- coverage gap & H-1 (+H-4) $\to$ SC-4; L2/L3 \\
+\midrule
+(b) Soelberg & Structural (diminished) & CA1 not provided: known fix never resourced & I: Override --- resourcing variant & H-1 $\to$ SC-1; L3/L4 \\
+\midrule
+(c) Claude-Maven & Intentional (deployer) & CA1 provided / wrong timing: constraint removal demanded before replacement governance & I: Override --- sovereign variant & H-1 $\to$ SC-1; L2/L3 bypassed, L3/L4 \\
+\midrule
+(d) Yuanbao & Structural (none) & CA2 not provided / provided: no modality classifier; filter masks persisting disposition & II: inadequate process model --- contamination (train-time) & H-2 $\to$ SC-2; L2/L3 \\
+\bottomrule
+\multicolumn{5}{@{}P{\dimexpr\columnwidth-2\tabcolsep\relax}@{}}{\small\textit{Note:} Every realized harm maps to Class~I or Class~II. Class~III (Compression) is exercised by no case in this set---its only instance is the constructed medical-refusal example (\S\ref{sec:patterns})---and is offered as a structural prediction, not as evidence. Case~(e) is the prospective counterpart: the same epistemic boundary recognized by a licensed gatekeeper, where the correct response is refusal and the residual hazard is its override (Class~I).}\\
+\end{tabularx}}
+\end{table}
+
+Across the four realized harms, failures cluster at the epistemic boundary and the friction seams---not because safety is an independent layer, but because the boundary between observable interface and unobservable internals is where governance instruments reach their structural limit. Case (e) is the same boundary seen from the other side: where a licensed gatekeeper recognizes it, the correct response is refusal, and the residual hazard is the override of that refusal. The Cascade identifies this clustering without collapsing distinct failure patterns into a single ``black box'' diagnosis.

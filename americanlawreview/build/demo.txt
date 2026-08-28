@@ -1,0 +1,64 @@
+A Minimal American Law Review Demo
+A. Student*
+Generic Law Review Project
+
+Submission Draft
+
+Abstract
+This document exercises the v1 layout and citation state engine.
+
+1
+
+Citation State
+
+The first note gives a full case citation.1 The next note repeats the same authority.2 A
+mixed note keeps separate authorities in the same footnote.3 The article later becomes a
+supra note.4 The case later uses a legal short form, not a supra note.5 A shorthand source
+may be introduced.6 The shorthand repeats compactly.7
+
+∗
+
+The author note is printed as a title footnote and reset before body notes.
+
+1
+
+See Brown v. Board of Education, 347 U.S. 483, 347 (U.S. 1954).
+
+2
+
+Id. at 349.
+
+See Sherman Act, 15 U.S.C. § 1 (2024); R. H. Coase, The Problem of Social Cost, 3 J.L. & Econ. 1, 45
+(1960); H. L. A. Hart, The Concept of Law (Oxford: Oxford University Press, 1961), 12.
+3
+
+4
+
+Coase, supra note 3, at 46.
+
+5
+
+Brown, 347 U.S. at 350.
+
+6
+
+American Law Institute, Restatement (Second) of Torts (1965), 23 (henceforth cited as Restatement).
+
+7
+
+Restatement at 24.
+
+1
+
+Generic Law Review
+
+2
+
+References
+American Law Institute, Restatement (Second) of Torts (1965).
+Brown v. Board of Education, 347 U.S. 483 (U.S. 1954).
+R. H. Coase, The Problem of Social Cost, 3 J.L. & Econ. 1 (1960).
+H. L. A. Hart, The Concept of Law (Oxford: Oxford University Press, 1961).
+Sherman Act, 15 U.S.C. § 1 (2024).
+
+

@@ -1,0 +1,193 @@
+\ProvidesFile{americanlawreview.bbx}
+  [2026/07/03 v0.1 American law review bibliography style]
+
+\RequireBibliographyStyle{standard}
+\RequireBiber[3]
+
+\ExecuteBibliographyOptions{
+  sorting=nyt,
+  doi=false,
+  isbn=false,
+  url=false,
+  giveninits=true,
+  maxnames=3,
+  minnames=1}
+
+\DeclareDelimFormat{multinamedelim}{\addcomma\space}
+\DeclareDelimFormat{finalnamedelim}{\addspace and\space}
+\DeclareDelimFormat{nametitledelim}{\addcomma\space}
+\DeclareDelimFormat{multicitedelim}{\addsemicolon\space}
+
+\DeclareFieldFormat{title}{#1}
+\DeclareFieldFormat[article,lawreview]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[book]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{shortjournal}{#1}
+\DeclareFieldFormat{reporter}{#1}
+\DeclareFieldFormat{code}{#1}
+\DeclareFieldFormat{section}{#1}
+\DeclareFieldFormat{page}{#1}
+\DeclareFieldFormat{volume}{#1}
+\DeclareFieldFormat{postnote}{#1}
+\DeclareFieldFormat{shorthand}{#1}
+
+\DeclareLabeltitle[case,statute,constitution,regulation,lawreview]{
+  \field{shorttitle}
+  \field{title}}
+
+\DeclareBibliographyAlias{forthcoming}{article}
+\DeclareBibliographyAlias{workingpaper}{report}
+\DeclareBibliographyAlias{internet}{online}
+\DeclareBibliographyAlias{treaty}{misc}
+
+\newbibmacro*{alr:dateparen}{%
+  \ifboolexpr{
+    not test {\iffieldundef{court}}
+    or
+    not test {\iffieldundef{year}}
+  }
+    {\setunit{\addspace}%
+     \printtext[parens]{%
+       \printfield{court}%
+       \setunit*{\addspace}%
+       \printdate}}
+    {}}
+
+\newbibmacro*{alr:yearparen}{%
+  \iffieldundef{year}
+    {}
+    {\setunit{\addspace}\printtext[parens]{\printdate}}}
+
+\newbibmacro*{alr:page}{%
+  \iffieldundef{page}
+    {\printfield{pages}}
+    {\printfield{page}}}
+
+\newbibmacro*{alr:pin}{%
+  \iffieldundef{postnote}
+    {}
+    {\setunit{\addcomma\space}\printfield{postnote}}}
+
+\newbibmacro*{alr:reporter}{%
+  \iffieldundef{reporter}
+    {\iffieldundef{shortjournal}
+       {\printfield{journaltitle}}
+       {\printfield{shortjournal}}}
+    {\printfield{reporter}}}
+
+\newbibmacro*{alr:casecite}{%
+  \printfield{title}%
+  \setunit{\addcomma\space}%
+  \printfield{volume}%
+  \setunit{\addspace}%
+  \usebibmacro{alr:reporter}%
+  \setunit{\addspace}%
+  \usebibmacro{alr:page}%
+  \usebibmacro{alr:pin}%
+  \usebibmacro{alr:dateparen}%
+  \newunit\newblock
+  \printfield{parenthetical}}
+
+\newbibmacro*{alr:statutecite}{%
+  \printfield{title}%
+  \setunit{\addcomma\space}%
+  \printfield{code}%
+  \iffieldundef{section}
+    {}
+    {\addspace\S\addnbspace\printfield{section}}%
+  \usebibmacro{alr:pin}%
+  \usebibmacro{alr:yearparen}%
+  \newunit\newblock
+  \printfield{parenthetical}}
+
+\newbibmacro*{alr:constitutioncite}{%
+  \iffieldundef{title}
+    {\printfield{jurisdiction}\setunit{\addspace}Const.}
+    {\printfield{title}}%
+  \setunit{\addcomma\space}%
+  \printfield{article}%
+  \setunit{\addcomma\space}%
+  \iffieldundef{amendment}
+    {}
+    {amend.\addspace\printfield{amendment}}%
+  \setunit{\addcomma\space}%
+  \iffieldundef{section}
+    {}
+    {\S\addnbspace\printfield{section}}%
+  \setunit{\addcomma\space}%
+  \printfield{clause}%
+  \newunit\newblock
+  \printfield{parenthetical}}
+
+\newbibmacro*{alr:lawreviewcite}{%
+  \printnames{author}%
+  \setunit{\addcomma\space}%
+  \printfield{title}%
+  \setunit{\addcomma\space}%
+  \printfield{volume}%
+  \setunit{\addspace}%
+  \iffieldundef{shortjournal}
+    {\printfield{journaltitle}}
+    {\printfield{shortjournal}}%
+  \setunit{\addspace}%
+  \usebibmacro{alr:page}%
+  \usebibmacro{alr:pin}%
+  \usebibmacro{alr:yearparen}%
+  \newunit\newblock
+  \printfield{parenthetical}}
+
+\DeclareBibliographyDriver{case}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:casecite}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{statute}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:statutecite}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{constitution}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:constitutioncite}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{regulation}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:statutecite}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{lawreview}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:lawreviewcite}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:lawreviewcite}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \printnames{author}%
+  \setunit{\addcomma\space}%
+  \printfield{title}%
+  \iffieldundef{year}
+    {}
+    {\setunit{\addspace}%
+     \printtext[parens]{%
+       \printlist{location}%
+       \setunit{\addcolon\space}%
+       \printlist{publisher}%
+       \setunit{\addcomma\space}%
+       \printdate}}%
+  \usebibmacro{alr:pin}%
+  \newunit\newblock
+  \printfield{parenthetical}%
+  \usebibmacro{finentry}}

@@ -1,0 +1,10 @@
+\ProvidesFile{americanlawreview-generic.def}
+  [2026/07/03 v0.1 Generic American law review profile]
+
+\providecommand*\alrjournalname{Generic Law Review}
+\providecommand*\alrsubmissionlabel{Submission Draft}
+\providecommand*\alrfinallabel{Final}
+\providecommand*\alrtitlefont{\normalfont\Large\bfseries}
+\providecommand*\alrauthorfont{\normalfont\large}
+\providecommand*\alraffiliationfont{\normalfont\itshape}
+\providecommand*\alrsectionfont{\normalfont\large\bfseries}

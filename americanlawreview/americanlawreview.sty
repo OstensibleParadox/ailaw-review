@@ -1,0 +1,113 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{americanlawreview}
+  [2026/07/03 v0.1 American law review author API]
+
+\RequirePackage{kvoptions}
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
+
+\SetupKeyvalOptions{family=alr,prefix=alr@}
+\DeclareStringOption[generic]{review}
+\DeclareStringOption[submission]{mode}
+\def\alr@citationstyle{bluebook}
+\DeclareVoidOption{bluebook}{\def\alr@citationstyle{bluebook}}
+\DeclareVoidOption{submission}{\def\alr@mode{submission}}
+\DeclareVoidOption{final}{\def\alr@mode{final}}
+\ProcessKeyvalOptions*
+
+\ifdefstring{\alr@review}{generic}
+  {\InputIfFileExists{americanlawreview-generic.def}{}{}}
+  {\PackageError{americanlawreview}
+     {Profile '\alr@review' is reserved but not implemented}
+     {v1 ships only review=generic.}}
+
+\ifdefstring{\alr@citationstyle}{bluebook}
+  {}
+  {\PackageError{americanlawreview}
+     {Citation style '\alr@citationstyle' is not implemented}
+     {v1 ships only the bluebook-style biblatex layer.}}
+
+\ExplSyntaxOn
+\seq_new:N \g_alr_author_notes_seq
+\tl_new:N \g_alr_affiliation_tl
+
+\NewDocumentCommand{\authornote}{m}
+  { \seq_gput_right:Nn \g_alr_author_notes_seq {#1} }
+
+\NewDocumentCommand{\institutionalaffiliation}{m}
+  { \tl_gset:Nn \g_alr_affiliation_tl {#1} }
+
+\cs_new_protected:Npn \alr_print_affiliation:
+  {
+    \tl_if_empty:NF \g_alr_affiliation_tl
+      {
+        \par\vskip .35\baselineskip
+        {\alraffiliationfont \tl_use:N \g_alr_affiliation_tl \par}
+      }
+  }
+
+\cs_new_protected:Npn \alr_print_author_notes:
+  {
+    \seq_if_empty:NF \g_alr_author_notes_seq
+      {
+        \begingroup
+        \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+        \setcounter{footnote}{0}
+        \seq_map_inline:Nn \g_alr_author_notes_seq
+          {
+            \stepcounter{footnote}
+            \footnotetext[\value{footnote}]{##1}
+          }
+        \endgroup
+        \setcounter{footnote}{0}
+      }
+  }
+
+\cs_new:Npn \alr_author_note_mark:
+  {
+    \seq_if_empty:NF \g_alr_author_notes_seq
+      { \textsuperscript{*} }
+  }
+
+\cs_new_eq:NN \alrprintaffiliation \alr_print_affiliation:
+\cs_new_eq:NN \alrprintauthornotes \alr_print_author_notes:
+\cs_new_eq:NN \alrauthornotemark \alr_author_note_mark:
+\ExplSyntaxOff
+
+\NewDocumentCommand{\lrnote}{o m}{%
+  \IfNoValueTF{#1}
+    {\footnote{#2}}
+    {{\renewcommand{\thefootnote}{#1}\footnote{#2}}}}
+
+\NewDocumentCommand{\lrfootnote}{m}{\footnote{#1}}
+
+\NewDocumentCommand{\bluecite}{o m}
+  {\IfNoValueTF{#1}{\cite{#2}}{\cite[#1]{#2}}}
+\NewDocumentCommand{\casecite}{o m}
+  {\IfNoValueTF{#1}{\cite{#2}}{\cite[#1]{#2}}}
+\NewDocumentCommand{\statcite}{o m}
+  {\IfNoValueTF{#1}{\cite{#2}}{\cite[#1]{#2}}}
+\NewDocumentCommand{\artcite}{o m}
+  {\IfNoValueTF{#1}{\cite{#2}}{\cite[#1]{#2}}}
+\NewDocumentCommand{\bookcite}{o m}
+  {\IfNoValueTF{#1}{\cite{#2}}{\cite[#1]{#2}}}
+
+\providecommand{\See}{See\space}
+\providecommand{\Seealso}{See also\space}
+\providecommand{\Cf}{Cf.\space}
+\providecommand{\Butsee}{But see\space}
+\providecommand{\Contra}{Contra\space}
+\providecommand{\Accord}{Accord\space}
+
+\makeatletter
+\@ifpackageloaded{biblatex}
+  {\PackageWarning{americanlawreview}
+     {biblatex is already loaded; americanlawreview citation options were not applied}}
+  {\RequirePackage[
+     backend=biber,
+     style=americanlawreview,
+     citetracker=context,
+     ibidtracker=constrict,
+     autocite=footnote,
+     citepages=permit]{biblatex}}
+\makeatother

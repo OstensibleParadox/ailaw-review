@@ -1,0 +1,20 @@
+\documentclass{article}
+
+\usepackage[bluebook,review=generic]{americanlawreview}
+\addbibresource{demo.bib}
+
+\title{Package Mode Demo}
+\author{A. Student}
+
+\begin{document}
+\maketitle
+
+This ordinary article keeps its layout but receives the citation API.\lrfootnote{\See
+\casecite[489]{brown}.}
+The immediately repeated authority uses id.\lrfootnote{\casecite[490]{brown}.}
+Article citations still use the shared state engine.\lrfootnote{\artcite[45]{coase}.}
+An intervening authority breaks the immediate-id chain.\lrfootnote{\casecite[491]{brown}.}
+The later article citation becomes a supra note.\lrfootnote{\artcite[46]{coase}.}
+
+\printbibliography
+\end{document}

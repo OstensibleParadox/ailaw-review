@@ -1,0 +1,117 @@
+\ProvidesFile{americanlawreview.dbx}
+  [2026/07/03 v0.1 American law review datamodel]
+
+\DeclareDatamodelEntrytypes{
+  case,
+  statute,
+  constitution,
+  regulation,
+  lawreview,
+  treaty,
+  internet,
+  forthcoming,
+  workingpaper}
+
+\DeclareDatamodelFields[type=field, datatype=literal]{
+  reporter,
+  page,
+  court,
+  parallel,
+  prior,
+  subsequent,
+  jurisdiction,
+  code,
+  section,
+  clause,
+  amendment,
+  parenthetical}
+
+\DeclareDatamodelEntryfields[case]{
+  title,
+  shorttitle,
+  shorthand,
+  volume,
+  reporter,
+  page,
+  pages,
+  court,
+  year,
+  date,
+  parallel,
+  prior,
+  subsequent,
+  jurisdiction,
+  parenthetical}
+
+\DeclareDatamodelEntryfields[statute]{
+  title,
+  shorttitle,
+  shorthand,
+  code,
+  section,
+  year,
+  date,
+  publisher,
+  jurisdiction,
+  parenthetical}
+
+\DeclareDatamodelEntryfields[constitution]{
+  title,
+  shorttitle,
+  shorthand,
+  jurisdiction,
+  article,
+  section,
+  clause,
+  amendment,
+  year,
+  date,
+  parenthetical}
+
+\DeclareDatamodelEntryfields[regulation]{
+  title,
+  shorttitle,
+  shorthand,
+  code,
+  section,
+  year,
+  date,
+  jurisdiction,
+  parenthetical}
+
+\DeclareDatamodelEntryfields[lawreview]{
+  author,
+  shortauthor,
+  title,
+  shorttitle,
+  shorthand,
+  journaltitle,
+  shortjournal,
+  volume,
+  number,
+  pages,
+  page,
+  year,
+  date,
+  parenthetical}
+
+\DeclareDatamodelEntryfields[treaty,internet,forthcoming,workingpaper]{
+  author,
+  shortauthor,
+  title,
+  shorttitle,
+  shorthand,
+  journaltitle,
+  shortjournal,
+  organization,
+  publisher,
+  location,
+  volume,
+  number,
+  pages,
+  page,
+  year,
+  date,
+  url,
+  urldate,
+  parenthetical}

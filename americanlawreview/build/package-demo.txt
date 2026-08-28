@@ -1,0 +1,21 @@
+Package Mode Demo
+A. Student
+July 3, 2026
+This ordinary article keeps its layout but receives the citation API.1 The
+immediately repeated authority uses id.2 Article citations still use the shared
+state engine.3 An intervening authority breaks the immediate-id chain.4 The
+later article citation becomes a supra note.5
+
+References
+Brown v. Board of Education, 347 U.S. 483 (U.S. 1954).
+R. H. Coase, The Problem of Social Cost, 3 J.L. & Econ. 1 (1960).
+
+1 See Brown v. Board of Education, 347 U.S. 483, 489 (U.S. 1954).
+2 Id. at 490.
+3 R. H. Coase, The Problem of Social Cost, 3 J.L. & Econ. 1, 45 (1960).
+4 Brown, 347 U.S. at 491.
+5 Coase, supra note 3, at 46.
+
+1
+
+

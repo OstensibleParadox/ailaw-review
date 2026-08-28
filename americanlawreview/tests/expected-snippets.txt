@@ -1,0 +1,9 @@
+demo.txt::Brown v. Board of Education
+demo.txt::Id. at 349
+demo.txt::Coase, supra note
+demo.txt::Brown, 347 U.S. at 350
+demo.txt::Sherman Act, 15 U.S.C. § 1
+demo.txt::Restatement at 24
+final-demo.txt::Final mode uses single spacing
+package-demo.txt::Id. at 490
+package-demo.txt::Coase, supra note

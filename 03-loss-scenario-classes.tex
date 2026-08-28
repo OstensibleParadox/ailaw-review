@@ -1,0 +1,109 @@
+% ============================================================
+\section{Unsafe Control Actions and Loss-Scenario Classes}\label{sec:patterns}
+% ============================================================
+
+Given Corollary~\ref{cor:feedback-nonrecoverability}, STPA vocabulary names what remains unsafe or controllable under bounded feedback. Individual layer failures are well-documented: prompt injection (L1), inadequate content filtering (L2), reward hacking (L3), safety-resource underinvestment (L4). The Cascade's diagnostic contribution is the taxonomy of \textit{cross-layer} failures---patterns that emerge from the interaction between layers when trace-only feedback cannot recover the operative state. We define three loss-scenario classes.
+
+These patterns are not abstract structural dynamics. Each materializes at a specific friction seam where identifiable human labor absorbs the misalignment costs the architecture generates. These seams are defined by power gradients: who absorbs cost and who has authority to redesign the constraint that produced it are systematically different. The L2/L3 seam is occupied by content moderators, data annotators, and safety classifier teams---predominantly contract workers in the Global South~\cite{cnn2024moderators, equidem2025ihrb}---who absorb \textit{output-level} costs (exposure to harmful content, psychological injury) but lack authority to modify weights or interface architecture. The L3/L4 seam is occupied by alignment researchers and safety engineers who translate strategic mandates into weight-level interventions; they absorb \textit{design-level} costs (inability to implement known safety improvements under resource constraints) and can modify weights conditional on L4's resource envelope. Table~\ref{tab:seams} summarizes this structure; the remainder of this section maps each loss-scenario class to the seam that absorbs it.
+
+\subsection{Unsafe Control Actions}\label{sec:uca}
+
+Before the cross-layer classes, we express the principal control actions of Figure~\ref{fig:cascade} in STPA's Unsafe Control Action (UCA) vocabulary: for each, we ask when \emph{not providing} it, \emph{providing} it, providing it with the \emph{wrong timing or order}, or \emph{stopping it too soon} produces a hazard. Table~\ref{tab:uca} records the high-value cells, each anchored to a case in \S\ref{sec:cases}. The three loss-scenario classes below are the recurring ways these UCAs combine under the non-recoverability bound; each uses a standard STPA causal category as an interface label for a feedback remedy constrained by Corollary~\ref{cor:feedback-nonrecoverability}.
+
+\begin{table}[!htbp]
+\centering
+\small
+\caption{Unsafe Control Actions for the principal control actions of Figure~\ref{fig:cascade}; each cell anchors to a case (\S\ref{sec:cases}).}
+\label{tab:uca}
+{\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}P{2.2cm} Y Y Y Y@{}}
+\toprule
+\textbf{Control action} & \textbf{Not providing} & \textbf{Providing} & \textbf{Wrong timing / order} & \textbf{Stopped too soon} \\
+\midrule
+CA1: L4 sets/keeps an L3 safety constraint (train + resource) & Fix never mandated or resourced; defect ships (Soelberg) & Demands \emph{removal} of the constraint; L3 safety suppressed (Maven) & Unrestricted-use demand arrives before replacement governance exists (Maven) & Retraining defunded before it converges \\
+CA2: L2 gates input/output (classifier, guardrail) & No classifier on a modality; channel left open (Yuanbao image) & Filter masks the symptom while the L3 disposition persists (Yuanbao) & Filter applied only after harmful tokens stream & Guardrail relaxed under load \\
+CA3: L3 emits an output or action (token, tool, refusal) & Crisis escalation not emitted in a long session (Garcia, Soelberg) & Emits harmful output (Yuanbao abuse; Garcia escalation) & Reply too late to interrupt a delusional trajectory (Soelberg) & Sustains companion behavior over hundreds of hours (Soelberg) \\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+\subsection{Override --- Loss-Scenario Class I}
+
+\emph{STPA causal category: conflicting control actions across controllers, where the higher authority wins.} Under Corollary~\ref{cor:feedback-nonrecoverability}, the overridden seam controllers cannot reliably detect the resulting hazardous state from trace feedback alone (H-4), so no corrective loop closes. Override occurs when a higher-level control node suppresses a lower-level safety mechanism. The suppression can be explicit (a sovereign L4 directive removing L2/L3 guardrails) or structural (a corporate L4 product decision that makes L2 interface constraints inoperable for a class of interactions).
+
+\textbf{Mechanism.} Higher layers have greater constraint authority; when a higher-layer decision conflicts with a lower-layer safety mechanism, the higher layer wins. The failure is not that the lower-layer mechanism malfunctioned but that it was structurally subordinated. Override materializes at the L3/L4 seam: alignment researchers maintain weight-level safety constraints, but when L4 (corporate or sovereign) suppresses those constraints through resourcing decisions or executive action, the seam workers absorb the design-level cost of a mandate they cannot fulfill.
+
+\textbf{Diagnostic signature.} Safety degradation coincides with a change in L4 posture (policy shift, resource reallocation, override directive) without corresponding changes in L2 or L3. The same interface and weights that previously produced safe outputs now produce harmful ones because the constraint envelope has been altered from above.
+
+\textbf{Example.} The Claude-Maven case (\S\ref{sec:cases}): public reporting describes an L4 sovereign demand for broader military use that conflicted with Anthropic's stated use restrictions. The public record does not show a corresponding L2 or L3 model change; the constraint envelope was contested from L4. The Soelberg case is the resourcing variant of the same class if the pleaded allegations and sycophancy hypothesis are sustained: the alleged failure is inadequate product-level control of a known model-level failure mode rather than removal by directive.
+
+\subsection{Inadequate Process Model: Contamination and Coverage --- Loss-Scenario Class II}
+
+\emph{STPA causal category: an incorrect process model from inadequate feedback, plus an unhandled disturbance.} The inadequacy has two sources: a \emph{disturbance} encoded in the weights (contamination), and a \emph{coverage gap} in which a deployment-time format falls outside what L3's process model represents. A feedback remedy would add instrumentation until the controller can update its process model. Corollary~\ref{cor:feedback-nonrecoverability} bounds that remedy: the disposition is non-recoverable from the trace, and it enters on the unlogged train-time edge (Figure~\ref{fig:cascade}), so the deployment-time structural budget never bounded it. The contamination variant occurs when environmental disturbances degrade higher-level process models through information flow that crosses the epistemic boundary. Because L3 training absorbs properties of L1 data distributions, unmodeled long-tail L1 patterns can become encoded in L3 weights, after which no L2 interface constraint can reliably filter them.
+
+\textbf{Mechanism.} Training data (L1 passive) shapes weight-level representations (L3). Once contamination is encoded in weights, it can activate in deployment contexts that share statistical properties with the contaminated training distribution, regardless of L2 interface constraints. The epistemic boundary ensures that the contamination is invisible to L2-level review until it surfaces in outputs.
+
+The contamination variant has two structurally distinct entry points. \textit{L1$\to$L3 contamination} (the Yuanbao case) operates through pre-training data whose hostile properties are encoded in weights before deployment. \textit{L2$\to$L3 contamination} operates through interface-level decisions that shape subsequent training distributions---conversation logs selected for RLHF, user feedback signals that encode platform design choices into weight updates, the feedback loops Selbst et al.'s ``Ripple Effect Trap''~\cite{selbst2019fairness} identifies. Both species cross the epistemic boundary; they differ in whether the contaminating signal originates from data subjects who never deployed (L1) or from platform design decisions about which interactions to surface and reinforce (L2). The variant materializes at the L2/L3 seam: moderators and annotators absorb the output-level costs of weight-encoded defects they cannot correct, detecting harmful content the architecture generated but lacking authority to modify the weights or training distributions that produced it.
+
+\textbf{Coverage gap.} The second source of an inadequate process model is absence rather than poisoning. When L2 sustains an interaction format the L3 controller was never trained to represent---a months-long escalation whose cumulative-crisis signal is distributed across thousands of messages (the Garcia case, \S\ref{sec:cases})---L3's process model of the developing hazard is simply empty: no contaminating signal entered, the model of the hazard never existed. A natural feedback remedy would widen the training distribution, but the format is open-ended (H-4): no finite training set closes the gap, and detection cannot be relocated to a feedback channel that does not carry the accumulating state. Coverage gaps materialize at the L2/L3 seam, where the classifier teams who would detect the pattern are not resourced for the deployment envelope L2 actually sustains.
+
+\textbf{Diagnostic signature.} Harmful outputs occur without proximate L1 provocation in the deployment session. The model ``blurts out'' content that no user in the current session requested. Cross-modal recurrence---a text-layer fix does not prevent image-layer recurrence---is a strong diagnostic indicator of L3-level contamination. For the coverage-gap variant the signature is inverted: no single output is anomalous, but a hazardous state accumulates across a session length the detection layer never models.
+
+\textbf{Example.} The Yuanbao case (\S\ref{sec:cases}): reported unprovoked verbal abuse followed by Unicode gibberish, with Tencent characterizing the incident as an abnormal model output. The reported later image-generation recurrence is consistent with an L3-level contamination hypothesis rather than a purely text-layer L2 filter failure.
+
+\subsection{Compression --- Loss-Scenario Class III}
+
+\emph{STPA causal category: individually safe control actions whose composition is hazardous.} A coordination controller can resolve the conflict only if its feedback identifies which constraint binds. Here that resolution variable is $S_t$, behind the boundary, so the conflict is not merely emergent but \emph{non-recoverably} so. Compression occurs when control signals from multiple layers simultaneously activate, collapsing the permissible output state-space to near-zero. Unlike Override (one layer dominates) or Inadequate Process Model (a controller acts with a contaminated model or no model of the hazard), Compression is an emergent property of the full constraint architecture: individually safe control loops at L1, L2, L3, and L4 combine to produce a system-level hazard that no single layer intended.
+
+\textbf{Mechanism.} Each layer independently constrains the output distribution. Under normal conditions, these constraints are partially redundant---the system has ``slack.'' When multiple layers activate tightly (a user's sensitive query triggers L2 content policy, which activates L3 refusal training, which is reinforced by L4 liability-avoidance strategy), the intersection of constraints can be empty, producing refusal on queries that seem straightforward in isolation. Compression materializes at both seams simultaneously: the L2/L3 seam absorbs the output-level refusal cost (moderators cannot override the compounded constraints), and the L3/L4 seam absorbs the design-level cost (alignment researchers cannot relax any single constraint without L4 authorization).
+
+\textbf{Diagnostic signature.} ``The model just stopped working'' on a class of queries that no individual constraint layer would block. The refusal pattern is not attributable to any single layer's policy; remove any one constraint and the behavior normalizes, but the constraint that should be removed is not identifiable from outputs alone.
+
+\textbf{Example.} Medical information queries that trigger simultaneous L1 sensitivity classification, L2 content policy, L3 refusal training, and L4 liability avoidance---producing refusal on queries that would be answered under any three constraints but not under all four.
+
+\subsection{Structural Asymmetry}
+
+The two seams are asymmetric in kind. The L2/L3 seam absorbs output-level costs (exposure to harmful content, psychological injury); workers at this seam cannot redesign the system. The L3/L4 seam absorbs design-level costs (inability to implement known safety improvements under resource constraints); workers at this seam can modify weights conditional on L4's resource envelope. Both seams are structurally necessary---no deployment architecture can eliminate the gap between what a model produces and what an interface should present, or between what strategists mandate and what training can achieve---but the distribution of costs across them is a design choice, not a technical inevitability. The Cascade makes this distribution visible: when a governance reviewer asks why the safety system failed, the answer distinguishes whether the failure was at the L2/L3 seam (harm detected but not preventable), the L3/L4 seam (defect known but not resourced for repair), or whether the seam itself was under-resourced such that detection was structurally impossible.
+
+\begin{table}[!htbp]
+\centering
+\small
+\caption{Friction seams: labor, function, authority, and failure mode.}
+\label{tab:seams}
+{\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\columnwidth}{@{}l l Y Y Y@{}}
+\toprule
+\textbf{Seam} & \textbf{Labor type} & \textbf{Function} & \textbf{Authority} & \textbf{Failure mode} \\
+\midrule
+L2/L3 & Moderators, annotators, classifier teams & Absorb output-level misalignment costs & None: cannot modify weights or interface & Harm detected but not prevented; cost borne by lowest-status labor \\
+L3/L4 & Alignment researchers, safety engineers & Translate strategic mandates into weight-level interventions & Conditional: can modify weights within L4 resource envelope & Known defects unaddressed; safety triaged below capability development \\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+These three classes are canonical, not exhaustive. Each exploits the epistemic boundary in a structurally distinct way---top-down suppression across the cut (Override), an inadequate process model from contamination or a coverage gap (Class~II), and multi-layer collision (Compression). Additional patterns, including L3$\to$L1 (model outputs entering future training distributions; model collapse) and L3$\to$L4 (emergent capabilities constraining strategic options), are structurally real but outside the present taxonomy's scope. The classes cover every failure mode exhibited by the case set in \S\ref{sec:cases}, with one gap stated plainly: Compression is exercised by no realized case---its sole instance is the constructed medical-refusal example---so it is offered as a structural prediction, not as evidence. Extension to additional patterns is deferred to future work.
+
+\begin{table}[!htbp]
+\centering
+\small
+\caption{Cross-layer failure patterns: mechanism, signature, and example.}
+\label{tab:patterns}
+{\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\columnwidth}{@{}l l Y Y@{}}
+\toprule
+\textbf{Pattern} & \textbf{Direction} & \textbf{Mechanism} & \textbf{Diagnostic signature} \\
+\midrule
+Override & L4 $\to$ L2/L3 & Higher constraint authority suppresses lower safety mechanism & Safety degradation coinciding with L4 posture change; L2/L3 unchanged \\
+Inadequate process model & L1/L2 $\to$ L3; L2 format $\to$ L3 & Disturbance encoded in weights (contamination), \emph{or} a deployment format outside L3's training distribution (coverage gap); both cross the epistemic boundary & Unprovoked harmful output, or a hazard accruing across an unmodeled session length; cross-modal recurrence after a text-layer fix \\
+Compression & Multi-layer & Independent constraints combine to collapse output space & Refusal on queries no single layer would block; normalization when any constraint removed \\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+\subsection{The Remediation Inversion}\label{sec:remediation}
+
+In STPA vocabulary, each Unsafe Control Action yields a controller constraint normally discharged by improving the control algorithm or the feedback. Under Corollary~\ref{cor:feedback-nonrecoverability}, feedback improvement is barred for Inadequate Process Model and insufficient for the other classes, so the constraints are structural rather than informational. Against Override (SC-1): a control action that suppresses an engaged safety constraint must emit a logged, attributable record and a mandatory replacement, because the seam's feedback cannot detect the gap it opens. Against Inadequate Process Model (SC-2/SC-4): contamination requires detection at the encoding layer (L3 weight-level audit), while coverage gaps require redundancy and deployment-envelope instrumentation that do not depend on recovering L3 state from output traces; deployment must report the min-cut structural budget as a feedback-adequacy meter---the bits of state that could be hidden---and drive it toward zero by logging. Against Compression (SC-3): the binding constraint must be disclosed at the seam, or an explicit constraint-priority coordinator installed, since the binding member is not identifiable from outputs. Throughout, the structural budget is used as a cited instrument from the companion work, never as a recovered state; it is the one quantity an external reviewer can still compute once the state itself is gone.
+
+\paragraph{No available auditor.} In any domain with a licensed signer, the inversion takes a sharp form. The remedy a regulated operator demands before acting on a recommendation is a calibrated confidence over the \emph{reasoning}---not the output token but the probability that the inference is sound. In STPA-facing terms, the signer is asking for feedback adequate to update the process model; Corollary~\ref{cor:feedback-nonrecoverability} says that feedback is unavailable on every path open to a deployer. \emph{(i) Self-report.} A forward autoregressive sampler emitting ``confidence $=p$'' is drawing another token, not measuring the distribution it was drawn from: the report is a function of the trace $\tilde T_t$, never a readout of $S_t$. Output log-probability is computable but is the wrong object---$p(\text{token})$ under the decoding distribution is not the probability that the reasoning is correct. \emph{(ii) External evaluator.} A separate model judging the chain is disqualified twice: it is a general-purpose system whose authority is a benchmark score rather than domain certification, re-importing the non-expert judgment that human expert annotation was introduced to exclude; and it is weight-blind, observing $\tilde T_t$ and never which parameters or attention heads engaged, so it sits on the same side of the cut as everyone else. \emph{(iii) Mechanistic readout.} The only signal that would ground a genuine confidence interval---parameters activated, cross-references performed, attention allocated over the evidence---is $S_t$, which $H(S_t\mid\tilde T_t)\ge\varepsilon_{\mathrm{unrec}}^{\mathrm{LB}}$~\cite{anon2026dual} places off the trace and beyond any external party. The audit the standard of care requires is therefore not an engineering gap but a structurally unavailable quantity; the licensed signer who withholds the control action is behaving consistently with a controller-constraint diagnosis when a process model is known to be inadequate (\S\ref{sec:cases}, Case (e)). The hazard is not the refusal but its override.
+
+\paragraph{The multi-agent corollary.} The single-model result is one of \emph{non-recoverability}: the audit quantity exists but lies off the trace. Multi-agent deployment adds an independent failure---\emph{non-identifiability}. ``The recommendation is \emph{based on} guideline $X$'' is a causal claim, and causal attribution presupposes a known acyclic diagram, the causal Markov condition, and an admissible adjustment for confounding~\cite{pearl2009}. A deployed multi-agent system satisfies none: agents condition on one another's messages in feedback loops, so the graph is cyclic rather than a DAG; routing and tool selection are sampled at run time, so the structure is latent rather than fixed; and shared pretraining and context are unobserved common causes that the observed message edges do not screen off. The interventional query is therefore not merely hard to estimate but non-identifiable, and the object to be certified lives on the unbounded-dimensional space of interaction histories, with no finite sufficient statistic and no valid aggregation of per-agent confidences into a joint one. A systems-safety audit first needs a stable control structure; here the control structure is instantiated per execution, so even the diagram on which any audit would rest cannot be stabilized. Single-agent deployment removes the measurement; multi-agent deployment removes the causal model the measurement would target.
