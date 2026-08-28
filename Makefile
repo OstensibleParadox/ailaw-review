@@ -2,8 +2,11 @@ MAIN := what-is-ai-for-courts
 BUILD := build
 OUTPUT := output/pdf
 DOCX_OUTPUT := output/docx
-DOCX_FILE := $(DOCX_OUTPUT)/$(MAIN).docx
-DOCX_REVIEW := $(DOCX_OUTPUT)/$(MAIN).review.json
+# Keep the generated English DOCX aligned with the published document title,
+# rather than with the internal TeX source filename.
+DOCX_STEM := Who-Controls-Who-Answers-Liability-in-the-AI-Control-Stack-English
+DOCX_FILE := $(DOCX_OUTPUT)/$(DOCX_STEM).docx
+DOCX_REVIEW := $(DOCX_OUTPUT)/$(DOCX_STEM).review.json
 PYTHON ?= python3
 
 .PHONY: all pdf docx test-docx-converter clean clean-docx

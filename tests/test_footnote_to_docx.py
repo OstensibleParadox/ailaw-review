@@ -27,6 +27,7 @@ def load_converter():
 
 
 CONVERTER = load_converter()
+PDFPLUMBER_AVAILABLE = importlib.util.find_spec("pdfplumber") is not None
 
 
 class FootnoteConverterTests(unittest.TestCase):
@@ -413,7 +414,10 @@ Body\footnote{A nonempty note.}
             self.assertIn("编号不是从 1 连续递增", completed.stderr)
             self.assertIn("supra/infra", completed.stderr)
 
-    @unittest.skipUnless(shutil.which("pandoc"), "pandoc is required")
+    @unittest.skipUnless(
+        shutil.which("pandoc") and PDFPLUMBER_AVAILABLE,
+        "pandoc and pdfplumber are required",
+    )
     def test_repository_pdf_best_effort_golden_signals(self) -> None:
         source = ROOT / "output" / "pdf" / "what-is-ai-for-courts.pdf"
         if not source.exists():

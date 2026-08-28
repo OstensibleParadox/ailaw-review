@@ -35,6 +35,9 @@ make docx PYTHON=python3
 make clean-docx
 ```
 
+The generated English DOCX is written to
+`output/docx/Who-Controls-Who-Answers-Liability-in-the-AI-Control-Stack-English.docx`.
+
 See [`scripts/README-footnote-to-docx.md`](scripts/README-footnote-to-docx.md) for PDF input, strict recovery, custom LaTeX macros, and validation options.
 
 The package keeps the source record separate from the Article's claims:
