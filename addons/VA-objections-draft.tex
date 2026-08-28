@@ -1,0 +1,158 @@
+% =====================================================================
+% DRAFT — insert into 05-responsibility-architecture.tex
+% Placement: after \subsubsection{Two Chatbots, Two Merits Results}
+%            before \subsection{Corporate and Individual Responsibility Run in Parallel}
+% Body length: ~1,450 words (~4 printed pages with footnotes)
+% =====================================================================
+
+\subsection{The Strongest Case Against Enterprise-Facing Recourse}
+
+The front-door rule attracts three serious objections, and they arrive from
+different directions. The first is that the architecture is unnecessary
+because ordinary tort law can already reach AI harms. The second is that
+expanding enterprise exposure raises the total cost of compensating injuries
+and leaves the intended beneficiaries worse off. The third is that many AI
+harms should not be actionable at all, so a rule guaranteeing a defendant
+guarantees the wrong thing. Each objection is strong, and each narrows the
+proposal rather than defeating it. The narrowing is stated below.
+
+\subsubsection{Sufficiency: Conventional Doctrine May Already Reach These Harms}
+
+Kenneth Abraham and Catherine Sharkey argue that tort law is more capable here
+than the skeptics allow. On their account the black-box problem does not defeat
+liability, because the governing standards are outcome dependent: they turn on
+the reasonableness of the defendant's conduct rather than on an actor's state
+of mind or on reconstruction of the model's internal operation. Objective
+reasonableness, the products defective-design standard, and intentional torts
+such as invasion of privacy and defamation can each be applied to
+first-generation AI cases involving vehicles and chatbots with conventional or
+minimally adjusted principles.\lrfootnote{See \artcite{abrahamSharkey2027}; see
+also \artcite{ramakrishnanTortFrontier2026} (surveying the tort-theoretic stakes
+of frontier AI harms).} If that is right, a statutory front door is redundant
+machinery.
+
+Much of this Article agrees. This Part opened by conceding that the obstacle is
+not an absence of doctrine, and nothing proposed here supplies a new liability
+standard. The disagreement concerns stage rather than substance. Abraham and
+Sharkey answer which test governs once the defendant and the relevant conduct
+are identified. The architecture proposed here addresses how a claimant reaches
+that point.
+
+The gap becomes visible in the deployment structures mapped in Part IV. An
+objective standard of reasonableness still requires evidence of what the
+defendant did. Where one enterprise develops, configures, distributes, and
+operates a system, that evidence has a single custodian and the conventional
+account works without supplementation. Where control is divided, it does not.
+The claimant observes an output. To plead conduct, the claimant needs the
+configuration record. To obtain the configuration record, the claimant must
+name a party who holds it. To name that party, the claimant must already know
+which of several enterprises selected the model, wrote the system instructions,
+supplied the tools, set the objective, or declined to stop operation. The
+standard is available; the facts that feed it are not. The production rule
+breaks that circle without altering the standard.
+
+The objection nevertheless earns a limit, and the limit improves the proposal.
+The two components of the front door do different work and should be evaluated
+separately. In a vertically integrated deployment, the identification component
+is close to declaratory of existing attribution law and adds cost without adding
+access; \emph{Garcia} required no statute to name Character Technologies. It is
+the production component that operates there, and the identification component
+that operates in the divided architectures where an injured person can
+presently be defeated by the org chart. A legislature could sensibly enact the
+second obligation broadly and the first only for deployments in which
+development, configuration, and operation are separated.
+
+\subsubsection{Cost: Expanded Liability Raises the Price of Compensation}
+
+Mark Geistfeld identifies a cost that liability scholarship routinely omits.
+Mainstream theory favors strict enterprise liability on the ground that
+internalizing injury costs induces reasonably safe practices while liability
+insurance compensates victims. Geistfeld's objection is that a commercial
+defendant's liability insurance routinely indemnifies losses the plaintiff has
+already insured under first-party coverage such as health insurance. Expanding
+liability multiplies that duplication, and right-holders ultimately pay for it
+through prices. A safety gain purchased at a larger increase in the cost of
+insuring against injury leaves the protected class worse off. His conclusion is
+that an effective regime combines negligence liability, narrowly tailored strict
+liability, and administrative regulation rather than a general
+expansion.\lrfootnote{See \artcite{geistfeldInsurability2026}.}
+
+That conclusion is closer to the present proposal than to its opposite. This
+Article does not propose strict enterprise liability, and says so at each step:
+the claimant retains the burden of proving breach or defect, causation, legally
+cognizable harm, and every element the governing law requires, and every defense
+remains available. The duplication mechanism operates on the volume of
+compensated claims. A rule that leaves the substantive elements untouched does
+not enlarge that volume. It changes who must be named and what must be produced.
+
+Two costs survive that answer and should be acknowledged. First, the production
+obligation is incurred in cases the enterprise ultimately wins, and that cost is
+correlated across deployments in a way ordinary litigation exposure is not.
+Second, model-level failures may themselves be correlated---one version behaving
+the same way across a million deployments---which is precisely the condition
+under which pooling fails. For that class of risk, insurance may be the wrong
+instrument, and a bounded compensation fund, a channeling rule, or a statutory
+cap may serve better than either liability or coverage. That is an institutional
+design question of the kind Part II identified, and it is a legislature's to
+answer.
+
+The \Charter{} also cuts the other way on insurability. Insurers price what they
+can observe. A deployment with named risk owners, tested rollback, logged
+incidents, and independent review is underwritable; an undocumented deployment
+of the same system is not. Aviation is the working example: a mandatory
+organization-wide safety management system coexists with a functioning insurance
+market in part because the safety architecture generates the loss data
+underwriting requires.\lrfootnote{See \statcite{faaSMSPart5}; \bluecite{faaSMS2026}.}
+Documentation duties are ordinarily counted as a cost of a liability regime.
+Here they are also a precondition of the actuarial tractability whose absence
+Geistfeld correctly identifies as the deeper problem.
+
+\subsubsection{Scope: Some AI Harms Should Have No Remedy}
+
+Zachary Henderson presses the opposite concern. He argues that categorically
+applying strict liability to AI harms would be a mistake, that AI activities are
+not monolithic, and that many such harms should have no tort remedy at
+all---a position he grounds in economic efficiency, corrective justice, and civil
+recourse alike. On his account, insurance markets can fill compensatory voids for
+non-tortious harm, and domains presenting catastrophic potential call for
+tailored, domain-specific legislation rather than a general
+rule.\lrfootnote{See \artcite{hendersonRobotLiability2026}.}
+
+The architecture is orthogonal to that claim, and saying so costs nothing.
+Whether a loss is actionable is a substantive judgment about the cause of action.
+Whether an injured person can identify the enterprise and obtain the deployment
+record is a question of attribution and proof. A legislature persuaded by
+Henderson can enact both: it can narrow the class of compensable AI harms and
+still require that, within the narrowed class, the deploying enterprise face the
+claimant and produce the record. Henderson's own preferred instrument for
+high-risk domains---tailored, domain-specific legislation---is the instrument this
+Part proposes, and the ``high-impact deployment'' designation is an attempt to
+draw the domain rather than to abolish it.
+
+One element of the objection does reach the proposal directly. A named defendant
+and a production obligation generate settlement pressure independent of the
+merits, because discovery cost is itself a bargaining asset. The proposal's own
+trigger supplies the first answer: the obligation attaches only after a claimant
+pleads a recognized injury and a plausible material nexus to a covered
+deployment, and proportionality continues to govern
+scope.\lrfootnote{\statcite{frcp26}.} A legislature could add more---an early
+vetting step, staged production, or fee-shifting for claims that fail at the
+threshold. What it should not do is treat the absence of an identifiable
+defendant as a screening device. Screening by information asymmetry filters on
+the claimant's investigative resources rather than on the merits of the claim.
+
+\subsubsection{What the Objections Change}
+
+The three objections leave the architecture standing in a narrower form than
+this Part first stated. The identification component is close to declaratory
+where a deployment is integrated and does its real work where control is
+divided. The production component is the operative reform; it should be
+triggered by a pleading threshold, bounded by proportionality, and paired with
+confidentiality protection. The substantive law of recovery is left wherever the
+enacting legislature wants it, including narrower than present law. And the
+charter is defended not only as an accountability instrument but as one of the
+few available means of making a correlated and poorly quantified risk observable
+enough to price. None of the three objections requires the machine to become a
+defendant. Each is an argument about which existing persons should answer, on
+what showing, and at what cost---which is the question this Article says courts
+were always asking.
