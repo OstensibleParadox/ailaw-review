@@ -1,0 +1,6 @@
+# Runtime dependencies for PDF recovery and the compiled-LaTeX backend.
+lxml>=5,<7
+pdfplumber>=0.11,<1
+
+# Used only by the converter's synthetic PDF integration test.
+reportlab>=4,<5

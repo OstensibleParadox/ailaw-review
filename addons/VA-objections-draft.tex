@@ -1,11 +1,8 @@
-% =====================================================================
-% DRAFT — insert into 05-responsibility-architecture.tex
-% Placement: after \subsubsection{Two Chatbots, Two Merits Results}
-%            before \subsection{Corporate and Individual Responsibility Run in Parallel}
-% Body length: ~1,450 words (~4 printed pages with footnotes)
-% =====================================================================
+% Integrated source: loaded by article/05-responsibility-architecture.tex.
+% The section states and answers the leading sufficiency, insurance-cost,
+% and no-tort objections to enterprise-facing recourse.
 
-\subsection{The Strongest Case Against Enterprise-Facing Recourse}
+\subsection{Enterprise-Facing Recourse Against Its Strongest Objections}
 
 The front-door rule attracts three serious objections, and they arrive from
 different directions. The first is that the architecture is unnecessary
@@ -23,22 +20,31 @@ than the skeptics allow. On their account the black-box problem does not defeat
 liability, because the governing standards are outcome dependent: they turn on
 the reasonableness of the defendant's conduct rather than on an actor's state
 of mind or on reconstruction of the model's internal operation. Objective
-reasonableness, the products defective-design standard, and intentional torts
-such as invasion of privacy and defamation can each be applied to
-first-generation AI cases involving vehicles and chatbots with conventional or
-minimally adjusted principles.\lrfootnote{See \artcite{abrahamSharkey2027}; see
-also \artcite{ramakrishnanTortFrontier2026} (surveying the tort-theoretic stakes
-of frontier AI harms).} If that is right, a statutory front door is redundant
-machinery.
+reasonableness, the products defective-design standard, and privacy and
+defamation torts can each be applied to first-generation AI cases involving
+vehicles and chatbots with conventional or minimally adjusted principles.\lrfootnote{See
+\artcite{abrahamSharkey2027}.} If that is right, a statutory front door is
+redundant machinery.
+
+Ketan Ramakrishnan develops the proof-side alternative more directly. He
+defends negligence for frontier systems and proposes a behavioral-malfunction
+doctrine under which a clear model malfunction can satisfy the claimant's
+production burden on breach and, in a stronger version, shift persuasion. That
+approach uses familiar circumstantial-proof principles rather than replacing
+negligence with categorical strict liability.\lrfootnote{See
+\artcite[969--71, 1001--05, 1044--47]{ramakrishnanTortFrontier2026}.} It is a
+substantial answer once the malfunction and the responsible actor are in view.
 
 Much of this Article agrees. This Part opened by conceding that the obstacle is
 not an absence of doctrine, and nothing proposed here supplies a new liability
-standard. The disagreement concerns stage rather than substance. Abraham and
-Sharkey answer which test governs once the defendant and the relevant conduct
-are identified. The architecture proposed here addresses how a claimant reaches
-that point.
+standard. This Article's remaining concern is one of stage rather than
+substance. Abraham and Sharkey's merits analysis identifies which test governs
+once the defendant and relevant conduct are in view; Ramakrishnan reduces the
+proof needed to establish a malfunction against that actor. The architecture
+proposed here addresses how a claimant identifies which enterprise controlled
+a divided deployment and obtains the records needed to reach either inquiry.
 
-The gap becomes visible in the deployment structures mapped in Part IV. An
+The gap becomes visible in the deployment structures mapped in Part I. An
 objective standard of reasonableness still requires evidence of what the
 defendant did. Where one enterprise develops, configures, distributes, and
 operates a system, that evidence has a single custodian and the conventional
@@ -67,25 +73,28 @@ development, configuration, and operation are separated.
 Mark Geistfeld identifies a cost that liability scholarship routinely omits.
 Mainstream theory favors strict enterprise liability on the ground that
 internalizing injury costs induces reasonably safe practices while liability
-insurance compensates victims. Geistfeld's objection is that a commercial
-defendant's liability insurance routinely indemnifies losses the plaintiff has
-already insured under first-party coverage such as health insurance. Expanding
-liability multiplies that duplication, and right-holders ultimately pay for it
-through prices. A safety gain purchased at a larger increase in the cost of
-insuring against injury leaves the protected class worse off. His conclusion is
-that an effective regime combines negligence liability, narrowly tailored strict
-liability, and administrative regulation rather than a general
-expansion.\lrfootnote{See \artcite{geistfeldInsurability2026}.}
+insurance compensates victims. Geistfeld's objection is that liability coverage
+and first-party insurance, such as health insurance, can protect against the
+same underlying loss even when subrogation and damages rules prevent double
+recovery. Expanded liability expands that duplicative coverage, and
+right-holders ultimately pay for it through prices. A safety gain purchased at
+a larger increase in the cost of insuring against injury leaves the protected
+class worse off. The mechanism therefore counsels calibration rather than a
+general expansion.\lrfootnote{See \artcite[17]{geistfeldInsurability2026}.}
 
-That conclusion is closer to the present proposal than to its opposite. This
-Article does not propose strict enterprise liability, and says so at each step:
-the claimant retains the burden of proving breach or defect, causation, legally
-cognizable harm, and every element the governing law requires, and every defense
-remains available. The duplication mechanism operates on the volume of
-compensated claims. A rule that leaves the substantive elements untouched does
-not enlarge that volume. It changes who must be named and what must be produced.
+That analysis is closer to the present proposal than to its opposite. This
+Article does not propose strict enterprise liability: the claimant retains the
+burden of proving breach or defect, causation, legally cognizable harm, and every
+element the governing law requires, and every defense remains available. Better
+identification and production may nevertheless permit some meritorious claims
+that information asymmetry would otherwise defeat, increasing compensation and
+defense cost at that margin. The justification is correspondingly bounded. The
+rule attaches only after a recognized injury and plausible deployment nexus,
+opens only proportionate records held by the enterprise, and preserves the
+substantive limits Geistfeld wants liability law to retain. It makes existing
+rights provable rather than creating a general new class of insured harm.
 
-Two costs survive that answer and should be acknowledged. First, the production
+Two additional costs shape the design. First, the production
 obligation is incurred in cases the enterprise ultimately wins, and that cost is
 correlated across deployments in a way ordinary litigation exposure is not.
 Second, model-level failures may themselves be correlated---one version behaving
@@ -96,16 +105,19 @@ cap may serve better than either liability or coverage. That is an institutional
 design question of the kind Part II identified, and it is a legislature's to
 answer.
 
-The \Charter{} also cuts the other way on insurability. Insurers price what they
-can observe. A deployment with named risk owners, tested rollback, logged
-incidents, and independent review is underwritable; an undocumented deployment
-of the same system is not. Aviation is the working example: a mandatory
-organization-wide safety management system coexists with a functioning insurance
-market in part because the safety architecture generates the loss data
-underwriting requires.\lrfootnote{See \statcite{faaSMSPart5}; \bluecite{faaSMS2026}.}
-Documentation duties are ordinarily counted as a cost of a liability regime.
-Here they are also a precondition of the actuarial tractability whose absence
-Geistfeld correctly identifies as the deeper problem.
+The \Charter{} addresses one input to insurability: observability. A deployment
+with named risk owners, tested rollback, logged incidents, and independent review
+presents a more observable risk than an undocumented deployment of the same
+system. FAA Part 5 supplies an institutional
+analogue for that recordkeeping point: a mandatory safety management system can
+require named responsibility, incident reporting, continuing assurance, and
+retained records.\lrfootnote{See \statcite{faaSMSPart5}; \bluecite{faaSMS2026}.}
+Those records do not guarantee insurance availability, but they reduce one source
+of uncertainty relevant to risk classification. Documentation duties are
+ordinarily counted as a cost of a liability regime. Here they also improve
+actuarial tractability. That is the proposal's extension of Geistfeld's cost
+mechanism: governance records can reduce uncertainty without erasing the
+substantive limits on recovery.
 
 \subsubsection{Scope: Some AI Harms Should Have No Remedy}
 
@@ -113,10 +125,11 @@ Zachary Henderson presses the opposite concern. He argues that categorically
 applying strict liability to AI harms would be a mistake, that AI activities are
 not monolithic, and that many such harms should have no tort remedy at
 all---a position he grounds in economic efficiency, corrective justice, and civil
-recourse alike. On his account, insurance markets can fill compensatory voids for
+recourse alike.\lrfootnote{See \artcite[516--26]{hendersonRobotLiability2026}.}
+On his account, insurance markets can fill some compensatory voids for
 non-tortious harm, and domains presenting catastrophic potential call for
 tailored, domain-specific legislation rather than a general
-rule.\lrfootnote{See \artcite{hendersonRobotLiability2026}.}
+rule.\lrfootnote{See \artcite[527--30]{hendersonRobotLiability2026}.}
 
 The architecture is orthogonal to that claim, and saying so costs nothing.
 Whether a loss is actionable is a substantive judgment about the cause of action.
@@ -129,13 +142,13 @@ high-risk domains---tailored, domain-specific legislation---is the instrument th
 Part proposes, and the ``high-impact deployment'' designation is an attempt to
 draw the domain rather than to abolish it.
 
-One element of the objection does reach the proposal directly. A named defendant
-and a production obligation generate settlement pressure independent of the
-merits, because discovery cost is itself a bargaining asset. The proposal's own
+A distinct implementation cost does reach the proposal directly. A named defendant
+and a production obligation can generate settlement pressure independent of the
+merits because discovery cost is itself a bargaining asset. The proposal's own
 trigger supplies the first answer: the obligation attaches only after a claimant
 pleads a recognized injury and a plausible material nexus to a covered
 deployment, and proportionality continues to govern
-scope.\lrfootnote{\statcite{frcp26}.} A legislature could add more---an early
+scope.\lrfootnote{See \casecite[559]{twombly2007}; \statcite{frcp26}.} A legislature could add more---an early
 vetting step, staged production, or fee-shifting for claims that fail at the
 threshold. What it should not do is treat the absence of an identifiable
 defendant as a screening device. Screening by information asymmetry filters on

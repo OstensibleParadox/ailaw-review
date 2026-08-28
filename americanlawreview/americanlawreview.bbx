@@ -132,7 +132,9 @@
   \setunit{\addspace}%
   \usebibmacro{alr:page}%
   \usebibmacro{alr:pin}%
-  \usebibmacro{alr:yearparen}%
+  \ifentrytype{forthcoming}
+    {\setunit{\addspace}\printtext[parens]{forthcoming\addspace\printdate}}
+    {\usebibmacro{alr:yearparen}}%
   \newunit\newblock
   \printfield{parenthetical}}
 

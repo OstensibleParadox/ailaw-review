@@ -6,6 +6,7 @@
 \usepackage{longtable}
 \usepackage{enumitem}
 \usepackage{tikz}
+\usepackage{xurl}
 \usetikzlibrary{arrows.meta,positioning,fit}
 
 \addbibresource{what-is-ai-for-courts.bib}
@@ -24,33 +25,34 @@
 \newcommand{\Charter}{responsibility charter}
 \newcommand{\term}[1]{\emph{#1}}
 
-\title{What Is AI for Courts?\\
-\large A Jurisprudential Minimum for Adjudicating AI Disputes}
+\title{The Architecture of AI Responsibility\\
+\large Deployment Control, Enterprise-Facing Recourse, and the Anti-Substitution Principle}
 \author{Anonymous}
-\date{August 27, 2026}
+\date{August 28, 2026}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-Courts already decide disputes involving artificial intelligence, yet a threshold premise remains unsettled: what, legally, is the system before the court? Legislatures regulate uses and providers without supplying a stable jurisprudential account. Firms fill the gap with metaphors---assistant, companion, agent, tool---that can migrate unnoticed into legal analysis.
+AI liability has an ordering problem. The claimant sees an output or automated decision, while the facts needed to identify the responsible conduct---the deployed model, system instructions, tools, risk reports, approvals, and stop authority---remain divided among enterprises and hidden behind discovery. Conventional law may supply a standard of care, yet the claimant can be required to name the right controller before obtaining the record that reveals who controlled what.
 
-This Article supplies a minimum structure that does not depend on resolving machine consciousness. It separates two questions. One is invariant across ordinary doctrine: absent positive law creating a new juridical status, an AI system is not an independent bearer of legal claims, powers, duties, and liabilities. The other is functional: the same system may be a product, service, instrument, communicative medium, or professional component because each classification answers a different doctrinal question. Stable legal subjects and variable legal objects make apparently inconsistent AI cases coherent.
+This Article reframes that problem around deployment. Its \emph{deployment-control cascade} maps objectives, resources, configuration, feedback, and stopping power across the model provider, application deployer, and operating institution. The map converts system and organizational facts into evidence of authorization, notice, foreseeability, feasible precaution, causation, and preservation. Relational-AI evidence and the facts pleaded in \emph{Garcia v. Character Technologies} show why those variables, rather than the model in isolation, determine the legally relevant risk.
 
-The Article then reconstructs responsibility around deployment. A deployment-control cascade identifies who sets objectives, supplies resources, configures models and tools, receives risk information, and can stop operation. That map translates into duty, notice, breach, causation, and proof. A two-layer architecture makes the deploying enterprise the claimant-facing responsibility center while an ex ante charter allocates authority, protects good-faith escalation, preserves evidence, and permits internal recourse. The result makes probabilistic control visible.
+The Article then proposes a two-layer responsibility architecture for designated high-impact deployments. Externally, an enterprise with material deployment control owes a nondelegable deployment duty, serves as a claimant-facing responsibility center, and must identify and produce the deployment record after a threshold pleading. Internally, a mandatory responsibility charter fixes risk ownership, approval, protected escalation, stop authority, recordkeeping, and recourse before harm occurs. The proposal preserves every substantive element and defense; it is a front door, not blanket strict liability. A companion anti-substitution principle further provides that AI availability does not itself discharge an independently imposed duty of care, process, accommodation, judgment, or public service. Neither rule requires artificial personhood. Probabilistic operation changes the control evidence, not the need for a legally answerable human or organization.
 \end{abstract}
 
 \tableofcontents
 
 \input{article/00-introduction}
-\input{article/01-definition-crisis}
-\input{article/02-without-artificial-persons}
-\input{article/03-classification-matters}
 \input{article/04-reconstructing-control}
+\input{article/01-definition-crisis}
+\input{article/03-classification-matters}
 \input{article/05-responsibility-architecture}
+\input{article/06-anti-substitution}
 \input{article/06-governance-boundaries}
 \input{article/07-conclusion}
+\input{article/08-hangzhou-source-note}
 
 \clearpage
 \printbibliography[title={Authorities and Sources}]
