@@ -1,3 +1,13 @@
+## Reconstructed Submission Package
+
+The canonical manuscript is now `what-is-ai-for-courts.tex`, with Parts in `article/`, authorities in `what-is-ai-for-courts.bib`, and the source-by-source audit in `citation-ledger.md`. Run `make pdf` to build the submission-format article at `output/pdf/what-is-ai-for-courts.pdf`.
+
+The reconstructed argument is organized around one jurisprudential minimum: functional classifications of AI may vary across doctrines, but operational autonomy does not silently reassign legal status. The Article translates that invariant into a deployment-control cascade and a two-layer responsibility architecture for courts.
+
+The research and drafting specification that governed the reconstruction follows.
+
+---
+
 What Is AI for Courts? 
 
 -- A Jurisprudential Minimum for Adjudicating AI Disputes
@@ -232,4 +242,3 @@ Part VI
 * capability stratification 对接 access equality、digital divide 和风险分级；
 * anti-substitution 对接照护义务、公共服务与 automation welfare；
 * state power 对接采购法、First Amendment、unconstitutional conditions 和具体争议。
-
