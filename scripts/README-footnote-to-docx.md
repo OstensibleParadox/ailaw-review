@@ -30,6 +30,8 @@ python3 scripts/footnote_to_docx.py paper.pdf -o paper.docx --best-effort
 
 默认同时生成 `<输出名>.review.json`。报告记录后端、脚注数量、PDF 配对位置和启发式证据分，以及 DOCX 包结构验收结果。`evidence_score`（兼容字段 `confidence`）不是经过校准的正确概率；即使得分为 `1.0`，仍应结合 marker、编号和警告清单复核。已有输出不会被覆盖；需要覆盖时显式使用 `--force`。
 
+`--document-title "…"` 会写入 DOCX 核心属性标题，但不会改动已由 LaTeX 生成的可见标题块。这适合让文件元数据和发布用文件名保持一致。
+
 ## LaTeX 路径
 
 `--latex-backend auto` 是默认值：

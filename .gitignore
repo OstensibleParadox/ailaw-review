@@ -43,3 +43,4 @@ __pycache__/
 *.py[cod]
 .pytest_cache
 build/
+output/docx/*.review.json

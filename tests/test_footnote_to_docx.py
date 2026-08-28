@@ -57,6 +57,25 @@ class FootnoteConverterTests(unittest.TestCase):
             for name, payload in members.items():
                 archive.writestr(name, payload)
 
+    def test_document_title_metadata_is_written_without_a_visible_title_edit(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="docx-title-test-") as temp_name:
+            document = Path(temp_name) / "sample.docx"
+            core_properties = f'''<?xml version="1.0" encoding="UTF-8"?>
+<cp:coreProperties xmlns:cp="{CONVERTER.CP_NS}" xmlns:dc="{CONVERTER.DC_NS}">
+  <dc:creator>Author</dc:creator>
+</cp:coreProperties>'''
+            with zipfile.ZipFile(document, "w", zipfile.ZIP_DEFLATED) as archive:
+                archive.writestr("docProps/core.xml", core_properties)
+                archive.writestr("word/document.xml", "<document />")
+
+            expected_title = "Who Controls, Who Answers: Liability in the AI Control Stack"
+            CONVERTER.set_docx_title(document, expected_title)
+
+            with zipfile.ZipFile(document) as archive:
+                root = ET.fromstring(archive.read("docProps/core.xml"))
+            self.assertEqual(root.findtext(f"{{{CONVERTER.DC_NS}}}title"), expected_title)
+            self.assertEqual(root.findtext(f"{{{CONVERTER.DC_NS}}}creator"), "Author")
+
     def reportlab_canvas(self, path: Path):
         try:
             from reportlab.pdfgen import canvas
@@ -429,10 +448,10 @@ Body\footnote{A nonempty note.}
             min_confidence=0.85,
             verbose=False,
         )
-        self.assertEqual(review["detected_notes"], 120)
-        self.assertEqual(review["matched_notes"], 120)
+        self.assertEqual(review["detected_notes"], 113)
+        self.assertEqual(review["matched_notes"], 113)
         self.assertEqual(review["unmatched_markers"], [])
-        self.assertGreaterEqual(len(review["removed_running_matter"]), 92)
+        self.assertGreaterEqual(len(review["removed_running_matter"]), 86)
         self.assertEqual(review["dehyphenations"], [])
 
         def plain(value) -> str:

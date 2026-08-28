@@ -5,6 +5,7 @@ DOCX_OUTPUT := output/docx
 # Keep the generated English DOCX aligned with the published document title,
 # rather than with the internal TeX source filename.
 DOCX_STEM := Who-Controls-Who-Answers-Liability-in-the-AI-Control-Stack-English
+DOCX_TITLE := Who Controls, Who Answers: Liability in the AI Control Stack
 DOCX_FILE := $(DOCX_OUTPUT)/$(DOCX_STEM).docx
 DOCX_REVIEW := $(DOCX_OUTPUT)/$(DOCX_STEM).review.json
 PYTHON ?= python3
@@ -20,13 +21,13 @@ pdf:
 
 docx:
 	mkdir -p $(DOCX_OUTPUT)
-	$(PYTHON) scripts/footnote_to_docx.py $(MAIN).tex --output $(DOCX_FILE) --force
+	$(PYTHON) scripts/footnote_to_docx.py $(MAIN).tex --output $(DOCX_FILE) --document-title "$(DOCX_TITLE)" --force
 
 test-docx-converter:
 	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'
 
 clean:
-	latexmk -C -outdir=$(BUILD) $(MAIN).tex
+	$(RM) -r $(BUILD)
 
 clean-docx:
 	$(RM) $(DOCX_FILE) $(DOCX_REVIEW)

@@ -25,7 +25,7 @@ The Introduction and Conclusion are unnumbered. An unnumbered source note identi
 make pdf
 ```
 
-The final PDF is written to `output/pdf/what-is-ai-for-courts.pdf`. The August 28, 2026 submission build contains 21,923 counted words and 93 pages. It was compiled with no undefined citations, cross-reference warnings, or overfull/underfull box warnings, and all pages were rendered for visual inspection.
+The final PDF is written to `output/pdf/what-is-ai-for-courts.pdf`.
 
 To generate a DOCX with real Word footnotes:
 

@@ -50,6 +50,8 @@ W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 R_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 PKG_REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
 CT_NS = "http://schemas.openxmlformats.org/package/2006/content-types"
+CP_NS = "http://schemas.openxmlformats.org/package/2006/metadata/core-properties"
+DC_NS = "http://purl.org/dc/elements/1.1/"
 FOOTNOTE_REL = f"{R_NS}/footnotes"
 FOOTNOTE_CONTENT_TYPE = (
     "application/vnd.openxmlformats-officedocument."
@@ -76,6 +78,46 @@ LIGATURES = str.maketrans({"ﬁ": "fi", "ﬂ": "fl", "ﬀ": "ff", "ﬃ": "ffi", 
 
 class ConversionError(RuntimeError):
     """A user-facing conversion failure."""
+
+
+def set_docx_title(path: Path, title: str) -> None:
+    """Set the OOXML core title without changing the visible title block."""
+    with zipfile.ZipFile(path) as archive:
+        members = {name: archive.read(name) for name in archive.namelist()}
+    try:
+        root = ET.fromstring(members["docProps/core.xml"])
+    except KeyError as exc:
+        raise ConversionError("生成的 DOCX 缺少核心元数据，无法写入标题") from exc
+    except ET.ParseError as exc:
+        raise ConversionError("生成的 DOCX 核心元数据格式无效，无法写入标题") from exc
+
+    title_element = root.find(f"{{{DC_NS}}}title")
+    if title_element is None:
+        title_element = ET.Element(f"{{{DC_NS}}}title")
+        root.insert(0, title_element)
+    title_element.text = title
+
+    ET.register_namespace("cp", CP_NS)
+    ET.register_namespace("dc", DC_NS)
+    members["docProps/core.xml"] = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+
+    temporary_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            dir=path.parent,
+            prefix=f".{path.name}.tmp-",
+            suffix=".docx",
+            delete=False,
+        ) as handle:
+            temporary_path = Path(handle.name)
+        with zipfile.ZipFile(temporary_path, "w", zipfile.ZIP_DEFLATED) as archive:
+            for name, payload in members.items():
+                archive.writestr(name, payload)
+        os.replace(temporary_path, path)
+        temporary_path = None
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
 
 
 @dataclasses.dataclass
@@ -2308,6 +2350,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="LaTeX 后端；auto 对 biblatex/自定义脚注宏优先使用 make4ht",
     )
     parser.add_argument("--reference-doc", type=Path, help="Pandoc reference.docx 样式模板")
+    parser.add_argument("--document-title", help="写入 DOCX 核心属性的标题，不改变可见标题块")
     parser.add_argument("--bibliography", action="append", default=[], help="额外 .bib，可重复")
     parser.add_argument("--csl", type=Path, help="CSL 引文样式")
     parser.add_argument("--no-citeproc", action="store_true", help="不运行 Pandoc citeproc")
@@ -2403,6 +2446,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             else:
                 staged_docx, details, source_note_count = convert_pdf(source, stage, args, pandoc)
 
+            if args.document_title:
+                set_docx_title(staged_docx, args.document_title)
+
             validation = validate_docx_footnotes(staged_docx, expected_count=source_note_count)
             if not validation["valid"]:
                 raise ConversionError(
@@ -2417,6 +2463,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "source": str(source),
                 "source_type": source_type,
                 "output": str(output),
+                "document_title": args.document_title,
                 "pandoc": pandoc_version(pandoc, source.parent),
                 "mode": "best-effort" if args.best_effort and source_type == "pdf" else "strict",
                 "source_note_count": source_note_count,
