@@ -25,6 +25,9 @@
   congress,
   clause,
   amendment,
+  documenttitle,
+  casenumber,
+  docketnumber,
   parenthetical}
 
 \DeclareDatamodelEntryfields[case]{
@@ -42,6 +45,9 @@
   prior,
   subsequent,
   jurisdiction,
+  documenttitle,
+  casenumber,
+  docketnumber,
   parenthetical}
 
 \DeclareDatamodelEntryfields[statute]{

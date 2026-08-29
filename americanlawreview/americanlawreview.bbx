@@ -9,27 +9,35 @@
   doi=false,
   isbn=false,
   url=false,
-  giveninits=true,
+  giveninits=false,
   maxnames=3,
   minnames=1}
 
 \DeclareDelimFormat{multinamedelim}{\addcomma\space}
-\DeclareDelimFormat{finalnamedelim}{\addspace and\space}
+\DeclareDelimFormat{finalnamedelim}{\addspace\&\space}
 \DeclareDelimFormat{nametitledelim}{\addcomma\space}
 \DeclareDelimFormat{multicitedelim}{\addsemicolon\space}
 
 \DeclareFieldFormat{title}{#1}
+\DeclareFieldFormat{plain}{#1}
+\DeclareFieldFormat[case]{title}{\mkbibemph{#1,}}
+\DeclareFieldFormat[case]{shorttitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[case]{parenthetical}{\mkbibparens{#1}}
 \DeclareFieldFormat[article,lawreview]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[book]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat{journaltitle}{#1}
-\DeclareFieldFormat{shortjournal}{#1}
+\DeclareFieldFormat[report]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[online]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[book]{title}{\textsc{#1}}
+\DeclareFieldFormat{journaltitle}{\textsc{#1}}
+\DeclareFieldFormat{shortjournal}{\textsc{#1}}
 \DeclareFieldFormat{reporter}{#1}
 \DeclareFieldFormat{code}{#1}
 \DeclareFieldFormat{section}{#1}
 \DeclareFieldFormat{page}{#1}
+\DeclareFieldFormat{pages}{#1}
 \DeclareFieldFormat{volume}{#1}
 \DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat{shorthand}{#1}
+\DeclareFieldFormat{url}{\url{#1}}
 
 \DeclareLabeltitle[case,statute,constitution,regulation,legislation,lawreview]{
   \field{shorttitle}
@@ -41,22 +49,30 @@
 \DeclareBibliographyAlias{treaty}{misc}
 
 \newbibmacro*{alr:dateparen}{%
-  \ifboolexpr{
-    not test {\iffieldundef{court}}
-    or
-    not test {\iffieldundef{year}}
-  }
+  \iffieldequalstr{entrysubtype}{docket}
     {\setunit{\addspace}%
      \printtext[parens]{%
        \printfield{court}%
        \setunit*{\addspace}%
        \printdate}}
-    {}}
+    {\iffieldequalstr{reporter}{U.S.}
+       {\usebibmacro{alr:yearparen}}
+       {\ifboolexpr{
+          not test {\iffieldundef{court}}
+          or
+          not test {\iffieldundef{year}}
+        }
+          {\setunit{\addspace}%
+           \printtext[parens]{%
+             \printfield{court}%
+             \setunit*{\addspace}%
+             \printfield{year}}}
+          {}}}}
 
 \newbibmacro*{alr:yearparen}{%
   \iffieldundef{year}
     {}
-    {\setunit{\addspace}\printtext[parens]{\printdate}}}
+    {\setunit{\addspace}\printtext[parens]{\printfield{year}}}}
 
 \newbibmacro*{alr:page}{%
   \iffieldundef{page}
@@ -68,6 +84,13 @@
     {}
     {\setunit{\addcomma\space}\printfield{postnote}}}
 
+\newbibmacro*{alr:casepin}{%
+  \iffieldundef{postnote}
+    {}
+    {\iffieldundef{volume}
+       {\setunit{\addcomma\space}\printtext{at\addspace\printfield{postnote}}}
+       {\setunit{\addcomma\space}\printfield{postnote}}}}
+
 \newbibmacro*{alr:reporter}{%
   \iffieldundef{reporter}
     {\iffieldundef{shortjournal}
@@ -76,27 +99,61 @@
     {\printfield{reporter}}}
 
 \newbibmacro*{alr:casecite}{%
-  \printfield{title}%
-  \setunit{\addcomma\space}%
-  \printfield{volume}%
-  \setunit{\addspace}%
-  \usebibmacro{alr:reporter}%
-  \setunit{\addspace}%
-  \usebibmacro{alr:page}%
-  \usebibmacro{alr:pin}%
-  \usebibmacro{alr:dateparen}%
-  \newunit\newblock
-  \printfield{parenthetical}}
+  \iffieldequalstr{entrysubtype}{docket}
+    {\printfield{documenttitle}%
+     \iffieldundef{postnote}
+       {}
+       {\setunit{\addspace}\printtext{at\addspace\printfield{postnote}}}%
+     \setunit{\addcomma\space}%
+     \printfield{title}%
+     \setunit{\addspace}%
+     \printtext{No.\addspace\printfield{casenumber}}%
+     \usebibmacro{alr:dateparen}%
+     \setunit{\addcomma\space}%
+     \printtext{ECF No.\addspace\printfield{docketnumber}}}
+    {\printfield{title}%
+     \setunit{\addspace}%
+     \printfield{volume}%
+     \setunit{\addspace}%
+     \usebibmacro{alr:reporter}%
+     \setunit{\addspace}%
+     \usebibmacro{alr:page}%
+     \usebibmacro{alr:casepin}%
+     \usebibmacro{alr:dateparen}}%
+  \iffieldundef{parenthetical}
+    {}
+    {\setunit{\addspace}\printfield{parenthetical}}}
 
 \newbibmacro*{alr:statutecite}{%
-  \printfield{title}%
-  \setunit{\addcomma\space}%
-  \printfield{code}%
-  \iffieldundef{section}
-    {}
-    {\addspace\S\addnbspace\printfield{section}}%
-  \usebibmacro{alr:pin}%
-  \usebibmacro{alr:yearparen}%
+  \iffieldequalstr{entrysubtype}{rule}
+    {\printfield{title}%
+     \usebibmacro{alr:pin}}
+    {\iffieldequalstr{entrysubtype}{regulationsections}
+       {\printfield{code}%
+        \addspace\S\S\addnbspace\printfield{section}%
+        \usebibmacro{alr:yearparen}}
+       {\iffieldequalstr{entrysubtype}{fedreg}
+       {\printfield{title}%
+        \iffieldundef{title}
+          {}
+          {\setunit{\addcomma\space}}%
+        \printfield{code}%
+        \setunit{\addspace}%
+        \printfield{section}%
+        \setunit{\addspace}%
+       \printtext[parens]{\printdate}}
+       {\printfield{title}%
+        \iffieldundef{title}
+          {}
+          {\setunit{\addcomma\space}}%
+        \printfield{code}%
+        \iffieldundef{section}
+          {}
+          {\iffieldequalstr{entrysubtype}{multisection}
+             {\addspace\S\S\addnbspace\printfield{section}}
+             {\addspace\S\addnbspace\printfield{section}}}%
+        \usebibmacro{alr:pin}%
+        \usebibmacro{alr:yearparen}}}}%
   \newunit\newblock
   \printfield{parenthetical}}
 
@@ -136,18 +193,92 @@
   \printnames{author}%
   \setunit{\addcomma\space}%
   \printfield{title}%
-  \setunit{\addcomma\space}%
-  \printfield{volume}%
-  \setunit{\addspace}%
-  \iffieldundef{shortjournal}
-    {\printfield{journaltitle}}
-    {\printfield{shortjournal}}%
+  \iffieldequalstr{entrysubtype}{proceedings}
+    {\setunit{\addcomma\space}%
+     \printtext{in}%
+     \setunit{\addspace}%
+     \iffieldundef{shortjournal}
+       {\printfield{journaltitle}}
+       {\printfield{shortjournal}}}
+    {\setunit{\addcomma\space}%
+     \printfield{volume}%
+     \setunit{\addspace}%
+     \iffieldundef{shortjournal}
+       {\printfield{journaltitle}}
+       {\printfield{shortjournal}}}%
   \setunit{\addspace}%
   \usebibmacro{alr:page}%
   \usebibmacro{alr:pin}%
   \ifentrytype{forthcoming}
     {\setunit{\addspace}\printtext[parens]{forthcoming\addspace\printdate}}
     {\usebibmacro{alr:yearparen}}%
+  \iffieldequalstr{entrysubtype}{proceedings}
+    {\iffieldundef{url}
+       {}
+       {\setunit{\addcomma\space}\printfield{url}}}
+    {}%
+  \newunit\newblock
+  \printfield{parenthetical}}
+
+\newbibmacro*{alr:reportcite}{%
+  \printnames{author}%
+  \setunit{\addcomma\space}%
+  \printfield{title}%
+  \iffieldundef{postnote}
+    {}
+    {\setunit{\addcomma\space}\printtext{at\addspace\printfield{postnote}}}%
+  \iffieldequalstr{entrysubtype}{arxiv}
+    {\setunit{\addcomma\space}%
+     \printtext{arXiv:\printfield{number}}%
+     \setunit{\addspace}%
+     \printtext[parens]{\printdate}}
+    {\iffieldequalstr{entrysubtype}{unpublished}
+       {\setunit{\addspace}%
+        \printtext[parens]{%
+          \printfield{type}%
+          \setunit*{\addcomma\space}%
+          \printdate}}
+       {\ifboolexpr{
+          not test {\iffieldundef{organization}}
+          or
+          not test {\iffieldundef{number}}
+          or
+          not test {\iffieldundef{year}}
+        }
+          {\setunit{\addspace}%
+           \printtext[parens]{%
+             \printlist{organization}%
+             \iffieldundef{number}
+               {}
+               {\setunit{\addspace}\printtext{No.\addspace\printfield{number}}}%
+             \iffieldundef{year}
+               {}
+               {\setunit{\addcomma\space}\printfield{year}}}}
+          {}}}%
+  \iffieldequalstr{entrysubtype}{arxiv}
+    {}
+    {\iffieldundef{url}
+       {}
+       {\setunit{\addcomma\space}\printfield{url}}}%
+  \newunit\newblock
+  \printfield{parenthetical}}
+
+\newbibmacro*{alr:onlinecite}{%
+  \printnames{author}%
+  \setunit{\addcomma\space}%
+  \printfield{title}%
+  \iffieldundef{number}
+    {}
+    {\setunit{\addcomma\space}\printfield{number}}%
+  \iffieldundef{postnote}
+    {}
+    {\setunit{\addcomma\space}\printtext{at\addspace\printfield{postnote}}}%
+  \iffieldundef{year}
+    {}
+    {\setunit{\addspace}\printtext[parens]{\printdate}}%
+  \iffieldundef{url}
+    {}
+    {\setunit{\addcomma\space}\printfield{url}}%
   \newunit\newblock
   \printfield{parenthetical}}
 
@@ -193,22 +324,35 @@
   \usebibmacro{alr:lawreviewcite}%
   \usebibmacro{finentry}}
 
+\DeclareBibliographyDriver{report}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:reportcite}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{online}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{alr:onlinecite}%
+  \usebibmacro{finentry}}
+
 \DeclareBibliographyDriver{book}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \printnames{author}%
-  \setunit{\addcomma\space}%
-  \printfield{title}%
-  \iffieldundef{year}
-    {}
-    {\setunit{\addspace}%
-     \printtext[parens]{%
-       \printlist{location}%
-       \setunit{\addcolon\space}%
-       \printlist{publisher}%
-       \setunit{\addcomma\space}%
-       \printdate}}%
-  \usebibmacro{alr:pin}%
+  \iffieldequalstr{entrysubtype}{restatement}
+    {\printfield{title}%
+     \iffieldundef{postnote}
+       {}
+       {\setunit{\addspace}\printfield{postnote}}%
+     \setunit{\addspace}%
+     \printtext[parens]{Am. L. Inst.\addspace\printfield{year}}}
+    {\printtext{\textsc{\printnames{author}}}%
+     \setunit{\addcomma\space}%
+     \printfield{title}%
+     \iffieldundef{postnote}
+       {}
+       {\setunit{\addspace}\printfield{postnote}}%
+     \usebibmacro{alr:yearparen}}%
   \newunit\newblock
   \printfield{parenthetical}%
   \usebibmacro{finentry}}

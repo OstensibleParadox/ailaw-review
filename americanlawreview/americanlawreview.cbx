@@ -40,27 +40,50 @@
   \usebibmacro{alr:commapostnote}}
 
 \newbibmacro*{alr:shortcase}{%
-  \iffieldundef{shorthand}
+  \iffieldequalstr{entrysubtype}{docket}
+    {\iffieldundef{shorttitle}
+       {\printfield[plain]{title}}
+       {\printfield[plain]{shorttitle}}%
+     \setunit{\addcomma\space}%
+     \printtext{ECF No.\addspace\printfield{docketnumber}}%
+     \usebibmacro{alr:commapostnote}}
+    {\iffieldundef{shorthand}
+       {\iffieldundef{shorttitle}
+          {\printfield{title}}
+          {\printfield{shorttitle}}%
+        \setunit{\addcomma\space}%
+        \iffieldundef{volume}
+          {\iffieldundef{reporter}
+             {\iffieldundef{shortjournal}
+                {\printfield{journaltitle}}
+                {\printfield{shortjournal}}}
+             {\printfield{reporter}}%
+           \setunit{\addspace}%
+           \iffieldundef{page}{\printfield{pages}}{\printfield{page}}%
+           \iffieldundef{postnote}
+             {}
+             {\setunit{\addcomma\space}\printtext{at\addspace\printfield{postnote}}}}
+          {\printfield{volume}%
+           \setunit{\addspace}%
+           \iffieldundef{reporter}
+             {\iffieldundef{shortjournal}
+                {\printfield{journaltitle}}
+                {\printfield{shortjournal}}}
+             {\printfield{reporter}}%
+           \iffieldundef{postnote}
+             {\setunit{\addspace}%
+              \iffieldundef{page}{\printfield{pages}}{\printfield{page}}}
+             {\addspace at\addspace\printfield{postnote}}}}
+       {\printfield{shorthand}%
+        \usebibmacro{alr:atpostnote}}}}
+
+\newbibmacro*{alr:shortstatute}{%
+  \iffieldequalstr{entrysubtype}{rule}
     {\iffieldundef{shorttitle}
        {\printfield{title}}
        {\printfield{shorttitle}}%
-     \setunit{\addcomma\space}%
-     \printfield{volume}%
-     \setunit{\addspace}%
-     \iffieldundef{reporter}
-       {\iffieldundef{shortjournal}
-          {\printfield{journaltitle}}
-          {\printfield{shortjournal}}}
-       {\printfield{reporter}}%
-     \iffieldundef{postnote}
-       {\setunit{\addspace}%
-        \iffieldundef{page}{\printfield{pages}}{\printfield{page}}}
-       {\addspace at\addspace\printfield{postnote}}}
-    {\printfield{shorthand}%
-     \usebibmacro{alr:atpostnote}}}
-
-\newbibmacro*{alr:shortstatute}{%
-  \iffieldundef{shorthand}
+     \usebibmacro{alr:atpostnote}}
+    {\iffieldundef{shorthand}
     {\iffieldundef{shorttitle}
        {\printfield{title}}
        {\printfield{shorttitle}}%
@@ -72,7 +95,7 @@
           {\addspace\S\addnbspace\printfield{section}}}
        {\addspace\S\addnbspace\printfield{postnote}}}
     {\printfield{shorthand}%
-     \usebibmacro{alr:atpostnote}}}
+     \usebibmacro{alr:atpostnote}}}}
 
 \newbibmacro*{alr:shortlegislation}{%
   \iffieldundef{shorthand}
