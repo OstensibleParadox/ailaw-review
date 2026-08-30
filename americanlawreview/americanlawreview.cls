@@ -21,9 +21,14 @@
 
 \edef\alrcls@pkgopts{review=\alrcls@review,mode=\alrcls@mode,bluebook}
 \expandafter\RequirePackage\expandafter[\alrcls@pkgopts]{americanlawreview}
-\RequirePackage[letterpaper,margin=1in]{geometry}
+\providecommand*\alrgeometryoptions{margin=1in}
+\providecommand*\alrfontsetup{}
+\providecommand*\alrprofilelayout{}
+\RequirePackage[letterpaper]{geometry}
+\expandafter\geometry\expandafter{\alrgeometryoptions}
 \RequirePackage{setspace}
 \RequirePackage{fancyhdr}
+\alrfontsetup
 
 \ifdefstring{\alrcls@mode}{submission}
   {\doublespacing}
@@ -80,4 +85,5 @@
     \vskip 1.5\baselineskip
   \end{center}
   \alrprintauthornotes}
+\alrprofilelayout
 \makeatother

@@ -17,9 +17,11 @@
 
 \ifdefstring{\alr@review}{generic}
   {\InputIfFileExists{americanlawreview-generic.def}{}{}}
-  {\PackageError{americanlawreview}
-     {Profile '\alr@review' is reserved but not implemented}
-     {v1 ships only review=generic.}}
+  {\ifdefstring{\alr@review}{harvardjolt}
+     {\InputIfFileExists{americanlawreview-harvardjolt.def}{}{}}
+     {\PackageError{americanlawreview}
+        {Profile '\alr@review' is not implemented}
+        {Use review=generic or review=harvardjolt.}}}
 
 \ifdefstring{\alr@citationstyle}{bluebook}
   {}
