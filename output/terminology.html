@@ -1,0 +1,885 @@
+<title>Front-Door Terminology Canon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F6F8F7; --panel:#EBEFEE; --card:#FFFFFF;
+  --ink:#141817; --ink-2:#4A5654; --ink-3:#77837F;
+  --rule:#D5DCDA; --rule-soft:#E4EAE8;
+  --accent:#1B5A4B; --accent-soft:#E2EDE8;
+  --amber:#7A5F17; --amber-soft:#F1ECDB;
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",Menlo,Consolas,monospace;
+  --s1:.4rem; --s2:.75rem; --s3:1.15rem; --s4:1.8rem; --s5:2.75rem; --s6:4.25rem;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0F1312; --panel:#181D1C; --card:#141918;
+  --ink:#E6EAE8; --ink-2:#A2AFAB; --ink-3:#7B8783;
+  --rule:#293130; --rule-soft:#1F2625;
+  --accent:#6FB69E; --accent-soft:#16302A;
+  --amber:#C5A452; --amber-soft:#272113;
+}}
+:root[data-theme="dark"]{
+  --ground:#0F1312; --panel:#181D1C; --card:#141918;
+  --ink:#E6EAE8; --ink-2:#A2AFAB; --ink-3:#7B8783;
+  --rule:#293130; --rule-soft:#1F2625;
+  --accent:#6FB69E; --accent-soft:#16302A;
+  --amber:#C5A452; --amber-soft:#272113;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:var(--s5) 1.5rem var(--s6);
+  display:flex;flex-direction:column;gap:var(--s5)}
+p{margin:0}
+code{font-family:var(--mono);font-size:.875em}
+cite{font-style:italic}
+
+.eyebrow{font-family:var(--mono);font-size:.688rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+header.mast{display:flex;flex-direction:column;gap:var(--s3)}
+.mast h1{font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.2rem,5.6vw,3.5rem);line-height:1.05;letter-spacing:-.018em;
+  margin:0;text-wrap:balance}
+.standfirst{font-family:var(--serif);font-size:clamp(1.05rem,2.2vw,1.28rem);
+  line-height:1.5;color:var(--ink-2);max-width:62ch;text-wrap:pretty}
+.stats{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;padding-top:var(--s3);
+  border-top:1px solid var(--rule);font-family:var(--mono);font-size:.75rem;
+  color:var(--ink-3);font-variant-numeric:tabular-nums}
+.stats b{color:var(--accent);font-weight:500}
+
+section{display:flex;flex-direction:column;gap:var(--s4)}
+.sec-head{display:flex;flex-direction:column;gap:var(--s2)}
+.sec-head h2{font-family:var(--serif);font-weight:500;
+  font-size:clamp(1.5rem,3.2vw,2rem);line-height:1.2;margin:0;
+  max-width:28ch;text-wrap:balance}
+.sec-head p{color:var(--ink-2);max-width:66ch}
+
+.legend{display:grid;gap:var(--s3);grid-template-columns:1fr}
+@media(min-width:720px){.legend{grid-template-columns:repeat(3,1fr);gap:var(--s3)}}
+.leg{border-top:2px solid var(--rule);padding-top:var(--s2);
+  display:flex;flex-direction:column;gap:.35rem}
+.leg-anchored{border-top-color:var(--ink-3)}
+.leg-coined{border-top-color:var(--accent)}
+.leg-borrowed{border-top-color:var(--amber)}
+.leg h3{font-family:var(--mono);font-size:.75rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;margin:0}
+.leg p{font-size:.875rem;color:var(--ink-2);line-height:1.55}
+
+.act{display:flex;flex-direction:column;gap:var(--s2);
+  border-left:2px solid var(--amber);padding:var(--s1) 0 var(--s1) var(--s3)}
+.act.req{border-left-color:var(--accent)}
+.act-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem}
+.act-term{font-family:var(--mono);font-size:.875rem;font-weight:500;color:var(--ink)}
+.act-kind{font-family:var(--mono);font-size:.688rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3)}
+.act p{font-size:.938rem;color:var(--ink-2);line-height:1.58;max-width:72ch}
+.act .cite{font-size:.813rem;color:var(--ink-3);font-style:italic;max-width:72ch}
+.acts{display:flex;flex-direction:column;gap:var(--s3)}
+
+.controls{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center;
+  position:sticky;top:0;z-index:5;background:var(--ground);
+  padding:var(--s2) 0;border-bottom:1px solid var(--rule)}
+input[type=search]{font-family:var(--sans);font-size:.938rem;color:var(--ink);
+  background:var(--card);border:1px solid var(--rule);border-radius:2px;
+  padding:.5rem .7rem;min-width:min(320px,100%);flex:1 1 240px}
+input[type=search]::placeholder{color:var(--ink-3)}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:.75rem;letter-spacing:.04em;
+  padding:.4rem .65rem;border:1px solid var(--rule);border-radius:2px;
+  background:transparent;color:var(--ink-2);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--ground)}
+.count{font-family:var(--mono);font-size:.75rem;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;margin-left:auto}
+
+.terms{display:flex;flex-direction:column;gap:0}
+.term{display:grid;gap:var(--s2);grid-template-columns:1fr;
+  padding:var(--s3) 0;border-bottom:1px solid var(--rule-soft)}
+@media(min-width:860px){.term{grid-template-columns:15rem 1fr;gap:var(--s4)}}
+.tkey{display:flex;flex-direction:column;gap:.3rem;align-self:start}
+.tcanon{font-family:var(--serif);font-size:1.1rem;font-weight:500;
+  line-height:1.3;color:var(--ink)}
+.tid{font-family:var(--mono);font-size:.75rem;color:var(--ink-3)}
+.pill{align-self:flex-start;font-family:var(--mono);font-size:.625rem;
+  letter-spacing:.1em;text-transform:uppercase;padding:.15rem .45rem;
+  border-radius:2px;margin-top:.15rem}
+.p-anchored{background:var(--panel);color:var(--ink-2)}
+.p-coined{background:var(--accent-soft);color:var(--accent)}
+.p-borrowed{background:var(--amber-soft);color:var(--amber)}
+.tbody{display:flex;flex-direction:column;gap:var(--s2)}
+.gloss{font-size:.938rem;color:var(--ink-2);line-height:1.58;max-width:70ch}
+.meta{font-size:.813rem;color:var(--ink-3);line-height:1.5}
+.meta b{font-family:var(--mono);font-weight:500;font-size:.75rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.bans{display:flex;flex-direction:column;gap:.35rem;margin:0;padding:0;list-style:none}
+.ban{font-size:.875rem;line-height:1.5;color:var(--ink-2)}
+.ban .x{font-family:var(--mono);color:var(--ink);text-decoration:line-through;
+  text-decoration-color:var(--amber);text-decoration-thickness:1px}
+.ban .arrow{color:var(--ink-3);padding:0 .3rem}
+.ban .to{font-family:var(--mono);color:var(--accent)}
+.ban .sev{font-family:var(--mono);font-size:.625rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);padding-left:.4rem}
+.ban .why{display:block;color:var(--ink-3);font-size:.813rem;
+  line-height:1.5;max-width:70ch;padding-top:.1rem}
+.empty{padding:var(--s4) 0;color:var(--ink-3);font-size:.938rem}
+
+pre{background:var(--panel);padding:var(--s3);border-radius:2px;overflow-x:auto;
+  font-family:var(--mono);font-size:.813rem;line-height:1.7;color:var(--ink-2);margin:0}
+footer{border-top:1px solid var(--rule);padding-top:var(--s3);
+  font-family:var(--mono);font-size:.75rem;line-height:1.7;color:var(--ink-3);max-width:70ch}
+*:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<div class="wrap">
+<header class="mast">
+<div class="eyebrow">Canonical vocabulary · generated from TERMINOLOGY.yaml</div>
+<h1>Front-Door Terminology Canon</h1>
+<p class="standfirst">Every term in <cite>Who Controls, Who Answers? A Deployment Front Door for High-Impact AI Litigation</cite>, anchored to its standard scholarly or statutory name where one exists, and marked as the Article's own coinage where none does.</p>
+<div class="stats">
+<span><b>44</b> terms</span>
+<span><b>3</b> anchored · <b>2</b> borrowed · <b>39</b> coined</span>
+<span><b>49</b> banned forms</span>
+<span><b>18</b> required actions</span>
+</div></header>
+<section><div class='sec-head'>
+<div class="eyebrow">01 · How the canon binds</div>
+<h2>The file is the authority, not the prose.</h2>
+<p>Coining a term is legitimate, and this Article does a great deal of it. The failure mode is not coining. It is coining where a standard term already exists, or coining and then drifting. Every entry below is classified on that axis.</p>
+<p>A terminology question is settled by editing <code>TERMINOLOGY.yaml</code> and running the linter, never by editing a sentence. That is what keeps an agent, a co-author and a cite-checker working from the same vocabulary six months from now.</p>
+</div>
+<div class="legend">
+<div class="leg leg-anchored"><h3>anchored · 3</h3><p>A standard scholarly or statutory term already exists and is adopted. Use it exactly; do not invent a synonym.</p></div>
+<div class="leg leg-coined"><h3>coined · 39</h3><p>The Article's own term for a concept with no standard name. Keep it, define it once, and never vary the wording.</p></div>
+<div class="leg leg-borrowed"><h3>borrowed · 2</h3><p>Imported from an adjacent literature. Cite the source at first use and do not silently rename what that literature already named.</p></div>
+</div></section>
+<section><div class='sec-head'>
+<div class="eyebrow">02 · Work no linter can do</div>
+<h2>18 required actions, 15 advisory.</h2>
+<p>String substitution is the easy half. These are the items where a term is lexically fine but sits on top of an established meaning in a neighbouring field, or where the draft assigns one object two owners. Each needs a sentence or a footnote, not a find-and-replace.</p>
+</div><div class='acts'>
+<div class="act req"><div class="act-head"><span class="act-term">control_lane</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>Thirteen uses of a load-bearing metaphor that is never formally defined. Define once as &#x27;a risk-specific control allocation (a &quot;control lane&quot;)&#x27; and the shorthand becomes licensed.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">control_sheet</span><span class="act-kind">Internal inconsistency</span></div>
+<p>Recaption Table 3 &#x27;The Deployment-Record Control Sheet&#x27;, or state the identity in Part IV.A.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">de_minimis</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>&#x27;de minimis&#x27; is a Latin adjectival phrase. &#x27;non-de-minimally&#x27; is a manufactured adverb that will draw an editor query at any law review, and the standard formulation is available and current: &#x27;bears more than a de minimis relation to&#x27;. Rewrite all five occurrences; do not merely make the two spellings agree.</p>
+<p class="cite">Groff v. DeJoy, 600 U.S. 447, 468-71 (2023) (construing the de minimis formulation in Title VII accommodation)</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">deployment_control_cascade</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>The source literature calls this object a hierarchical control structure, with controllers, control actions, process models and feedback. Renaming it a &#x27;cascade&#x27; without saying so creates a house term where a standard one exists, and obscures that the Article is adapting a recognised safety-engineering method rather than inventing a diagram.</p>
+<p>Either rename to &#x27;deployment control structure&#x27;, or keep &#x27;cascade&#x27; and add one sentence at the definition: &#x27;The cascade adapts the hierarchical control structure of systems-theoretic accident analysis, retaining its controller, control-action and feedback vocabulary while using it to specify evidence rather than to assess safety.&#x27; The Article already cites Leveson; only the naming relationship is unstated.</p>
+<p class="cite">Nancy G. Leveson, Engineering a Safer World 75-76, 87-90 (2012); Nancy G. Leveson &amp; John P. Thomas, STPA Handbook 14-15 (2018)</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">deployment_record</span><span class="act-kind">Three names, one object</span></div>
+<p>One object currently carries three names — &#x27;local record&#x27; (§ 2), &#x27;control sheet&#x27; (Part IV.A) and &#x27;manifest&#x27; (Part IV.B, with closed/local/minimum qualifiers) — and no passage equates them. This is the most damaging terminology defect in the draft because it makes the central obligation look like three different duties.</p>
+<p>Collapse to TWO names with a clean division of labour: &#x27;deployment record&#x27; = the obligation (statutory register); &#x27;control sheet&#x27; = the instrument that records it (document register). Delete &#x27;manifest&#x27; entirely. Replace § 2&#x27;s &#x27;a local record&#x27; with &#x27;a deployment record, maintained locally&#x27;.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">deployment_record_duty</span><span class="act-kind">Defined twice</span></div>
+<p>Marked with \term twice: once in the Introduction and again in Part II.D.</p>
+<p>Keep the Part II.D definition, which sits adjacent to Model Act § 2. Demote the Introduction occurrence to an ordinary mention without \\term.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">designation</span><span class="act-kind">Enumeration differs across the draft</span></div>
+<p>The enumerated content of a designation differs in three places. The Introduction lists seven items including &#x27;trigger&#x27; but omitting the material-change threshold; Part II.A lists seven with &#x27;claimant threshold&#x27; replacing &#x27;trigger&#x27; and adding material-change rules; Model Act § 1 lists ten with neither &#x27;trigger&#x27; nor &#x27;claimant threshold&#x27; and adds affected persons, administering authority, enforcement route and civil-penalty ceiling.</p>
+<p>Model Act § 1 is authoritative. Rewrite the other two to a strict subset of it, or mark them as illustrative with &#x27;among other elements&#x27;.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">gateway</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>Nine uses, no definition. Add a parenthetical where visible operator is defined: &#x27;(its gateway role)&#x27;. Then &#x27;gateway&#x27; is a licensed shorthand rather than a floating synonym.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">high_impact</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>State once why the Article says high-IMPACT and not high-RISK. The reason is already in Part II.A — coverage follows the deployment, not the model — and it is a genuine contribution, but a reader who works from the EU or Colorado vocabulary will otherwise read the substitution as carelessness. Note also that &#x27;high-impact system&#x27; was Canada&#x27;s AIDA term, which supplies precedent rather than novelty.</p>
+<p class="cite">Regulation (EU) 2024/1689 arts. 6, 26 and Annex III (&#x27;high-risk AI system&#x27;); Colo. SB 24-205 (&#x27;high-risk artificial intelligence system&#x27;), repealed and replaced by SB 26-189 (eff. Jan. 1, 2027) (recast as &#x27;automated decision-making technology&#x27;); Bill C-27, Artificial Intelligence and Data Act (&#x27;high-impact system&#x27;) (Can.) (died on prorogation, 2025)</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">material_change_threshold</span><span class="act-kind">Assigned to two different actors</span></div>
+<p>Set by the designation in three places (Part II.A, § 1, § 2&#x27;s closing sentence) and by the operator&#x27;s control sheet in three others (Part IV.A prose, Table 3, and the learning-systems paragraph). A reader cannot tell whether the threshold is statutory or self-set.</p>
+<p>Designation sets it; the control sheet applies it. Amend Part IV.A to say the sheet applies the designation&#x27;s material-change rule to this deployment. Both § 1 and § 2&#x27;s closing sentence already support that reading, so only Part IV changes.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">material_control</span><span class="act-kind">Collides with an established term</span></div>
+<p>&#x27;Control&#x27; is a term of art in discovery, and the Article&#x27;s own argument turns on the two not being the same thing. Part II.G distinguishes them, but the distinction arrives long after the term is introduced.</p>
+<p>Footnote at FIRST use of &#x27;material control&#x27;: this test allocates information duties under the Act and neither states nor borrows the Rule 34 standard; § 2&#x27;s retrieval right is what interacts with Rule 34, and a federal court decides possession, custody or control independently.</p>
+<p class="cite">Fed. R. Civ. P. 34(a)(1); In re Citric Acid Litig., 191 F.3d 1090, 1107-08 (9th Cir. 1999) (legal-right test); Sergeeva v. Tripleton Int&#x27;l Ltd., 834 F.3d 1194, 1200-02 (11th Cir. 2016) (practical-ability approach)</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">opacity_trio</span><span class="act-kind">Collides with an established term</span></div>
+<p>Burrell&#x27;s three forms (intentional secrecy, technical illiteracy, and the mismatch between machine optimisation and human semantic reasoning) are the canonical taxonomy in this literature and are DIFFERENT from these three. Presenting an unattributed second tripartite taxonomy invites the reading that the Article is restating Burrell inaccurately.</p>
+<p>One footnote at first use: cite Burrell, state that her axis is the source of opacity while this axis is the locus of the missing fact, and that the two classifications are orthogonal.</p>
+<p class="cite">Jenna Burrell, How the Machine &#x27;Thinks&#x27;: Understanding Opacity in Machine Learning Algorithms, 3 Big Data &amp; Soc&#x27;y 1 (2016)</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">practical_authority</span><span class="act-kind">Collides with an established term</span></div>
+<p>Near-identical wording for a different object: practical ability concerns obtaining documents, practical authority concerns controlling a deployment. The Article uses &#x27;practical ability&#x27; in the Rule 34 passage and &#x27;practical authority&#x27; in § 5, one Part apart, with no signal that the resemblance is not an equation.</p>
+<p>Half-sentence at § 5(b)&#x27;s first prose appearance distinguishing the two.</p>
+<p class="cite">Sergeeva v. Tripleton Int&#x27;l Ltd., 834 F.3d 1194, 1200-02 (11th Cir. 2016)</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">safe_exit</span><span class="act-kind">Collides with an established term</span></div>
+<p>A safe harbor confers immunity. Safe exit confers nothing of the kind: it ends a procedural role and leaves every merits element, defense and remedy untouched. Given that § 8&#x27;s merits firewall does the real work of denying inferences, a reader who assimilates safe exit to safe harbor will misread the Article&#x27;s central concession as far broader than it is.</p>
+<p>Add to the definition sentence: &#x27;Safe exit terminates the front-door role. It is not a safe harbor and confers no immunity from any underlying claim.&#x27;</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">shadow_tree</span><span class="act-kind">Manuscript hygiene</span></div>
+<p>ailaw/source/*.tex is byte-identical to article/*.tex and nothing includes it. An edit made there will silently not compile. Delete it, or replace it with a symlink.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">table_cross_references</span><span class="act-kind">Manuscript hygiene</span></div>
+<p>Tables 1-3 carry \label but nothing in the text uses \ref, and the strings &#x27;Table 1&#x27;, &#x27;Table 2&#x27;, &#x27;Table 3&#x27; never appear in the prose. A reader has no cue to look at them. Add one pointer sentence in each table&#x27;s section.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">verified_notice</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>§ 3 says &#x27;a sworn declaration or declaration under penalty of perjury&#x27; (itself a redundant doublet — &#x27;a declaration under penalty of perjury&#x27; suffices) while the prose says verified notice, front-door notice and compliant request. Introduce the short name in § 3 — &#x27;such declaration, a &quot;verified notice&quot;&#x27; — and use it everywhere after.</p>
+</div>
+<div class="act req"><div class="act-head"><span class="act-term">visible_operator</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>State once why this is NOT &#x27;deployer&#x27;. &#x27;Deployer&#x27; selects on deployment role; &#x27;visible operator&#x27; selects on visibility to the affected person, which is the whole point of a gateway the claimant can find. Without this sentence the term reads as an idiosyncratic synonym for the emerging standard term, which is the single most likely terminology objection from a reviewer who works in this area.</p>
+<p class="cite">Regulation (EU) 2024/1689 art. 3(4) (&#x27;deployer&#x27;); Colo. Rev. Stat. tit. 6, art. 1, pt. 17 (SB 24-205) (&#x27;deployer&#x27;), repealed and replaced by SB 26-189 (signed May 14, 2026, eff. Jan. 1, 2027), which retains the developer/deployer distinction</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">actor_identification_failure</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>Optional one-line bridge at first use; the Article already discusses Doe pleading and Rule 15(c).</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">affected_person</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>Note the alignment once. The Article is already using the term the EU instrument uses for the same role; saying so is free comparative credibility.</p>
+<p class="cite">Regulation (EU) 2024/1689 art. 86 (right to explanation of individual decision-making, owed to an &#x27;affected person&#x27;)</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">affected_person</span><span class="act-kind">Role distinction to preserve</span></div>
+<p>Define the three-way distinction once, at first use of &#x27;requester&#x27;.</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">custodian_map</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>&#x27;Custodian&#x27; is standard e-discovery vocabulary and needs no defence. Keep it; it is one of the Article&#x27;s cheapest points of contact with existing practice.</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">deployment_record_failure</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>Name this principle explicitly at first use. It is the doctrinal reason the ex ante duty is indispensable, and Part II.G already relies on it without naming it.</p>
+<p class="cite">Fed. R. Civ. P. 34(a)(1) (reaching documents in a party&#x27;s possession, custody or control; no duty to create)</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">designation</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>No change needed. &#x27;Designation&#x27; is ordinary regulatory drafting vocabulary.</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">front_door</span><span class="act-kind">Collides with an established term</span></div>
+<p>In technology law &#x27;front door&#x27; already denotes a deliberately engineered lawful-access channel into an encrypted system, as opposed to a &#x27;back door&#x27;. A substantial part of this Article&#x27;s readership will hear that meaning first.</p>
+<p>One footnote at first use disclaiming the encryption sense: this front door creates no access to system internals, no decryption obligation, and no law-enforcement channel.</p>
+<p class="cite">Harold Abelson et al., Keys Under Doormats, 1 J. Cybersecurity 69 (2015)</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">information_materiality</span><span class="act-kind">Heading does not match the term</span></div>
+<p>The heading names two prongs by a bare noun and one by its full term. Asymmetric with the three \term names.</p>
+<p>Retitle to &#x27;Risk Specificity, Practical Authority, and Information Materiality&#x27;.</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">merits_firewall</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>The Article already cites both in footnotes. Surface the connection in text at first use: the firewall is a familiar evidentiary allocation, not a novel immunity.</p>
+<p class="cite">Restatement (Third) of Torts: Liability for Physical and Emotional Harm § 16 (2010); Fed. R. Evid. 407</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">output_filename</span><span class="act-kind">Manuscript hygiene</span></div>
+<p>The docx output is named &#x27;before-the-merits.docx&#x27; while the Article is titled &#x27;Who Controls, Who Answers?&#x27;. Stale name from an earlier draft; rename before submission to avoid a mismatched file reaching an editor.</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">pre_merits_attribution_gap</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>State once, in the Introduction, that the front door is an information-forcing rule: it assigns the disclosure duty to the party that can cheaply supply the fact, in order to make an existing legal standard operable. The Article currently occupies this category without naming it, which costs it a recognised home in the literature.</p>
+<p class="cite">Ian Ayres &amp; Robert Gertner, Filling Gaps in Incomplete Contracts, 99 Yale L.J. 87, 91, 97-100 (1989)</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">section_reference_style</span><span class="act-kind">Manuscript hygiene</span></div>
+<p>Section references currently appear as &#x27;model Act section 7&#x27;, &#x27;Model Act sections 3 and 10&#x27;, and bare &#x27;Sections 7 and 10&#x27;. Fix one form. Keep the &#x27;Model Act&#x27; qualifier on every reference, because §§ 6 and 7 of the Model Act share numbers with the FTC Act § 6(b) and FAA § 7, both of which the Article also cites.</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">stage_one</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>One clause at first use noting the familiar analogue in phased discovery practice, so the two-stage structure reads as a recognised procedural form rather than a novelty.</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">standard_interface</span><span class="act-kind">Anchor to the standard term</span></div>
+<p>The term appears only in the heading and never in the prose beneath it. Either use it in the section&#x27;s first sentence or retitle the section to what the prose actually says.</p>
+</div>
+<div class="act"><div class="act-head"><span class="act-term">table_caption_style</span><span class="act-kind">Manuscript hygiene</span></div>
+<p>In the docx build, Tables 1 and 2 use the &#x27;Image Caption&#x27; style while Table 3 uses &#x27;Table Caption&#x27;. Unify before submission.</p>
+</div>
+</div></section>
+<section><div class='sec-head'>
+<div class="eyebrow">03 · The canon</div>
+<h2>Every term, its permitted forms, and what it replaces.</h2>
+</div>
+<div class="controls">
+<input type="search" id="q" placeholder="Filter by term, gloss, or banned form">
+<div class="chips">
+<button class="chip" data-status="all" aria-pressed="true">all</button>
+<button class="chip" data-status="anchored" aria-pressed="false">anchored</button>
+<button class="chip" data-status="coined" aria-pressed="false">coined</button>
+<button class="chip" data-status="borrowed" aria-pressed="false">borrowed</button>
+</div>
+<span class="count" id="count"></span>
+</div>
+<div class="terms">
+<article class="term" data-status="coined" data-text="pre_merits_attribution_gap pre-merits attribution gap the sequence in which an ai dispute fails before substantive doctrine can operate, comprising an actor-identification failure and a deployment-record failure. the attribution gap the gap ">
+<div class="tkey">
+<div class="tcanon">pre-merits attribution gap</div>
+<div class="tid">pre_merits_attribution_gap</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The sequence in which an AI dispute fails before substantive doctrine can operate, comprising an actor-identification failure and a deployment-record failure.</p>
+<p class="meta"><b>permitted</b> <code>the attribution gap</code> · <code>the gap</code></p>
+<p class="meta"><b>define at</b> 01-introduction.tex</p>
+<p class="meta"><b>anchor</b> information-forcing rules</p>
+</div></article>
+<article class="term" data-status="coined" data-text="actor_identification_failure actor-identification failure an affected person cannot tell which enterprise selected or retained a control relevant to the asserted risk. actor identification actor-identification problem">
+<div class="tkey">
+<div class="tcanon">actor-identification failure</div>
+<div class="tid">actor_identification_failure</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">An affected person cannot tell which enterprise selected or retained a control relevant to the asserted risk.</p>
+<p class="meta"><b>permitted</b> <code>actor identification</code></p>
+<p class="meta"><b>define at</b> 01-introduction.tex (\term)</p>
+<p class="meta"><b>anchor</b> fictitious-party (Doe) pleading; party identification</p>
+<ul class="bans">
+<li class="ban"><span class="x">actor-identification problem</span><span class="arrow">&rarr;</span><span class="to">actor-identification failure</span><span class="sev">error</span><span class="why">Second name for the same concept; the Introduction names it a failure.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="deployment_record_failure deployment-record failure even when the operator is visible, the versions, configuration, evaluations, warnings, incidents and intervention authority needed to test its conduct were internal or were never recorded. record failure the production problem record-production application">
+<div class="tkey">
+<div class="tcanon">deployment-record failure</div>
+<div class="tid">deployment_record_failure</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">Even when the operator is visible, the versions, configuration, evaluations, warnings, incidents and intervention authority needed to test its conduct were internal or were never recorded.</p>
+<p class="meta"><b>permitted</b> <code>record failure</code></p>
+<p class="meta"><b>define at</b> 01-introduction.tex (\term)</p>
+<p class="meta"><b>anchor</b> the no-duty-to-create principle</p>
+<ul class="bans">
+<li class="ban"><span class="x">the production problem</span><span class="arrow">&rarr;</span><span class="to">the deployment-record failure</span><span class="sev">error</span><span class="why">Part I.B names the second configuration &#x27;the production problem&#x27; while the Introduction names it a deployment-record failure, and the parallel term in the same passage (&#x27;the actor-identification problem&#x27;) is keyed to an actor rather than a stage. Non-parallel naming of a two-member set.</span></li>
+<li class="ban"><span class="x">record-production application</span><span class="arrow">&rarr;</span><span class="to">deployment-record application</span><span class="sev">error</span><span class="why">Third name for the same failure, in Part III.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="gap_coordinates actor-identity and record-availability coordinates the two independent axes along which the gap is mapped. the two coordinates ">
+<div class="tkey">
+<div class="tcanon">actor-identity and record-availability coordinates</div>
+<div class="tid">gap_coordinates</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The two independent axes along which the gap is mapped.</p>
+<p class="meta"><b>permitted</b> <code>the two coordinates</code></p>
+<p class="meta"><b>define at</b> 02-pre-merits-gap.tex</p>
+<p class="meta"><b>style</b> Hyphenate both compounds when attributive (&#x27;actor-identity coordinate&#x27;); leave open when predicative (&#x27;actor identity and record availability are independent&#x27;).</p>
+</div></article>
+<article class="term" data-status="coined" data-text="opacity_trio computational opacity / system opacity / organizational opacity three separable forms of opacity: the model&#x27;s internal path; interactions among model, instructions, retrieval, memory, tools and conventional software; and who approved, resourced, or could stop the deployment.  black box">
+<div class="tkey">
+<div class="tcanon">computational opacity / system opacity / organizational opacity</div>
+<div class="tid">opacity_trio</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">Three separable forms of opacity: the model&#x27;s internal path; interactions among model, instructions, retrieval, memory, tools and conventional software; and who approved, resourced, or could stop the deployment.</p>
+<p class="meta"><b>define at</b> 02-pre-merits-gap.tex (three \term)</p>
+<ul class="bans">
+<li class="ban"><span class="x">black box</span><span class="sev">warn</span><span class="why">Permitted only as the criticised conflation the Article rejects. Never use it to name the Article&#x27;s own object.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="front_door deployment front-door rule the two-stage access rule proposed by the article. the front door front-door rule front-door role front-door notice front-door function front-door architecture front-door obligation front end front-door problem">
+<div class="tkey">
+<div class="tcanon">deployment front-door rule</div>
+<div class="tid">front_door</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The two-stage access rule proposed by the Article.</p>
+<p class="meta"><b>permitted</b> <code>the front door</code> · <code>front-door rule</code> · <code>front-door role</code> · <code>front-door notice</code> · <code>front-door function</code> · <code>front-door architecture</code> · <code>front-door obligation</code></p>
+<p class="meta"><b>define at</b> 01-introduction.tex (\term)</p>
+<p class="meta"><b>style</b> &#x27;front door&#x27; as a noun, &#x27;front-door&#x27; hyphenated as an attributive adjective. Both are correct; the split is grammatical, not terminological.</p>
+<ul class="bans">
+<li class="ban"><span class="x">front end</span><span class="arrow">&rarr;</span><span class="to">front door</span><span class="sev">error</span><span class="why">Used twice (Introduction and the Part I.D heading) as an undeclared near-synonym. Either eliminate it or state the intended contrast explicitly once. Elimination is cheaper and loses nothing.</span></li>
+<li class="ban"><span class="x">front-door problem</span><span class="arrow">&rarr;</span><span class="to">pre-merits attribution gap</span><span class="sev">error</span><span class="why">The problem is the gap; the front door is the solution. Naming the problem after the remedy inverts the Article&#x27;s own structure.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="two_stage_rule two-stage rule  the two-stage rule ">
+<div class="tkey">
+<div class="tcanon">two-stage rule</div>
+<div class="tid">two_stage_rule</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>permitted</b> <code>the two-stage rule</code></p>
+<p class="meta"><b>define at</b> 01-introduction.tex</p>
+</div></article>
+<article class="term" data-status="coined" data-text="stage_one stage one the fixed identity-and-event answer owed by the visible operator after a compliant notice.  identity-and-event stage stage one">
+<div class="tkey">
+<div class="tcanon">Stage One</div>
+<div class="tid">stage_one</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The fixed identity-and-event answer owed by the visible operator after a compliant notice.</p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex</p>
+<p class="meta"><b>style</b> Capitalised. Never &#x27;stage one&#x27;, &#x27;the first stage&#x27;, or &#x27;stage 1&#x27;.</p>
+<p class="meta"><b>anchor</b> phased (staged) discovery</p>
+<ul class="bans">
+<li class="ban"><span class="x">identity-and-event stage</span><span class="arrow">&rarr;</span><span class="to">Stage One</span><span class="sev">error</span><span class="why">One-off variant in the Introduction, used before Stage One is introduced.</span></li>
+<li class="ban"><span class="x">stage one</span><span class="arrow">&rarr;</span><span class="to">Stage One</span><span class="sev">warn</span><span class="why">Capitalisation is part of the term.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="stage_two stage two bounded, claim-specific production after a prima facie showing of a control lane.  stage two">
+<div class="tkey">
+<div class="tcanon">Stage Two</div>
+<div class="tid">stage_two</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">Bounded, claim-specific production after a prima facie showing of a control lane.</p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex</p>
+<p class="meta"><b>style</b> Capitalised. Never &#x27;stage two&#x27; or &#x27;the second stage&#x27;.</p>
+<ul class="bans">
+<li class="ban"><span class="x">stage two</span><span class="arrow">&rarr;</span><span class="to">Stage Two</span><span class="sev">warn</span><span class="why">Capitalisation is part of the term.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="visible_operator visible operator the enterprise or public institution that made the covered deployment available to the affected person or incorporated it into the process that produced the adverse event. the operator covered operator reachable first recipient first recipient">
+<div class="tkey">
+<div class="tcanon">visible operator</div>
+<div class="tid">visible_operator</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The enterprise or public institution that made the covered deployment available to the affected person or incorporated it into the process that produced the adverse event.</p>
+<p class="meta"><b>permitted</b> <code>the operator</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex (\term)</p>
+<p class="meta"><b>anchor</b> deployer</p>
+<ul class="bans">
+<li class="ban"><span class="x">covered operator</span><span class="arrow">&rarr;</span><span class="to">visible operator</span><span class="sev">error</span><span class="why">Five uses, never defined and never equated to &#x27;visible operator&#x27;. The Model Act defines &#x27;covered control holder&#x27; but no &#x27;covered operator&#x27;, so the prefix falsely implies a defined statutory status.</span></li>
+<li class="ban"><span class="x">reachable first recipient</span><span class="arrow">&rarr;</span><span class="to">visible operator</span><span class="sev">error</span><span class="why">Single use in the Introduction for a concept the rest of the Article assigns to the visible operator.</span></li>
+<li class="ban"><span class="x">first recipient</span><span class="arrow">&rarr;</span><span class="to">visible operator</span><span class="sev">error</span><span class="why">Same.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="gateway gateway role the visible operator&#x27;s function as the single fixed first respondent. a role, not an entity. the gateway visible-operator gateway gateway obligation ">
+<div class="tkey">
+<div class="tcanon">gateway role</div>
+<div class="tid">gateway</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The visible operator&#x27;s function as the single fixed first respondent. A role, not an entity.</p>
+<p class="meta"><b>permitted</b> <code>the gateway</code> · <code>visible-operator gateway</code> · <code>gateway obligation</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex — MISSING, add parenthetical at visible operator</p>
+</div></article>
+<article class="term" data-status="anchored" data-text="affected_person affected person the person whose protected interest the adverse event affected. the statutory status term.  affected people">
+<div class="tkey">
+<div class="tcanon">affected person</div>
+<div class="tid">affected_person</div>
+<span class="pill p-anchored">anchored</span>
+</div><div class='tbody'>
+<p class="gloss">The person whose protected interest the adverse event affected. The statutory status term.</p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex; Model Act § 1</p>
+<p class="meta"><b>anchor</b> affected person</p>
+<ul class="bans">
+<li class="ban"><span class="x">affected people</span><span class="arrow">&rarr;</span><span class="to">affected persons</span><span class="sev">warn</span><span class="why">The statutory plural is &#x27;affected persons&#x27; (Model Act § 1).</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="covered_control_holder covered control holder  control holder covered enterprise">
+<div class="tkey">
+<div class="tcanon">covered control holder</div>
+<div class="tid">covered_control_holder</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>permitted</b> <code>control holder</code></p>
+<p class="meta"><b>define at</b> Model Act § 1</p>
+<ul class="bans">
+<li class="ban"><span class="x">covered enterprise</span><span class="arrow">&rarr;</span><span class="to">covered control holder</span><span class="sev">error</span><span class="why">Undefined variant; &#x27;covered&#x27; implies the defined statutory status that only &#x27;covered control holder&#x27; carries.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="material_control material control the cumulative test of risk specificity, practical authority and information materiality. material-control test cumulative material-control test ">
+<div class="tkey">
+<div class="tcanon">material control</div>
+<div class="tid">material_control</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The cumulative test of risk specificity, practical authority and information materiality.</p>
+<p class="meta"><b>permitted</b> <code>material-control test</code> · <code>cumulative material-control test</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex Part II.C; Model Act § 5</p>
+</div></article>
+<article class="term" data-status="coined" data-text="practical_authority practical authority an operational or legally enforceable ability to configure, constrain, evaluate, monitor, update, suspend, roll back or terminate the relevant function.  ">
+<div class="tkey">
+<div class="tcanon">practical authority</div>
+<div class="tid">practical_authority</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">An operational or legally enforceable ability to configure, constrain, evaluate, monitor, update, suspend, roll back or terminate the relevant function.</p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex (\term); Model Act § 5(b)</p>
+</div></article>
+<article class="term" data-status="coined" data-text="risk_specificity risk specificity   risk specific">
+<div class="tkey">
+<div class="tcanon">risk specificity</div>
+<div class="tid">risk_specificity</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex (\term); Model Act § 5(a)</p>
+<ul class="bans">
+<li class="ban"><span class="x">risk specific</span><span class="arrow">&rarr;</span><span class="to">risk-specific</span><span class="sev">warn</span><span class="why">Hyphenate when attributive.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="information_materiality information materiality   ">
+<div class="tkey">
+<div class="tcanon">information materiality</div>
+<div class="tid">information_materiality</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex (\term); Model Act § 5(c)</p>
+</div></article>
+<article class="term" data-status="anchored" data-text="de_minimis more than a de minimis relation to the threshold in model act § 5(c) for whether requested information bears on an element, defense or remedy.  non-de-minimally non-de-minimis">
+<div class="tkey">
+<div class="tcanon">more than a de minimis relation to</div>
+<div class="tid">de_minimis</div>
+<span class="pill p-anchored">anchored</span>
+</div><div class='tbody'>
+<p class="gloss">The threshold in Model Act § 5(c) for whether requested information bears on an element, defense or remedy.</p>
+<p class="meta"><b>anchor</b> de minimis</p>
+<ul class="bans">
+<li class="ban"><span class="x">non-de-minimally</span><span class="arrow">&rarr;</span><span class="to">in more than a de minimis way</span><span class="sev">error</span><span class="why">Manufactured adverb; four occurrences including Model Act § 5(c) and Table 1.</span></li>
+<li class="ban"><span class="x">non-de-minimis</span><span class="arrow">&rarr;</span><span class="to">more than a de minimis</span><span class="sev">error</span><span class="why">Fifth occurrence, spelled differently from the other four.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="control_lane control lane a risk-specific allocation of control over one function within a deployment. claim-specific lane the lane assigned lane custody lanes ai-specific lane">
+<div class="tkey">
+<div class="tcanon">control lane</div>
+<div class="tid">control_lane</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">A risk-specific allocation of control over one function within a deployment.</p>
+<p class="meta"><b>permitted</b> <code>claim-specific lane</code> · <code>the lane</code> · <code>assigned lane</code></p>
+<p class="meta"><b>define at</b> MISSING — define formally at Model Act § 5 or Part II.C</p>
+<ul class="bans">
+<li class="ban"><span class="x">custody lanes</span><span class="arrow">&rarr;</span><span class="to">control lanes</span><span class="sev">error</span><span class="why">Custody and control are separate concepts throughout the Article; the compound blurs them.</span></li>
+<li class="ban"><span class="x">AI-specific lane</span><span class="arrow">&rarr;</span><span class="to">control lane</span><span class="sev">warn</span><span class="why">Third qualifier for the same object; the lane is risk-specific, not AI-specific.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="deployment_record deployment record the substantive record obligation. the thing that must exist. the record local record closed manifest local manifest minimum manifest manifest">
+<div class="tkey">
+<div class="tcanon">deployment record</div>
+<div class="tid">deployment_record</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The substantive record obligation. The thing that must exist.</p>
+<p class="meta"><b>permitted</b> <code>the record</code></p>
+<p class="meta"><b>define at</b> Model Act § 2</p>
+<ul class="bans">
+<li class="ban"><span class="x">local record</span><span class="arrow">&rarr;</span><span class="to">deployment record, maintained locally</span><span class="sev">error</span><span class="why">Second name for the § 2 obligation; &#x27;local&#x27; is an attribute, not part of the name.</span></li>
+<li class="ban"><span class="x">closed manifest</span><span class="arrow">&rarr;</span><span class="to">control sheet</span><span class="sev">error</span><span class="why">Third name for the same object.</span></li>
+<li class="ban"><span class="x">local manifest</span><span class="arrow">&rarr;</span><span class="to">control sheet</span><span class="sev">error</span><span class="why">Hybrid of the second and third names.</span></li>
+<li class="ban"><span class="x">minimum manifest</span><span class="arrow">&rarr;</span><span class="to">control sheet</span><span class="sev">error</span><span class="why">Fourth qualifier on the third name.</span></li>
+<li class="ban"><span class="x">manifest</span><span class="arrow">&rarr;</span><span class="to">control sheet</span><span class="sev">error</span><span class="why">Delete the manifest vocabulary entirely; nine occurrences.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="control_sheet control sheet the written instrument in which the deployment record is kept. the control sheet minimum control sheet">
+<div class="tkey">
+<div class="tcanon">control sheet</div>
+<div class="tid">control_sheet</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The written instrument in which the deployment record is kept.</p>
+<p class="meta"><b>permitted</b> <code>the control sheet</code></p>
+<p class="meta"><b>define at</b> 05-record-infrastructure.tex Part IV.A</p>
+<ul class="bans">
+<li class="ban"><span class="x">minimum control sheet</span><span class="arrow">&rarr;</span><span class="to">control sheet</span><span class="sev">warn</span><span class="why">One-off qualifier in the Part I forward reference.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="deployment_record_duty deployment-record duty the ex ante duty to create and maintain the deployment record. the record duty record-duty holder operating duty">
+<div class="tkey">
+<div class="tcanon">deployment-record duty</div>
+<div class="tid">deployment_record_duty</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The ex ante duty to create and maintain the deployment record.</p>
+<p class="meta"><b>permitted</b> <code>the record duty</code> · <code>record-duty holder</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex Part II.D (\term) — KEEP THIS ONE</p>
+<ul class="bans">
+<li class="ban"><span class="x">operating duty</span><span class="arrow">&rarr;</span><span class="to">deployment-record duty</span><span class="sev">error</span><span class="why">Undeclared variant in Part III.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="minimum_record minimum record the floor of required content, fixed by the designation. the minimum record operational minimum record operational minimum minimum deployment record">
+<div class="tkey">
+<div class="tcanon">minimum record</div>
+<div class="tid">minimum_record</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The floor of required content, fixed by the designation.</p>
+<p class="meta"><b>permitted</b> <code>the minimum record</code></p>
+<p class="meta"><b>define at</b> Model Act § 1 (enumerated as a designation element)</p>
+<ul class="bans">
+<li class="ban"><span class="x">operational minimum record</span><span class="arrow">&rarr;</span><span class="to">minimum record</span><span class="sev">warn</span><span class="why">Variant heading in Part III.</span></li>
+<li class="ban"><span class="x">operational minimum</span><span class="arrow">&rarr;</span><span class="to">minimum record</span><span class="sev">warn</span><span class="why">Truncated variant.</span></li>
+<li class="ban"><span class="x">minimum deployment record</span><span class="arrow">&rarr;</span><span class="to">minimum record</span><span class="sev">warn</span><span class="why">Variant that blurs into the &#x27;deployment record&#x27; term.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="standard_interface standard interface the fixed field schema in which the record is kept and the first answer is delivered. the interface information plane">
+<div class="tkey">
+<div class="tcanon">standard interface</div>
+<div class="tid">standard_interface</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The fixed field schema in which the record is kept and the first answer is delivered.</p>
+<p class="meta"><b>permitted</b> <code>the interface</code></p>
+<p class="meta"><b>define at</b> 05-record-infrastructure.tex Part IV.B (heading only)</p>
+<ul class="bans">
+<li class="ban"><span class="x">information plane</span><span class="arrow">&rarr;</span><span class="to">standard interface</span><span class="sev">error</span><span class="why">Single use, undefined, borrowed from network architecture where it means something else.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="data_dictionary sectoral data dictionary   field dictionary">
+<div class="tkey">
+<div class="tcanon">sectoral data dictionary</div>
+<div class="tid">data_dictionary</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>define at</b> 05-record-infrastructure.tex Part IV.B</p>
+<ul class="bans">
+<li class="ban"><span class="x">field dictionary</span><span class="arrow">&rarr;</span><span class="to">sectoral data dictionary</span><span class="sev">error</span><span class="why">Does not currently appear in the source; banned pre-emptively because it is the natural drift target.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="event_identifier event identifier connects an affected person or consequential decision to the versions and records that governed it. common event identifier event key run identifier incident identifier">
+<div class="tkey">
+<div class="tcanon">event identifier</div>
+<div class="tid">event_identifier</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">Connects an affected person or consequential decision to the versions and records that governed it.</p>
+<p class="meta"><b>permitted</b> <code>common event identifier</code></p>
+<p class="meta"><b>define at</b> 05-record-infrastructure.tex (\term)</p>
+<p class="meta"><b>style</b> Use &#x27;common event identifier&#x27; only for the shared identifier forwarded to control holders under § 4. Introduce that short name inside the definition sentence.</p>
+<ul class="bans">
+<li class="ban"><span class="x">event key</span><span class="arrow">&rarr;</span><span class="to">event identifier</span><span class="sev">error</span><span class="why">Variant in Part III.</span></li>
+<li class="ban"><span class="x">run identifier</span><span class="arrow">&rarr;</span><span class="to">event identifier</span><span class="sev">error</span><span class="why">Variant in Part I.</span></li>
+<li class="ban"><span class="x">incident identifier</span><span class="arrow">&rarr;</span><span class="to">event identifier</span><span class="sev">error</span><span class="why">Variant in Part I, in the same paragraph as &#x27;event identifier&#x27;.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="deployment_identifier deployment identifier  deployment id ">
+<div class="tkey">
+<div class="tcanon">deployment identifier</div>
+<div class="tid">deployment_identifier</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>permitted</b> <code>deployment ID</code></p>
+<p class="meta"><b>define at</b> 05-record-infrastructure.tex (\term)</p>
+<p class="meta"><b>style</b> Introduce the short form parenthetically at the definition, then use &#x27;deployment ID&#x27; freely.</p>
+</div></article>
+<article class="term" data-status="coined" data-text="component_version_identifier component-version identifier   ">
+<div class="tkey">
+<div class="tcanon">component-version identifier</div>
+<div class="tid">component_version_identifier</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>define at</b> 05-record-infrastructure.tex (\term)</p>
+</div></article>
+<article class="term" data-status="coined" data-text="first_answer first answer the fixed, closed response the visible operator owes within the statutory period: an event receipt and a custodian map. first-answer duty the first answer first-answer obligation minimum answer">
+<div class="tkey">
+<div class="tcanon">first answer</div>
+<div class="tid">first_answer</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The fixed, closed response the visible operator owes within the statutory period: an event receipt and a custodian map.</p>
+<p class="meta"><b>permitted</b> <code>first-answer duty</code> · <code>the first answer</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex (\term)</p>
+<ul class="bans">
+<li class="ban"><span class="x">first-answer obligation</span><span class="arrow">&rarr;</span><span class="to">first-answer duty</span><span class="sev">error</span><span class="why">The Model Act says duty in §§ 3, 4 and 10; &#x27;obligation&#x27; appears once in prose.</span></li>
+<li class="ban"><span class="x">minimum answer</span><span class="arrow">&rarr;</span><span class="to">the first answer</span><span class="sev">error</span><span class="why">Variant in Part V that reads as a fourth kind of answer.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="event_receipt event receipt  the receipt fixed receipt">
+<div class="tkey">
+<div class="tcanon">event receipt</div>
+<div class="tid">event_receipt</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>permitted</b> <code>the receipt</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex (\term); Model Act § 4</p>
+<ul class="bans">
+<li class="ban"><span class="x">fixed receipt</span><span class="arrow">&rarr;</span><span class="to">the event receipt</span><span class="sev">warn</span><span class="why">Qualifier adds nothing; the receipt is fixed by definition.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="custodian_map custodian map  the map control map">
+<div class="tkey">
+<div class="tcanon">custodian map</div>
+<div class="tid">custodian_map</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>permitted</b> <code>the map</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex (\term); Model Act § 4</p>
+<p class="meta"><b>anchor</b> custodian</p>
+<ul class="bans">
+<li class="ban"><span class="x">control map</span><span class="arrow">&rarr;</span><span class="to">custodian map</span><span class="sev">error</span><span class="why">Variant in Part V.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="verified_notice verified notice the sworn declaration by which an affected person invokes stage one. the notice front-door notice verified front-door notice compliant identity request">
+<div class="tkey">
+<div class="tcanon">verified notice</div>
+<div class="tid">verified_notice</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The sworn declaration by which an affected person invokes Stage One.</p>
+<p class="meta"><b>permitted</b> <code>the notice</code></p>
+<p class="meta"><b>define at</b> Model Act § 3 — introduce the short name there</p>
+<ul class="bans">
+<li class="ban"><span class="x">front-door notice</span><span class="arrow">&rarr;</span><span class="to">verified notice</span><span class="sev">error</span><span class="why">Second name for the § 3 document.</span></li>
+<li class="ban"><span class="x">verified front-door notice</span><span class="arrow">&rarr;</span><span class="to">verified notice</span><span class="sev">error</span><span class="why">Third name.</span></li>
+<li class="ban"><span class="x">compliant identity request</span><span class="arrow">&rarr;</span><span class="to">verified notice</span><span class="sev">error</span><span class="why">Fourth name.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="covered_adverse_event covered adverse event an adverse event affecting an interest protected by the law named in the designation. adverse event covered event covered occurrence">
+<div class="tkey">
+<div class="tcanon">covered adverse event</div>
+<div class="tid">covered_adverse_event</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">An adverse event affecting an interest protected by the law named in the designation.</p>
+<p class="meta"><b>permitted</b> <code>adverse event</code> · <code>covered event</code></p>
+<p class="meta"><b>define at</b> Model Act § 3(a)</p>
+<p class="meta"><b>style</b> Use the full &#x27;covered adverse event&#x27; at first use in each Part; the short forms are licensed thereafter. Do not introduce a fourth noun.</p>
+<ul class="bans">
+<li class="ban"><span class="x">covered occurrence</span><span class="arrow">&rarr;</span><span class="to">covered adverse event</span><span class="sev">error</span><span class="why">Fourth noun for the trigger event.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="occurrence_threshold occurrence threshold  stage one occurrence threshold claimant threshold">
+<div class="tkey">
+<div class="tcanon">occurrence threshold</div>
+<div class="tid">occurrence_threshold</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>permitted</b> <code>Stage One occurrence threshold</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex; Model Act § 6</p>
+<ul class="bans">
+<li class="ban"><span class="x">claimant threshold</span><span class="arrow">&rarr;</span><span class="to">occurrence threshold</span><span class="sev">error</span><span class="why">Appears once, in the Part II.A designation list, where every other passage says occurrence threshold. See also the designation-list inconsistency below.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="high_impact high-impact attaches to a deployment category, not to a model.  high impact">
+<div class="tkey">
+<div class="tcanon">high-impact</div>
+<div class="tid">high_impact</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">Attaches to a deployment category, not to a model.</p>
+<p class="meta"><b>define at</b> Title; 01-introduction.tex; 03-front-door-rule.tex Part II.A</p>
+<p class="meta"><b>style</b> Always hyphenated when attributive: &#x27;high-impact deployment&#x27;, &#x27;high-impact AI&#x27;. Never &#x27;high impact&#x27;.</p>
+<p class="meta"><b>anchor</b> high-risk (EU, Colorado) / high-impact (Canada)</p>
+<ul class="bans">
+<li class="ban"><span class="x">high impact</span><span class="arrow">&rarr;</span><span class="to">high-impact</span><span class="sev">warn</span><span class="why">Two unhyphenated occurrences, one of them a defined-term usage in quotation marks.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="anchored" data-text="designation designation  sectoral designation the designation legislative designation ">
+<div class="tkey">
+<div class="tcanon">designation</div>
+<div class="tid">designation</div>
+<span class="pill p-anchored">anchored</span>
+</div><div class='tbody'>
+<p class="meta"><b>permitted</b> <code>sectoral designation</code> · <code>the designation</code> · <code>legislative designation</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex Part II.A; Model Act § 1</p>
+<p class="meta"><b>anchor</b> sectoral regulation; covered-entity drafting</p>
+</div></article>
+<article class="term" data-status="coined" data-text="material_change_threshold material-change threshold the threshold at which a change to a deployment requires renewed evaluation or approval.  ">
+<div class="tkey">
+<div class="tcanon">material-change threshold</div>
+<div class="tid">material_change_threshold</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The threshold at which a change to a deployment requires renewed evaluation or approval.</p>
+<p class="meta"><b>define at</b> Model Act § 1 and § 2</p>
+</div></article>
+<article class="term" data-status="coined" data-text="safe_exit safe exit termination of the front-door role on a showing that the enterprise lacked material control over the asserted risk during the relevant period.  prompt exit">
+<div class="tkey">
+<div class="tcanon">safe exit</div>
+<div class="tid">safe_exit</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">Termination of the front-door role on a showing that the enterprise lacked material control over the asserted risk during the relevant period.</p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex Part II.E — MISSING \term, add one</p>
+<ul class="bans">
+<li class="ban"><span class="x">prompt exit</span><span class="arrow">&rarr;</span><span class="to">safe exit</span><span class="sev">error</span><span class="why">One-off variant in the Part II opening.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="merits_firewall merits firewall coverage, notice, compliance, noncompliance and participation create no inference or presumption of duty, breach, defect, discriminatory operation, agency, causation, damages or joint liability.  ">
+<div class="tkey">
+<div class="tcanon">merits firewall</div>
+<div class="tid">merits_firewall</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">Coverage, notice, compliance, noncompliance and participation create no inference or presumption of duty, breach, defect, discriminatory operation, agency, causation, damages or joint liability.</p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex (\term); Model Act § 8</p>
+<p class="meta"><b>anchor</b> statutory compliance as evidence; subsequent remedial measures</p>
+</div></article>
+<article class="term" data-status="borrowed" data-text="deployment_control_cascade deployment-control cascade four functional levels — authority and resources, model and component supply, deployment and harness operation, affected environment. the cascade ">
+<div class="tkey">
+<div class="tcanon">deployment-control cascade</div>
+<div class="tid">deployment_control_cascade</div>
+<span class="pill p-borrowed">borrowed</span>
+</div><div class='tbody'>
+<p class="gloss">Four functional levels — authority and resources, model and component supply, deployment and harness operation, affected environment.</p>
+<p class="meta"><b>permitted</b> <code>the cascade</code></p>
+<p class="meta"><b>define at</b> 01-introduction.tex (\term); 02-pre-merits-gap.tex Part I.E; Figure 1</p>
+<p class="meta"><b>anchor</b> hierarchical safety control structure</p>
+</div></article>
+<article class="term" data-status="borrowed" data-text="cascade_levels authority and resources / model and component supply / deployment and harness operation / affected environment   ">
+<div class="tkey">
+<div class="tcanon">authority and resources / model and component supply / deployment and harness operation / affected environment</div>
+<div class="tid">cascade_levels</div>
+<span class="pill p-borrowed">borrowed</span>
+</div><div class='tbody'>
+<p class="meta"><b>define at</b> 02-pre-merits-gap.tex (four \term)</p>
+<p class="meta"><b>style</b> Use the full level names verbatim. Do not paraphrase them in later Parts.</p>
+</div></article>
+<article class="term" data-status="coined" data-text="retrieval_right contractual retrieval right the operator&#x27;s predeployment contractual right to retrieve defined supplier fields on demand. retrieval right the retrieval right usable retrieval right predeployment retrieval right">
+<div class="tkey">
+<div class="tcanon">contractual retrieval right</div>
+<div class="tid">retrieval_right</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The operator&#x27;s predeployment contractual right to retrieve defined supplier fields on demand.</p>
+<p class="meta"><b>permitted</b> <code>retrieval right</code> · <code>the retrieval right</code></p>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex Part II.D; Model Act § 2</p>
+<p class="meta"><b>style</b> &#x27;contractual retrieval right&#x27; at first use in each Part; &#x27;retrieval right&#x27; thereafter. &#x27;retrieval architecture&#x27; names the arrangement as a whole and is permitted. &#x27;retrieval path&#x27; names one route within it and is permitted.</p>
+<ul class="bans">
+<li class="ban"><span class="x">usable retrieval right</span><span class="arrow">&rarr;</span><span class="to">contractual retrieval right</span><span class="sev">warn</span><span class="why">Qualifier adds nothing the definition does not already require.</span></li>
+<li class="ban"><span class="x">predeployment retrieval right</span><span class="arrow">&rarr;</span><span class="to">contractual retrieval right</span><span class="sev">warn</span><span class="why">Same; the right is predeployment by definition.</span></li>
+</ul>
+</div></article>
+<article class="term" data-status="coined" data-text="record_clocks identity record / feedback record / event record the three linked records with different retention clocks. the three clocks separate record clocks ">
+<div class="tkey">
+<div class="tcanon">identity record / feedback record / event record</div>
+<div class="tid">record_clocks</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="gloss">The three linked records with different retention clocks.</p>
+<p class="meta"><b>permitted</b> <code>the three clocks</code> · <code>separate record clocks</code></p>
+<p class="meta"><b>define at</b> 05-record-infrastructure.tex (three \term)</p>
+</div></article>
+<article class="term" data-status="coined" data-text="remedy_tiers late or incomplete identification / failure to create or retain the minimum record / loss after a preservation trigger / intentional concealment or falsification   ">
+<div class="tkey">
+<div class="tcanon">late or incomplete identification / failure to create or retain the minimum record / loss after a preservation trigger / intentional concealment or falsification</div>
+<div class="tid">remedy_tiers</div>
+<span class="pill p-coined">coined</span>
+</div><div class='tbody'>
+<p class="meta"><b>define at</b> 03-front-door-rule.tex Part II.E (four \term); Model Act § 9</p>
+<p class="meta"><b>style</b> Use the four names verbatim when referring to a tier.</p>
+</div></article>
+</div>
+<p class="empty" id="empty" hidden>No term matches that filter.</p>
+</section>
+<section><div class='sec-head'>
+<div class="eyebrow">04 · Enforcement</div>
+<h2>Run it before every commit.</h2>
+<p>Nonzero exit means the source has drifted from this page. <code>--actions</code> prints the section 02 items ranked; <code>--json</code> is the form to hand an agent.</p></div>
+<pre>python3 scripts/termlint.py            # errors only
+python3 scripts/termlint.py -w         # include warnings
+python3 scripts/termlint.py --actions  # the non-lintable work
+python3 scripts/termlint.py --json     # for agents and CI
+python3 scripts/termlint.py --list     # the canon as a table
+python3 scripts/termlint.py --term visible_operator
+
+# deliberate exception, in the .tex source:
+some sentence  % termlint: allow front_door</pre></section>
+<footer>Generated from TERMINOLOGY.yaml by scripts/gen_glossary.py. Do not edit this page directly &mdash; edit the canon and regenerate, or the two will drift, which is the failure this whole apparatus exists to prevent.</footer>
+</div>
+<script>
+(function(){
+  var q=document.getElementById('q'),
+      chips=[].slice.call(document.querySelectorAll('.chip')),
+      terms=[].slice.call(document.querySelectorAll('.term')),
+      count=document.getElementById('count'),
+      empty=document.getElementById('empty'),
+      active='all';
+  function apply(){
+    var s=(q.value||'').trim().toLowerCase(), n=0;
+    terms.forEach(function(t){
+      var okS = active==='all' || t.dataset.status===active;
+      var okQ = !s || t.dataset.text.indexOf(s)>-1;
+      var show = okS && okQ;
+      t.hidden = !show;
+      if(show) n++;
+    });
+    count.textContent = n + ' of ' + terms.length;
+    empty.hidden = n>0;
+  }
+  q.addEventListener('input',apply);
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      active=c.dataset.status;
+      chips.forEach(function(o){o.setAttribute('aria-pressed', String(o===c));});
+      apply();
+    });
+  });
+  apply();
+})();
+</script>

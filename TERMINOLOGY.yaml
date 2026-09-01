@@ -1,0 +1,964 @@
+---
+# Canonical terminology for
+#   "Who Controls, Who Answers? A Deployment Front Door for High-Impact AI Litigation"
+#   Zhang & Zhao, Harv. J.L. & Tech. (submission draft)
+#
+# This file is the single source of truth for terminology. Humans read TERMINOLOGY.md;
+# agents and CI read this file; `python3 scripts/termlint.py` enforces it.
+#
+# Editing rule: change the term HERE first, then run the linter and fix the source.
+# Never resolve a terminology question by editing prose alone.
+
+version: 1
+
+document:
+  title: "Who Controls, Who Answers? A Deployment Front Door for High-Impact AI Litigation"
+  venue: "Harvard Journal of Law & Technology (submission draft)"
+  source_globs:
+    - "article/*.tex"
+  # article/ is the tree compiled by what-is-ai-for-courts.tex.
+  # ailaw/source/ is a byte-identical duplicate that nothing includes; it is not linted
+  # and is a live drift hazard. Delete it or make it a symlink to article/.
+  shadow_trees:
+    - "ailaw/source/"
+
+status_legend:
+  anchored: >-
+    A standard scholarly or statutory term already exists and is adopted. Use it as-is;
+    do not invent a synonym.
+  coined: >-
+    The Article's own term for a concept with no standard name. Keep it, but define it
+    exactly once with \term{}, and never vary the wording afterward.
+  borrowed: >-
+    Imported from an adjacent literature. Cite the source at first use and do not
+    silently rename what that literature already named.
+
+severity_legend:
+  error: Blocks. The linter exits nonzero.
+  warn: Reported, does not block. Usually a style or consistency preference.
+
+# ---------------------------------------------------------------------------
+# Collisions: terms that are lexically fine but sit on top of an established
+# meaning in a neighbouring field. These are not string substitutions. Each one
+# needs a distinguishing sentence or footnote at first use, or a reviewer will
+# read the Article as restating (or contradicting) something it never addressed.
+# The linter reports these as reminders, keyed to the term's first occurrence.
+# ---------------------------------------------------------------------------
+
+terms:
+
+  # === The gap and its two failures ======================================
+
+  - id: pre_merits_attribution_gap
+    canonical: "pre-merits attribution gap"
+    status: coined
+    define_at: "01-introduction.tex"
+    gloss: >-
+      The sequence in which an AI dispute fails before substantive doctrine can operate,
+      comprising an actor-identification failure and a deployment-record failure.
+    short_forms: ["the attribution gap", "the gap"]
+    anchor:
+      family: "information-forcing rules"
+      cite: "Ian Ayres & Robert Gertner, Filling Gaps in Incomplete Contracts, 99 Yale L.J. 87, 91, 97-100 (1989)"
+      action: >-
+        State once, in the Introduction, that the front door is an information-forcing rule:
+        it assigns the disclosure duty to the party that can cheaply supply the fact, in
+        order to make an existing legal standard operable. The Article currently occupies
+        this category without naming it, which costs it a recognised home in the literature.
+    banned: []
+
+  - id: actor_identification_failure
+    canonical: "actor-identification failure"
+    status: coined
+    define_at: "01-introduction.tex (\\term)"
+    gloss: "An affected person cannot tell which enterprise selected or retained a control relevant to the asserted risk."
+    short_forms: ["actor identification"]
+    anchor:
+      family: "fictitious-party (Doe) pleading; party identification"
+      action: "Optional one-line bridge at first use; the Article already discusses Doe pleading and Rule 15(c)."
+    banned:
+      - form: "actor-identification problem"
+        replace: "actor-identification failure"
+        why: "Second name for the same concept; the Introduction names it a failure."
+        severity: error
+
+  - id: deployment_record_failure
+    canonical: "deployment-record failure"
+    status: coined
+    define_at: "01-introduction.tex (\\term)"
+    gloss: >-
+      Even when the operator is visible, the versions, configuration, evaluations, warnings,
+      incidents and intervention authority needed to test its conduct were internal or were
+      never recorded.
+    short_forms: ["record failure"]
+    anchor:
+      family: "the no-duty-to-create principle"
+      cite: "Fed. R. Civ. P. 34(a)(1) (reaching documents in a party's possession, custody or control; no duty to create)"
+      action: >-
+        Name this principle explicitly at first use. It is the doctrinal reason the ex ante
+        duty is indispensable, and Part II.G already relies on it without naming it.
+    banned:
+      - form: "the production problem"
+        replace: "the deployment-record failure"
+        why: >-
+          Part I.B names the second configuration 'the production problem' while the
+          Introduction names it a deployment-record failure, and the parallel term in the
+          same passage ('the actor-identification problem') is keyed to an actor rather than
+          a stage. Non-parallel naming of a two-member set.
+        severity: error
+      - form: "record-production application"
+        replace: "deployment-record application"
+        why: "Third name for the same failure, in Part III."
+        severity: error
+
+  - id: gap_coordinates
+    canonical: "actor-identity and record-availability coordinates"
+    status: coined
+    define_at: "02-pre-merits-gap.tex"
+    gloss: "The two independent axes along which the gap is mapped."
+    short_forms: ["the two coordinates"]
+    style: >-
+      Hyphenate both compounds when attributive ('actor-identity coordinate'); leave open
+      when predicative ('actor identity and record availability are independent').
+    banned: []
+
+  # === Opacity ============================================================
+
+  - id: opacity_trio
+    canonical: "computational opacity / system opacity / organizational opacity"
+    status: coined
+    define_at: "02-pre-merits-gap.tex (three \\term)"
+    gloss: >-
+      Three separable forms of opacity: the model's internal path; interactions among model,
+      instructions, retrieval, memory, tools and conventional software; and who approved,
+      resourced, or could stop the deployment.
+    collision:
+      with: "Jenna Burrell's tripartite opacity taxonomy"
+      cite: "Jenna Burrell, How the Machine 'Thinks': Understanding Opacity in Machine Learning Algorithms, 3 Big Data & Soc'y 1 (2016)"
+      why: >-
+        Burrell's three forms (intentional secrecy, technical illiteracy, and the mismatch
+        between machine optimisation and human semantic reasoning) are the canonical
+        taxonomy in this literature and are DIFFERENT from these three. Presenting an
+        unattributed second tripartite taxonomy invites the reading that the Article is
+        restating Burrell inaccurately.
+      action: >-
+        One footnote at first use: cite Burrell, state that her axis is the source of
+        opacity while this axis is the locus of the missing fact, and that the two
+        classifications are orthogonal.
+      severity: error
+    banned:
+      - form: "black box"
+        replace: null
+        why: >-
+          Permitted only as the criticised conflation the Article rejects. Never use it to
+          name the Article's own object.
+        severity: warn
+        note: "Cite Frank Pasquale, The Black Box Society (2015) at the criticised use."
+
+  # === The rule ===========================================================
+
+  - id: front_door
+    canonical: "deployment front-door rule"
+    status: coined
+    define_at: "01-introduction.tex (\\term)"
+    gloss: "The two-stage access rule proposed by the Article."
+    short_forms:
+      - "the front door"
+      - "front-door rule"
+      - "front-door role"
+      - "front-door notice"
+      - "front-door function"
+      - "front-door architecture"
+      - "front-door obligation"
+    style: >-
+      'front door' as a noun, 'front-door' hyphenated as an attributive adjective. Both are
+      correct; the split is grammatical, not terminological.
+    collision:
+      with: "'front door' in the lawful-access / encryption debate"
+      cite: "Harold Abelson et al., Keys Under Doormats, 1 J. Cybersecurity 69 (2015)"
+      why: >-
+        In technology law 'front door' already denotes a deliberately engineered lawful-access
+        channel into an encrypted system, as opposed to a 'back door'. A substantial part of
+        this Article's readership will hear that meaning first.
+      action: >-
+        One footnote at first use disclaiming the encryption sense: this front door creates
+        no access to system internals, no decryption obligation, and no law-enforcement channel.
+      severity: warn
+    banned:
+      - form: "front end"
+        replace: "front door"
+        why: >-
+          Used twice (Introduction and the Part I.D heading) as an undeclared near-synonym.
+          Either eliminate it or state the intended contrast explicitly once. Elimination is
+          cheaper and loses nothing.
+        severity: error
+      - form: "front-door problem"
+        replace: "pre-merits attribution gap"
+        why: "The problem is the gap; the front door is the solution. Naming the problem after the remedy inverts the Article's own structure."
+        severity: error
+
+  - id: two_stage_rule
+    canonical: "two-stage rule"
+    status: coined
+    define_at: "01-introduction.tex"
+    short_forms: ["the two-stage rule"]
+    banned: []
+
+  - id: stage_one
+    canonical: "Stage One"
+    status: coined
+    define_at: "03-front-door-rule.tex"
+    gloss: "The fixed identity-and-event answer owed by the visible operator after a compliant notice."
+    anchor:
+      family: "phased (staged) discovery"
+      action: >-
+        One clause at first use noting the familiar analogue in phased discovery practice,
+        so the two-stage structure reads as a recognised procedural form rather than a novelty.
+    style: "Capitalised. Never 'stage one', 'the first stage', or 'stage 1'."
+    banned:
+      - form: "identity-and-event stage"
+        replace: "Stage One"
+        why: "One-off variant in the Introduction, used before Stage One is introduced."
+        severity: error
+      - form: "stage one"
+        replace: "Stage One"
+        why: "Capitalisation is part of the term."
+        severity: warn
+        case_sensitive: true
+    ordering:
+      must_be_defined_before_use: true
+      why: >-
+        Stage One and Stage Two are first used in Part I.D, but defined operationally only in
+        Part II.B and II.E. Either move a one-sentence gloss forward to first use or add a
+        forward reference.
+
+  - id: stage_two
+    canonical: "Stage Two"
+    status: coined
+    define_at: "03-front-door-rule.tex"
+    gloss: "Bounded, claim-specific production after a prima facie showing of a control lane."
+    style: "Capitalised. Never 'stage two' or 'the second stage'."
+    banned:
+      - form: "stage two"
+        replace: "Stage Two"
+        why: "Capitalisation is part of the term."
+        severity: warn
+        case_sensitive: true
+
+  # === Actors =============================================================
+
+  - id: visible_operator
+    canonical: "visible operator"
+    status: coined
+    define_at: "03-front-door-rule.tex (\\term)"
+    gloss: >-
+      The enterprise or public institution that made the covered deployment available to the
+      affected person or incorporated it into the process that produced the adverse event.
+    short_forms: ["the operator"]
+    anchor:
+      family: "deployer"
+      cite: >-
+        Regulation (EU) 2024/1689 art. 3(4) ('deployer'); Colo. Rev. Stat. tit. 6, art. 1,
+        pt. 17 (SB 24-205) ('deployer'), repealed and replaced by SB 26-189 (signed May 14,
+        2026, eff. Jan. 1, 2027), which retains the developer/deployer distinction
+      action: >-
+        State once why this is NOT 'deployer'. 'Deployer' selects on deployment role;
+        'visible operator' selects on visibility to the affected person, which is the whole
+        point of a gateway the claimant can find. Without this sentence the term reads as an
+        idiosyncratic synonym for the emerging standard term, which is the single most
+        likely terminology objection from a reviewer who works in this area.
+      severity: error
+    banned:
+      - form: "covered operator"
+        replace: "visible operator"
+        why: >-
+          Five uses, never defined and never equated to 'visible operator'. The Model Act
+          defines 'covered control holder' but no 'covered operator', so the prefix falsely
+          implies a defined statutory status.
+        severity: error
+      - form: "reachable first recipient"
+        replace: "visible operator"
+        why: "Single use in the Introduction for a concept the rest of the Article assigns to the visible operator."
+        severity: error
+      - form: "first recipient"
+        replace: "visible operator"
+        why: "Same."
+        severity: error
+
+  - id: gateway
+    canonical: "gateway role"
+    status: coined
+    define_at: "03-front-door-rule.tex — MISSING, add parenthetical at visible operator"
+    gloss: "The visible operator's function as the single fixed first respondent. A role, not an entity."
+    short_forms: ["the gateway", "visible-operator gateway", "gateway obligation"]
+    anchor:
+      action: >-
+        Nine uses, no definition. Add a parenthetical where visible operator is defined:
+        '(its gateway role)'. Then 'gateway' is a licensed shorthand rather than a floating synonym.
+      severity: error
+    banned: []
+
+  - id: affected_person
+    canonical: "affected person"
+    status: anchored
+    define_at: "03-front-door-rule.tex; Model Act § 1"
+    gloss: "The person whose protected interest the adverse event affected. The statutory status term."
+    anchor:
+      family: "affected person"
+      cite: "Regulation (EU) 2024/1689 art. 86 (right to explanation of individual decision-making, owed to an 'affected person')"
+      action: >-
+        Note the alignment once. The Article is already using the term the EU instrument uses
+        for the same role; saying so is free comparative credibility.
+    role_discipline:
+      note: >-
+        Do NOT collapse affected person, requester and claimant into one word. They mark three
+        different postures and the Article needs all three. Fix the drift by using each in its
+        own register, not by unifying them.
+      roles:
+        affected_person: "Statutory status under the designation. Use in the Model Act and whenever the question is who holds the right."
+        requester: "Procedural role under §§ 3 and 6. Use where the question is who bears a burden in the access proceeding."
+        claimant: "Merits posture. Use only where an underlying cause of action is in view."
+      action: "Define the three-way distinction once, at first use of 'requester'."
+    banned:
+      - form: "affected people"
+        replace: "affected persons"
+        why: "The statutory plural is 'affected persons' (Model Act § 1)."
+        severity: warn
+
+  - id: covered_control_holder
+    canonical: "covered control holder"
+    status: coined
+    define_at: "Model Act § 1"
+    short_forms: ["control holder"]
+    banned:
+      - form: "covered enterprise"
+        replace: "covered control holder"
+        why: "Undefined variant; 'covered' implies the defined statutory status that only 'covered control holder' carries."
+        severity: error
+
+  # === Control ============================================================
+
+  - id: material_control
+    canonical: "material control"
+    status: coined
+    define_at: "03-front-door-rule.tex Part II.C; Model Act § 5"
+    gloss: "The cumulative test of risk specificity, practical authority and information materiality."
+    short_forms: ["material-control test", "cumulative material-control test"]
+    collision:
+      with: "Rule 34 'possession, custody, or control'"
+      cite: >-
+        Fed. R. Civ. P. 34(a)(1); In re Citric Acid Litig., 191 F.3d 1090, 1107-08 (9th Cir. 1999)
+        (legal-right test); Sergeeva v. Tripleton Int'l Ltd., 834 F.3d 1194, 1200-02 (11th Cir. 2016)
+        (practical-ability approach)
+      why: >-
+        'Control' is a term of art in discovery, and the Article's own argument turns on the
+        two not being the same thing. Part II.G distinguishes them, but the distinction arrives
+        long after the term is introduced.
+      action: >-
+        Footnote at FIRST use of 'material control': this test allocates information duties
+        under the Act and neither states nor borrows the Rule 34 standard; § 2's retrieval
+        right is what interacts with Rule 34, and a federal court decides possession, custody
+        or control independently.
+      severity: error
+    banned: []
+
+  - id: practical_authority
+    canonical: "practical authority"
+    status: coined
+    define_at: "03-front-door-rule.tex (\\term); Model Act § 5(b)"
+    gloss: "An operational or legally enforceable ability to configure, constrain, evaluate, monitor, update, suspend, roll back or terminate the relevant function."
+    collision:
+      with: "the Rule 34 'practical ability to obtain' test"
+      cite: "Sergeeva v. Tripleton Int'l Ltd., 834 F.3d 1194, 1200-02 (11th Cir. 2016)"
+      why: >-
+        Near-identical wording for a different object: practical ability concerns obtaining
+        documents, practical authority concerns controlling a deployment. The Article uses
+        'practical ability' in the Rule 34 passage and 'practical authority' in § 5, one Part
+        apart, with no signal that the resemblance is not an equation.
+      action: "Half-sentence at § 5(b)'s first prose appearance distinguishing the two."
+      severity: error
+    banned: []
+
+  - id: risk_specificity
+    canonical: "risk specificity"
+    status: coined
+    define_at: "03-front-door-rule.tex (\\term); Model Act § 5(a)"
+    banned:
+      - form: "risk specific"
+        replace: "risk-specific"
+        why: "Hyphenate when attributive."
+        severity: warn
+
+  - id: information_materiality
+    canonical: "information materiality"
+    status: coined
+    define_at: "03-front-door-rule.tex (\\term); Model Act § 5(c)"
+    heading_consistency:
+      current: "Part II.C heading reads 'Material Control Requires Risk, Authority, and Information Materiality'"
+      why: "The heading names two prongs by a bare noun and one by its full term. Asymmetric with the three \\term names."
+      action: "Retitle to 'Risk Specificity, Practical Authority, and Information Materiality'."
+      severity: warn
+
+  - id: de_minimis
+    canonical: "more than a de minimis relation to"
+    status: anchored
+    gloss: "The threshold in Model Act § 5(c) for whether requested information bears on an element, defense or remedy."
+    anchor:
+      family: "de minimis"
+      cite: "Groff v. DeJoy, 600 U.S. 447, 468-71 (2023) (construing the de minimis formulation in Title VII accommodation)"
+      action: >-
+        'de minimis' is a Latin adjectival phrase. 'non-de-minimally' is a manufactured adverb
+        that will draw an editor query at any law review, and the standard formulation is
+        available and current: 'bears more than a de minimis relation to'. Rewrite all five
+        occurrences; do not merely make the two spellings agree.
+      severity: error
+    banned:
+      - form: "non-de-minimally"
+        replace: "in more than a de minimis way"
+        why: "Manufactured adverb; four occurrences including Model Act § 5(c) and Table 1."
+        severity: error
+      - form: "non-de-minimis"
+        replace: "more than a de minimis"
+        why: "Fifth occurrence, spelled differently from the other four."
+        severity: error
+
+  - id: control_lane
+    canonical: "control lane"
+    status: coined
+    define_at: "MISSING — define formally at Model Act § 5 or Part II.C"
+    gloss: "A risk-specific allocation of control over one function within a deployment."
+    short_forms: ["claim-specific lane", "the lane", "assigned lane"]
+    anchor:
+      action: >-
+        Thirteen uses of a load-bearing metaphor that is never formally defined. Define once as
+        'a risk-specific control allocation (a "control lane")' and the shorthand becomes licensed.
+      severity: error
+    banned:
+      - form: "custody lanes"
+        replace: "control lanes"
+        why: "Custody and control are separate concepts throughout the Article; the compound blurs them."
+        severity: error
+      - form: "AI-specific lane"
+        replace: "control lane"
+        why: "Third qualifier for the same object; the lane is risk-specific, not AI-specific."
+        severity: warn
+
+  # === The record: the three-name problem =================================
+
+  - id: deployment_record
+    canonical: "deployment record"
+    status: coined
+    define_at: "Model Act § 2"
+    gloss: "The substantive record obligation. The thing that must exist."
+    short_forms: ["the record"]
+    consolidation:
+      problem: >-
+        One object currently carries three names — 'local record' (§ 2), 'control sheet'
+        (Part IV.A) and 'manifest' (Part IV.B, with closed/local/minimum qualifiers) — and no
+        passage equates them. This is the most damaging terminology defect in the draft
+        because it makes the central obligation look like three different duties.
+      resolution: >-
+        Collapse to TWO names with a clean division of labour:
+        'deployment record' = the obligation (statutory register);
+        'control sheet' = the instrument that records it (document register).
+        Delete 'manifest' entirely. Replace § 2's 'a local record' with 'a deployment record,
+        maintained locally'.
+      severity: error
+    banned:
+      - form: "local record"
+        replace: "deployment record, maintained locally"
+        why: "Second name for the § 2 obligation; 'local' is an attribute, not part of the name."
+        severity: error
+      - form: "closed manifest"
+        replace: "control sheet"
+        why: "Third name for the same object."
+        severity: error
+      - form: "local manifest"
+        replace: "control sheet"
+        why: "Hybrid of the second and third names."
+        severity: error
+      - form: "minimum manifest"
+        replace: "control sheet"
+        why: "Fourth qualifier on the third name."
+        severity: error
+      - form: "manifest"
+        replace: "control sheet"
+        why: "Delete the manifest vocabulary entirely; nine occurrences."
+        severity: error
+
+  - id: control_sheet
+    canonical: "control sheet"
+    status: coined
+    define_at: "05-record-infrastructure.tex Part IV.A"
+    gloss: "The written instrument in which the deployment record is kept."
+    short_forms: ["the control sheet"]
+    consistency:
+      note: >-
+        Table 3 is captioned 'Minimum Deployment-Record Infrastructure' while the surrounding
+        prose calls the same object the control sheet.
+      action: "Recaption Table 3 'The Deployment-Record Control Sheet', or state the identity in Part IV.A."
+      severity: error
+    banned:
+      - form: "minimum control sheet"
+        replace: "control sheet"
+        why: "One-off qualifier in the Part I forward reference."
+        severity: warn
+
+  - id: deployment_record_duty
+    canonical: "deployment-record duty"
+    status: coined
+    define_at: "03-front-door-rule.tex Part II.D (\\term) — KEEP THIS ONE"
+    gloss: "The ex ante duty to create and maintain the deployment record."
+    short_forms: ["the record duty", "record-duty holder"]
+    double_definition:
+      problem: "Marked with \\term twice: once in the Introduction and again in Part II.D."
+      action: >-
+        Keep the Part II.D definition, which sits adjacent to Model Act § 2. Demote the
+        Introduction occurrence to an ordinary mention without \\term.
+      severity: error
+    banned:
+      - form: "operating duty"
+        replace: "deployment-record duty"
+        why: "Undeclared variant in Part III."
+        severity: error
+
+  - id: minimum_record
+    canonical: "minimum record"
+    status: coined
+    define_at: "Model Act § 1 (enumerated as a designation element)"
+    gloss: "The floor of required content, fixed by the designation."
+    short_forms: ["the minimum record"]
+    banned:
+      - form: "operational minimum record"
+        replace: "minimum record"
+        why: "Variant heading in Part III."
+        severity: warn
+      - form: "operational minimum"
+        replace: "minimum record"
+        why: "Truncated variant."
+        severity: warn
+      - form: "minimum deployment record"
+        replace: "minimum record"
+        why: "Variant that blurs into the 'deployment record' term."
+        severity: warn
+
+  - id: standard_interface
+    canonical: "standard interface"
+    status: coined
+    define_at: "05-record-infrastructure.tex Part IV.B (heading only)"
+    gloss: "The fixed field schema in which the record is kept and the first answer is delivered."
+    short_forms: ["the interface"]
+    anchor:
+      action: >-
+        The term appears only in the heading and never in the prose beneath it. Either use it
+        in the section's first sentence or retitle the section to what the prose actually says.
+      severity: warn
+    banned:
+      - form: "information plane"
+        replace: "standard interface"
+        why: "Single use, undefined, borrowed from network architecture where it means something else."
+        severity: error
+
+  - id: data_dictionary
+    canonical: "sectoral data dictionary"
+    status: coined
+    define_at: "05-record-infrastructure.tex Part IV.B"
+    banned:
+      - form: "field dictionary"
+        replace: "sectoral data dictionary"
+        why: "Does not currently appear in the source; banned pre-emptively because it is the natural drift target."
+        severity: error
+
+  # === Identifiers ========================================================
+
+  - id: event_identifier
+    canonical: "event identifier"
+    status: coined
+    define_at: "05-record-infrastructure.tex (\\term)"
+    gloss: "Connects an affected person or consequential decision to the versions and records that governed it."
+    short_forms: ["common event identifier"]
+    style: >-
+      Use 'common event identifier' only for the shared identifier forwarded to control holders
+      under § 4. Introduce that short name inside the definition sentence.
+    banned:
+      - form: "event key"
+        replace: "event identifier"
+        why: "Variant in Part III."
+        severity: error
+      - form: "run identifier"
+        replace: "event identifier"
+        why: "Variant in Part I."
+        severity: error
+      - form: "incident identifier"
+        replace: "event identifier"
+        why: "Variant in Part I, in the same paragraph as 'event identifier'."
+        severity: error
+
+  - id: deployment_identifier
+    canonical: "deployment identifier"
+    status: coined
+    define_at: "05-record-infrastructure.tex (\\term)"
+    short_forms: ["deployment ID"]
+    style: "Introduce the short form parenthetically at the definition, then use 'deployment ID' freely."
+    banned: []
+
+  - id: component_version_identifier
+    canonical: "component-version identifier"
+    status: coined
+    define_at: "05-record-infrastructure.tex (\\term)"
+    banned: []
+
+  # === The answer =========================================================
+
+  - id: first_answer
+    canonical: "first answer"
+    status: coined
+    define_at: "03-front-door-rule.tex (\\term)"
+    gloss: "The fixed, closed response the visible operator owes within the statutory period: an event receipt and a custodian map."
+    short_forms: ["first-answer duty", "the first answer"]
+    banned:
+      - form: "first-answer obligation"
+        replace: "first-answer duty"
+        why: "The Model Act says duty in §§ 3, 4 and 10; 'obligation' appears once in prose."
+        severity: error
+      - form: "minimum answer"
+        replace: "the first answer"
+        why: "Variant in Part V that reads as a fourth kind of answer."
+        severity: error
+
+  - id: event_receipt
+    canonical: "event receipt"
+    status: coined
+    define_at: "03-front-door-rule.tex (\\term); Model Act § 4"
+    short_forms: ["the receipt"]
+    banned:
+      - form: "fixed receipt"
+        replace: "the event receipt"
+        why: "Qualifier adds nothing; the receipt is fixed by definition."
+        severity: warn
+
+  - id: custodian_map
+    canonical: "custodian map"
+    status: coined
+    define_at: "03-front-door-rule.tex (\\term); Model Act § 4"
+    short_forms: ["the map"]
+    anchor:
+      family: "custodian"
+      action: >-
+        'Custodian' is standard e-discovery vocabulary and needs no defence. Keep it; it is
+        one of the Article's cheapest points of contact with existing practice.
+    banned:
+      - form: "control map"
+        replace: "custodian map"
+        why: "Variant in Part V."
+        severity: error
+
+  # === Trigger document and trigger event =================================
+
+  - id: verified_notice
+    canonical: "verified notice"
+    status: coined
+    define_at: "Model Act § 3 — introduce the short name there"
+    gloss: "The sworn declaration by which an affected person invokes Stage One."
+    short_forms: ["the notice"]
+    anchor:
+      action: >-
+        § 3 says 'a sworn declaration or declaration under penalty of perjury' (itself a
+        redundant doublet — 'a declaration under penalty of perjury' suffices) while the prose
+        says verified notice, front-door notice and compliant request. Introduce the short name
+        in § 3 — 'such declaration, a "verified notice"' — and use it everywhere after.
+      severity: error
+    banned:
+      - form: "front-door notice"
+        replace: "verified notice"
+        why: "Second name for the § 3 document."
+        severity: error
+      - form: "verified front-door notice"
+        replace: "verified notice"
+        why: "Third name."
+        severity: error
+      - form: "compliant identity request"
+        replace: "verified notice"
+        why: "Fourth name."
+        severity: error
+    permitted_exception:
+      form: "compliant request"
+      where: "Remedies and limitations only (Model Act § 9 and its prose)"
+      why: "There the operative fact is compliance of the request, not its verification. Keep, but do not use elsewhere."
+
+  - id: covered_adverse_event
+    canonical: "covered adverse event"
+    status: coined
+    define_at: "Model Act § 3(a)"
+    gloss: "An adverse event affecting an interest protected by the law named in the designation."
+    short_forms: ["adverse event", "covered event"]
+    style: >-
+      Use the full 'covered adverse event' at first use in each Part; the short forms are
+      licensed thereafter. Do not introduce a fourth noun.
+    banned:
+      - form: "covered occurrence"
+        replace: "covered adverse event"
+        why: "Fourth noun for the trigger event."
+        severity: error
+
+  - id: occurrence_threshold
+    canonical: "occurrence threshold"
+    status: coined
+    define_at: "03-front-door-rule.tex; Model Act § 6"
+    short_forms: ["Stage One occurrence threshold"]
+    banned:
+      - form: "claimant threshold"
+        replace: "occurrence threshold"
+        why: >-
+          Appears once, in the Part II.A designation list, where every other passage says
+          occurrence threshold. See also the designation-list inconsistency below.
+        severity: error
+
+  # === Scope and designation ==============================================
+
+  - id: high_impact
+    canonical: "high-impact"
+    status: coined
+    define_at: "Title; 01-introduction.tex; 03-front-door-rule.tex Part II.A"
+    gloss: "Attaches to a deployment category, not to a model."
+    style: "Always hyphenated when attributive: 'high-impact deployment', 'high-impact AI'. Never 'high impact'."
+    anchor:
+      family: "high-risk (EU, Colorado) / high-impact (Canada)"
+      cite: >-
+        Regulation (EU) 2024/1689 arts. 6, 26 and Annex III ('high-risk AI system');
+        Colo. SB 24-205 ('high-risk artificial intelligence system'), repealed and replaced by
+        SB 26-189 (eff. Jan. 1, 2027) (recast as 'automated decision-making technology');
+        Bill C-27, Artificial Intelligence and Data Act ('high-impact system') (Can.) (died on
+        prorogation, 2025)
+      action: >-
+        State once why the Article says high-IMPACT and not high-RISK. The reason is already in
+        Part II.A — coverage follows the deployment, not the model — and it is a genuine
+        contribution, but a reader who works from the EU or Colorado vocabulary will otherwise
+        read the substitution as carelessness. Note also that 'high-impact system' was Canada's
+        AIDA term, which supplies precedent rather than novelty.
+      severity: error
+    banned:
+      - form: "high impact"
+        replace: "high-impact"
+        why: "Two unhyphenated occurrences, one of them a defined-term usage in quotation marks."
+        severity: warn
+
+  - id: designation
+    canonical: "designation"
+    status: anchored
+    define_at: "03-front-door-rule.tex Part II.A; Model Act § 1"
+    short_forms: ["sectoral designation", "the designation", "legislative designation"]
+    anchor:
+      family: "sectoral regulation; covered-entity drafting"
+      action: "No change needed. 'Designation' is ordinary regulatory drafting vocabulary."
+    list_consistency:
+      problem: >-
+        The enumerated content of a designation differs in three places. The Introduction lists
+        seven items including 'trigger' but omitting the material-change threshold; Part II.A
+        lists seven with 'claimant threshold' replacing 'trigger' and adding material-change
+        rules; Model Act § 1 lists ten with neither 'trigger' nor 'claimant threshold' and adds
+        affected persons, administering authority, enforcement route and civil-penalty ceiling.
+      resolution: >-
+        Model Act § 1 is authoritative. Rewrite the other two to a strict subset of it, or mark
+        them as illustrative with 'among other elements'.
+      severity: error
+
+  - id: material_change_threshold
+    canonical: "material-change threshold"
+    status: coined
+    define_at: "Model Act § 1 and § 2"
+    gloss: "The threshold at which a change to a deployment requires renewed evaluation or approval."
+    assignment_conflict:
+      problem: >-
+        Set by the designation in three places (Part II.A, § 1, § 2's closing sentence) and by
+        the operator's control sheet in three others (Part IV.A prose, Table 3, and the
+        learning-systems paragraph). A reader cannot tell whether the threshold is statutory or
+        self-set.
+      why_it_matters: >-
+        This is the one field in the whole scheme that functions as a tunable metric. If the
+        operator sets it, every change can be routed into the low-burden change log and the
+        record duty hollows out. It is the Article's only genuine exposure to metric-gaming.
+      resolution: >-
+        Designation sets it; the control sheet applies it. Amend Part IV.A to say the sheet
+        applies the designation's material-change rule to this deployment. Both § 1 and § 2's
+        closing sentence already support that reading, so only Part IV changes.
+      severity: error
+
+  # === Exit and firewall ==================================================
+
+  - id: safe_exit
+    canonical: "safe exit"
+    status: coined
+    define_at: "03-front-door-rule.tex Part II.E — MISSING \\term, add one"
+    gloss: >-
+      Termination of the front-door role on a showing that the enterprise lacked material
+      control over the asserted risk during the relevant period.
+    collision:
+      with: "safe harbor"
+      why: >-
+        A safe harbor confers immunity. Safe exit confers nothing of the kind: it ends a
+        procedural role and leaves every merits element, defense and remedy untouched. Given
+        that § 8's merits firewall does the real work of denying inferences, a reader who
+        assimilates safe exit to safe harbor will misread the Article's central concession as
+        far broader than it is.
+      action: >-
+        Add to the definition sentence: 'Safe exit terminates the front-door role. It is not a
+        safe harbor and confers no immunity from any underlying claim.'
+      severity: error
+    banned:
+      - form: "prompt exit"
+        replace: "safe exit"
+        why: "One-off variant in the Part II opening."
+        severity: error
+
+  - id: merits_firewall
+    canonical: "merits firewall"
+    status: coined
+    define_at: "03-front-door-rule.tex (\\term); Model Act § 8"
+    gloss: >-
+      Coverage, notice, compliance, noncompliance and participation create no inference or
+      presumption of duty, breach, defect, discriminatory operation, agency, causation, damages
+      or joint liability.
+    anchor:
+      family: "statutory compliance as evidence; subsequent remedial measures"
+      cite: >-
+        Restatement (Third) of Torts: Liability for Physical and Emotional Harm § 16 (2010);
+        Fed. R. Evid. 407
+      action: >-
+        The Article already cites both in footnotes. Surface the connection in text at first
+        use: the firewall is a familiar evidentiary allocation, not a novel immunity.
+    banned: []
+
+  # === Borrowed apparatus =================================================
+
+  - id: deployment_control_cascade
+    canonical: "deployment-control cascade"
+    status: borrowed
+    define_at: "01-introduction.tex (\\term); 02-pre-merits-gap.tex Part I.E; Figure 1"
+    gloss: "Four functional levels — authority and resources, model and component supply, deployment and harness operation, affected environment."
+    short_forms: ["the cascade"]
+    anchor:
+      family: "hierarchical safety control structure"
+      cite: >-
+        Nancy G. Leveson, Engineering a Safer World 75-76, 87-90 (2012); Nancy G. Leveson &
+        John P. Thomas, STPA Handbook 14-15 (2018)
+      why: >-
+        The source literature calls this object a hierarchical control structure, with
+        controllers, control actions, process models and feedback. Renaming it a 'cascade'
+        without saying so creates a house term where a standard one exists, and obscures that
+        the Article is adapting a recognised safety-engineering method rather than inventing a
+        diagram.
+      action: >-
+        Either rename to 'deployment control structure', or keep 'cascade' and add one sentence
+        at the definition: 'The cascade adapts the hierarchical control structure of
+        systems-theoretic accident analysis, retaining its controller, control-action and
+        feedback vocabulary while using it to specify evidence rather than to assess safety.'
+        The Article already cites Leveson; only the naming relationship is unstated.
+      severity: error
+    banned: []
+
+  - id: cascade_levels
+    canonical: "authority and resources / model and component supply / deployment and harness operation / affected environment"
+    status: borrowed
+    define_at: "02-pre-merits-gap.tex (four \\term)"
+    style: "Use the full level names verbatim. Do not paraphrase them in later Parts."
+    banned: []
+
+  # === Retrieval ==========================================================
+
+  - id: retrieval_right
+    canonical: "contractual retrieval right"
+    status: coined
+    define_at: "03-front-door-rule.tex Part II.D; Model Act § 2"
+    gloss: "The operator's predeployment contractual right to retrieve defined supplier fields on demand."
+    short_forms: ["retrieval right", "the retrieval right"]
+    style: >-
+      'contractual retrieval right' at first use in each Part; 'retrieval right' thereafter.
+      'retrieval architecture' names the arrangement as a whole and is permitted.
+      'retrieval path' names one route within it and is permitted.
+    banned:
+      - form: "usable retrieval right"
+        replace: "contractual retrieval right"
+        why: "Qualifier adds nothing the definition does not already require."
+        severity: warn
+      - form: "predeployment retrieval right"
+        replace: "contractual retrieval right"
+        why: "Same; the right is predeployment by definition."
+        severity: warn
+
+  # === Record clocks ======================================================
+
+  - id: record_clocks
+    canonical: "identity record / feedback record / event record"
+    status: coined
+    define_at: "05-record-infrastructure.tex (three \\term)"
+    gloss: "The three linked records with different retention clocks."
+    short_forms: ["the three clocks", "separate record clocks"]
+    banned: []
+
+  # === Remedies ===========================================================
+
+  - id: remedy_tiers
+    canonical: >-
+      late or incomplete identification / failure to create or retain the minimum record /
+      loss after a preservation trigger / intentional concealment or falsification
+    status: coined
+    define_at: "03-front-door-rule.tex Part II.E (four \\term); Model Act § 9"
+    style: "Use the four names verbatim when referring to a tier."
+    banned: []
+
+# ---------------------------------------------------------------------------
+# Cross-cutting style rules the linter checks
+# ---------------------------------------------------------------------------
+
+style_rules:
+
+  - id: model_act_capitalisation
+    canonical: "Model Act"
+    why: >-
+      Three capitalisations currently coexist: 'Model Act', 'model Act', 'model act'.
+      Choose 'Model Act' and apply it everywhere, including in section references.
+    banned:
+      - form: "model Act"
+        replace: "Model Act"
+        severity: error
+        case_sensitive: true
+      - form: "model act"
+        replace: "Model Act"
+        severity: error
+        case_sensitive: true
+
+  - id: section_reference_style
+    canonical: "Model Act § 7"
+    why: >-
+      Section references currently appear as 'model Act section 7', 'Model Act sections 3 and
+      10', and bare 'Sections 7 and 10'. Fix one form. Keep the 'Model Act' qualifier on every
+      reference, because §§ 6 and 7 of the Model Act share numbers with the FTC Act § 6(b) and
+      FAA § 7, both of which the Article also cites.
+    severity: warn
+
+  - id: table_cross_references
+    why: >-
+      Tables 1-3 carry \label but nothing in the text uses \ref, and the strings 'Table 1',
+      'Table 2', 'Table 3' never appear in the prose. A reader has no cue to look at them.
+      Add one pointer sentence in each table's section.
+    severity: error
+
+  - id: table_caption_style
+    why: >-
+      In the docx build, Tables 1 and 2 use the 'Image Caption' style while Table 3 uses
+      'Table Caption'. Unify before submission.
+    severity: warn
+
+  - id: shadow_tree
+    why: >-
+      ailaw/source/*.tex is byte-identical to article/*.tex and nothing includes it. An edit
+      made there will silently not compile. Delete it, or replace it with a symlink.
+    severity: error
+
+  - id: output_filename
+    why: >-
+      The docx output is named 'before-the-merits.docx' while the Article is titled 'Who
+      Controls, Who Answers?'. Stale name from an earlier draft; rename before submission to
+      avoid a mismatched file reaching an editor.
+    severity: warn
