@@ -1,0 +1,186 @@
+article/01-introduction.tex:17:402: error: 'reachable first recipient' [visible_operator]
+    -> visible operator
+    Single use in the Introduction for a concept the rest of the Article assigns to the visible operator.
+article/01-introduction.tex:19:421: error: 'front end' [front_door]
+    -> front door
+    Used twice (Introduction and the Part I.D heading) as an undeclared near-synonym. Either eliminate it or state the intended contrast explicitly once. Elimination is cheaper and loses nothing.
+article/02-pre-merits-gap.tex:4:463: warn : 'Affected people' [affected_person]
+    -> affected persons
+    The statutory plural is 'affected persons' (Model Act § 1).
+article/02-pre-merits-gap.tex:14:38: warn : 'black box' [opacity_trio]
+    Permitted only as the criticised conflation the Article rejects. Never use it to name the Article's own object.
+article/02-pre-merits-gap.tex:28:292: error: 'the production problem' [deployment_record_failure]
+    -> the deployment-record failure
+    Part I.B names the second configuration 'the production problem' while the Introduction names it a deployment-record failure, and the parallel term in the same passage ('the actor-identification problem') is keyed to an actor rather than a stage. Non-parallel naming of a two-member set.
+article/02-pre-merits-gap.tex:30:375: error: 'actor-identification problem' [actor_identification_failure]
+    -> actor-identification failure
+    Second name for the same concept; the Introduction names it a failure.
+article/02-pre-merits-gap.tex:34:130: error: 'custody lanes' [control_lane]
+    -> control lanes
+    Custody and control are separate concepts throughout the Article; the compound blurs them.
+article/02-pre-merits-gap.tex:45:667: error: 'front-door problem' [front_door]
+    -> pre-merits attribution gap
+    The problem is the gap; the front door is the solution. Naming the problem after the remedy inverts the Article's own structure.
+article/02-pre-merits-gap.tex:47:848: error: 'incident identifier' [event_identifier]
+    -> event identifier
+    Variant in Part I, in the same paragraph as 'event identifier'.
+article/02-pre-merits-gap.tex:47:1085: error: 'run identifier' [event_identifier]
+    -> event identifier
+    Variant in Part I.
+article/02-pre-merits-gap.tex:53:1123: error: 'compliant identity request' [verified_notice]
+    -> verified notice
+    Fourth name.
+article/02-pre-merits-gap.tex:57:56: error: 'Front End' [front_door]
+    -> front door
+    Used twice (Introduction and the Part I.D heading) as an undeclared near-synonym. Either eliminate it or state the intended contrast explicitly once. Elimination is cheaper and loses nothing.
+article/02-pre-merits-gap.tex:62:1119: error: 'control map' [custodian_map]
+    -> custodian map
+    Variant in Part V.
+article/02-pre-merits-gap.tex:111:337: error: 'first-answer obligation' [first_answer]
+    -> first-answer duty
+    The Model Act says duty in §§ 3, 4 and 10; 'obligation' appears once in prose.
+article/03-front-door-rule.tex:4:286: error: 'prompt exit' [safe_exit]
+    -> safe exit
+    One-off variant in the Part II opening.
+article/03-front-door-rule.tex:11:3: warn : 'High impact' [high_impact]
+    -> high-impact
+    Two unhyphenated occurrences, one of them a defined-term usage in quotation marks.
+article/03-front-door-rule.tex:13:174: error: 'claimant threshold' [occurrence_threshold]
+    -> occurrence threshold
+    Appears once, in the Part II.A designation list, where every other passage says occurrence threshold. See also the designation-list inconsistency below.
+article/03-front-door-rule.tex:15:399: warn : 'affected people' [affected_person]
+    -> affected persons
+    The statutory plural is 'affected persons' (Model Act § 1).
+article/03-front-door-rule.tex:17:55: error: 'covered operator' [visible_operator]
+    -> visible operator
+    Five uses, never defined and never equated to 'visible operator'. The Model Act defines 'covered control holder' but no 'covered operator', so the prefix falsely implies a defined statutory status.
+article/03-front-door-rule.tex:21:688: warn : 'high impact' [high_impact]
+    -> high-impact
+    Two unhyphenated occurrences, one of them a defined-term usage in quotation marks.
+article/03-front-door-rule.tex:23:502: error: 'covered operator' [visible_operator]
+    -> visible operator
+    Five uses, never defined and never equated to 'visible operator'. The Model Act defines 'covered control holder' but no 'covered operator', so the prefix falsely implies a defined statutory status.
+article/03-front-door-rule.tex:32:418: error: 'covered occurrence' [covered_adverse_event]
+    -> covered adverse event
+    Fourth noun for the trigger event.
+article/03-front-door-rule.tex:34:184: error: 'model Act' [model_act_capitalisation]
+    -> Model Act
+article/03-front-door-rule.tex:42:338: error: 'covered enterprise' [covered_control_holder]
+    -> covered control holder
+    Undefined variant; 'covered' implies the defined statutory status that only 'covered control holder' carries.
+article/03-front-door-rule.tex:53:187: error: 'non-de-minimally' [de_minimis]
+    -> in more than a de minimis way
+    Manufactured adverb; four occurrences including Model Act § 5(c) and Table 1.
+article/03-front-door-rule.tex:63:409: error: 'non-de-minimally' [de_minimis]
+    -> in more than a de minimis way
+    Manufactured adverb; four occurrences including Model Act § 5(c) and Table 1.
+article/03-front-door-rule.tex:63:980: error: 'non-de-minimis' [de_minimis]
+    -> more than a de minimis
+    Fifth occurrence, spelled differently from the other four.
+article/03-front-door-rule.tex:65:63: error: 'covered enterprise' [covered_control_holder]
+    -> covered control holder
+    Undefined variant; 'covered' implies the defined statutory status that only 'covered control holder' carries.
+article/03-front-door-rule.tex:78:149: error: 'non-de-minimally' [de_minimis]
+    -> in more than a de minimis way
+    Manufactured adverb; four occurrences including Model Act § 5(c) and Table 1.
+article/03-front-door-rule.tex:96:634: error: 'local record' [deployment_record]
+    -> deployment record, maintained locally
+    Second name for the § 2 obligation; 'local' is an attribute, not part of the name.
+article/03-front-door-rule.tex:98:152: error: 'covered operator' [visible_operator]
+    -> visible operator
+    Five uses, never defined and never equated to 'visible operator'. The Model Act defines 'covered control holder' but no 'covered operator', so the prefix falsely implies a defined statutory status.
+article/03-front-door-rule.tex:98:809: error: 'local record' [deployment_record]
+    -> deployment record, maintained locally
+    Second name for the § 2 obligation; 'local' is an attribute, not part of the name.
+article/03-front-door-rule.tex:130:594: warn : 'AI-specific lane' [control_lane]
+    -> control lane
+    Third qualifier for the same object; the lane is risk-specific, not AI-specific.
+article/03-front-door-rule.tex:141:207: error: 'local record' [deployment_record]
+    -> deployment record, maintained locally
+    Second name for the § 2 obligation; 'local' is an attribute, not part of the name.
+article/03-front-door-rule.tex:145:1077: error: 'local record' [deployment_record]
+    -> deployment record, maintained locally
+    Second name for the § 2 obligation; 'local' is an attribute, not part of the name.
+article/03-front-door-rule.tex:147:548: error: 'non-de-minimally' [de_minimis]
+    -> in more than a de minimis way
+    Manufactured adverb; four occurrences including Model Act § 5(c) and Table 1.
+article/03-front-door-rule.tex:181:319: warn : 'fixed receipt' [event_receipt]
+    -> the event receipt
+    Qualifier adds nothing; the receipt is fixed by definition.
+article/03-front-door-rule.tex:191:5: error: 'model Act' [model_act_capitalisation]
+    -> Model Act
+article/03-front-door-rule.tex:191:431: warn : 'fixed receipt' [event_receipt]
+    -> the event receipt
+    Qualifier adds nothing; the receipt is fixed by definition.
+article/03-front-door-rule.tex:191:564: error: 'model Act' [model_act_capitalisation]
+    -> Model Act
+article/03-front-door-rule.tex:199:292: warn : 'fixed receipt' [event_receipt]
+    -> the event receipt
+    Qualifier adds nothing; the receipt is fixed by definition.
+article/04-rule-in-operation.tex:4:94: error: 'record-production application' [deployment_record_failure]
+    -> deployment-record application
+    Third name for the same failure, in Part III.
+article/04-rule-in-operation.tex:75:119: error: 'local manifest' [deployment_record]
+    -> control sheet
+    Hybrid of the second and third names.
+article/04-rule-in-operation.tex:84:633: error: 'operating duty' [deployment_record_duty]
+    -> deployment-record duty
+    Undeclared variant in Part III.
+article/04-rule-in-operation.tex:90:277: warn : 'AI-specific lane' [control_lane]
+    -> control lane
+    Third qualifier for the same object; the lane is risk-specific, not AI-specific.
+article/05-record-infrastructure.tex:40:41: error: 'information plane' [standard_interface]
+    -> standard interface
+    Single use, undefined, borrowed from network architecture where it means something else.
+article/05-record-infrastructure.tex:40:176: error: 'closed manifest' [deployment_record]
+    -> control sheet
+    Third name for the same object.
+article/05-record-infrastructure.tex:40:527: error: 'manifest' [deployment_record]
+    -> control sheet
+    Delete the manifest vocabulary entirely; nine occurrences.
+article/05-record-infrastructure.tex:46:88: error: 'manifest' [deployment_record]
+    -> control sheet
+    Delete the manifest vocabulary entirely; nine occurrences.
+article/05-record-infrastructure.tex:48:47: error: 'covered operator' [visible_operator]
+    -> visible operator
+    Five uses, never defined and never equated to 'visible operator'. The Model Act defines 'covered control holder' but no 'covered operator', so the prefix falsely implies a defined statutory status.
+article/05-record-infrastructure.tex:50:51: error: 'manifest' [deployment_record]
+    -> control sheet
+    Delete the manifest vocabulary entirely; nine occurrences.
+article/05-record-infrastructure.tex:52:109: error: 'manifest' [deployment_record]
+    -> control sheet
+    Delete the manifest vocabulary entirely; nine occurrences.
+article/05-record-infrastructure.tex:104:78: error: 'minimum manifest' [deployment_record]
+    -> control sheet
+    Fourth qualifier on the third name.
+article/06-objections-boundaries.tex:14:84: error: 'minimum answer' [first_answer]
+    -> the first answer
+    Variant in Part V that reads as a fourth kind of answer.
+article/06-objections-boundaries.tex:22:239: error: 'manifest' [deployment_record]
+    -> control sheet
+    Delete the manifest vocabulary entirely; nine occurrences.
+article/06-objections-boundaries.tex:26:368: error: 'model act' [model_act_capitalisation]
+    -> Model Act
+article/06-objections-boundaries.tex:28:66: error: 'covered operator' [visible_operator]
+    -> visible operator
+    Five uses, never defined and never equated to 'visible operator'. The Model Act defines 'covered control holder' but no 'covered operator', so the prefix falsely implies a defined statutory status.
+article/06-objections-boundaries.tex:28:101: error: 'local record' [deployment_record]
+    -> deployment record, maintained locally
+    Second name for the § 2 obligation; 'local' is an attribute, not part of the name.
+article/06-objections-boundaries.tex:30:5: error: 'local record' [deployment_record]
+    -> deployment record, maintained locally
+    Second name for the § 2 obligation; 'local' is an attribute, not part of the name.
+article/06-objections-boundaries.tex:32:912: error: 'local manifest' [deployment_record]
+    -> control sheet
+    Hybrid of the second and third names.
+article/06-objections-boundaries.tex:42:46: error: 'control map' [custodian_map]
+    -> custodian map
+    Variant in Part V.
+
+definition: error: [gateway] no \term{gateway role} anywhere; canon says: 03-front-door-rule.tex — MISSING, add parenthetical at visible operator
+definition: error: [control_lane] no \term{control lane} anywhere; canon says: MISSING — define formally at Model Act § 5 or Part II.C
+definition: error: [deployment_record_duty] \term{deployment-record duty} appears 2 times (article/01-introduction.tex x1, article/03-front-door-rule.tex x1); canon says: 03-front-door-rule.tex Part II.D (\term) — KEEP THIS ONE
+definition: error: [safe_exit] no \term{safe exit} anywhere; canon says: 03-front-door-rule.tex Part II.E — MISSING \term, add one
+
+7 files, 51 errors, 10 warnings, 4 definition defects.
+Non-lintable action items: python3 scripts/termlint.py --actions
