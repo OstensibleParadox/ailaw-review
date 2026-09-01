@@ -2,9 +2,10 @@
 """Apply a Harvard Journal of Law & Technology-inspired layout to DOCX files.
 
 The manuscript DOCX files are semantic conversions whose content and footnotes
-already exist.  This program intentionally works after conversion: it rewrites
-only WordprocessingML layout, styles, fonts, headers, and page geometry while
-preserving the body text, links, drawings, and real Word footnotes.
+already exist.  This program intentionally works after conversion: it
+normalizes converter-emitted front matter, then rewrites WordprocessingML
+layout, styles, fonts, headers, and page geometry while preserving manuscript
+prose, links, drawings, and real Word footnotes.
 
 It is deliberately dependency-free so ``make docx`` can run on a normal Python
 installation.  Every write is atomic and a structural footnote/ZIP check runs
@@ -15,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import sys
 import tempfile
 import zipfile
@@ -27,6 +29,7 @@ W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 R_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
 CT_NS = "http://schemas.openxmlformats.org/package/2006/content-types"
+DC_NS = "http://purl.org/dc/elements/1.1/"
 
 ET.register_namespace("w", W_NS)
 ET.register_namespace("r", R_NS)
@@ -734,7 +737,16 @@ def set_direct_runs(
         )
 
 
-def retarget_toc_links(paragraph: ET.Element) -> None:
+def retarget_toc_links(paragraph: ET.Element, bookmark_names: set[str]) -> None:
+    for hyperlink in paragraph.iter(w("hyperlink")):
+        anchor = hyperlink.get(w("anchor"))
+        if (
+            anchor
+            and anchor not in bookmark_names
+            and anchor.endswith("1")
+            and anchor[:-1] in bookmark_names
+        ):
+            hyperlink.set(w("anchor"), anchor[:-1])
     for rpr in paragraph.iter(w("rPr")):
         rstyle = rpr.find(w("rStyle"))
         if rstyle is not None and rstyle.get(w("val")) == "Hyperlink":
@@ -752,7 +764,225 @@ def is_contents_heading(text: str) -> bool:
 
 
 def is_intro_heading(text: str) -> bool:
-    return text.casefold() == "introduction" or text == "引言"
+    normalized = " ".join(text.replace("\xa0", " ").split())
+    if normalized.casefold() == "introduction" or normalized == "引言":
+        return True
+    return bool(
+        re.fullmatch(r"I(?:\.|\s)+Introduction", normalized, flags=re.IGNORECASE)
+        or re.fullmatch(r"一(?:\.|\s|、)*引言", normalized)
+    )
+
+
+def normalized_text(text: str) -> str:
+    return " ".join(text.replace("\xa0", " ").split())
+
+
+def is_journal_banner(text: str) -> bool:
+    return normalized_text(text).casefold().startswith(
+        "harvard journal of law & technology"
+    )
+
+
+def is_author_marker(text: str) -> bool:
+    return "".join(text.split()) in {"*", "∗"}
+
+
+def is_submission_line(text: str) -> bool:
+    normalized = normalized_text(text)
+    lowered = normalized.casefold().strip("()")
+    if lowered == "submission draft":
+        return True
+    months = (
+        "January|February|March|April|May|June|July|August|September|"
+        "October|November|December"
+    )
+    return bool(re.fullmatch(rf"(?:{months}) \d{{1,2}}, \d{{4}}", normalized))
+
+
+def is_author_note(text: str) -> bool:
+    normalized = normalized_text(text).lstrip("*∗").lstrip()
+    lowered = normalized.casefold()
+    return "latex" in lowered and (
+        "authors remain responsible" in lowered or "作者负责" in normalized
+    )
+
+
+def text_paragraph(value: str, style: str) -> ET.Element:
+    paragraph = ET.Element(w("p"))
+    set_style_id(paragraph, style)
+    run = ET.SubElement(paragraph, w("r"))
+    node = ET.SubElement(run, w("t"))
+    node.text = value
+    return paragraph
+
+
+def append_author_marker(author: ET.Element, marker: ET.Element) -> None:
+    """Move the converter's linked author-note marker onto the author line."""
+    author_has_marker = paragraph_text(author).rstrip().endswith(("*", "∗"))
+    for child in list(marker):
+        if child.tag == w("pPr"):
+            continue
+        if author_has_marker and child.tag == w("r"):
+            continue
+        marker.remove(child)
+        author.append(child)
+    text_nodes = list(author.iter(w("t")))
+    if text_nodes and (text_nodes[-1].text or "").isspace():
+        text_nodes[-1].text = ""
+
+
+def space_author_note_marker(note: ET.Element) -> None:
+    nodes = list(note.iter(w("t")))
+    if not nodes:
+        return
+    first = nodes[0].text or ""
+    if re.match(r"^[*∗]\S", first):
+        nodes[0].text = first[0] + " " + first[1:]
+    elif first in {"*", "∗"} and len(nodes) > 1 and not (nodes[1].text or "").startswith(" "):
+        nodes[1].text = " " + (nodes[1].text or "")
+
+
+def normalize_front_matter(root: ET.Element, *, expected_title: str | None = None) -> str:
+    """Normalize fresh TeX4ht front matter to the formatter's stable shape.
+
+    The Harvard ``final`` class emits a journal banner before the manuscript
+    title, puts the author-note marker on its own line, and leaves the note at
+    the end of the body.  Older semantic conversions already have the desired
+    title/author/date/abstract/note order.  Detect the fresh form by content and
+    styles, move only those front-matter nodes, and leave formatted English and
+    Chinese documents untouched.
+    """
+    body = root.find(w("body"))
+    if body is None:
+        raise ValueError("word/document.xml has no w:body")
+    paragraphs = [child for child in body if child.tag == w("p")]
+    if not paragraphs:
+        raise ValueError("word/document.xml has no paragraphs")
+
+    first_text = paragraph_text(paragraphs[0])
+    if style_id(paragraphs[0]) == "Title":
+        if is_journal_banner(first_text):
+            raise ValueError(
+                "DOCX front matter was formatted before TeX4ht normalization; "
+                "regenerate it from the LaTeX source"
+            )
+        return first_text
+
+    try:
+        abstract = next(
+            paragraph
+            for paragraph in paragraphs
+            if is_abstract_heading(paragraph_text(paragraph))
+        )
+    except StopIteration as exc:
+        raise ValueError(
+            "could not locate the Abstract/摘要 heading in fresh DOCX front matter"
+        ) from exc
+    abstract_position = paragraphs.index(abstract)
+    title_candidates = [
+        paragraph
+        for paragraph in paragraphs[:abstract_position]
+        if style_id(paragraph) in {"Title", "Heading1"} and paragraph_text(paragraph)
+    ]
+    if len(title_candidates) != 1:
+        raise ValueError("could not identify a unique manuscript title before the abstract")
+    title = title_candidates[0]
+    if expected_title and normalized_text(expected_title) != normalized_text(paragraph_text(title)):
+        replace_paragraph_text(title, expected_title)
+    title_position = paragraphs.index(title)
+
+    leading = paragraphs[:title_position]
+    unexpected_leading = [
+        paragraph
+        for paragraph in leading
+        if paragraph_text(paragraph) and not is_journal_banner(paragraph_text(paragraph))
+    ]
+    if unexpected_leading:
+        raise ValueError("unexpected paragraph before the manuscript title")
+
+    front_candidates = paragraphs[title_position + 1 : abstract_position]
+    markers = [
+        paragraph
+        for paragraph in front_candidates
+        if is_author_marker(paragraph_text(paragraph))
+    ]
+    dates = [
+        paragraph
+        for paragraph in front_candidates
+        if is_submission_line(paragraph_text(paragraph))
+    ]
+    author_candidates = [
+        paragraph
+        for paragraph in front_candidates
+        if paragraph_text(paragraph)
+        and paragraph not in markers
+        and paragraph not in dates
+    ]
+    if len(author_candidates) != 1:
+        raise ValueError("could not identify a unique author line before the abstract")
+    author = author_candidates[0]
+
+    for paragraph in leading:
+        body.remove(paragraph)
+    for marker in markers:
+        append_author_marker(author, marker)
+        body.remove(marker)
+
+    date = dates[0] if dates else text_paragraph("(submission draft)", "Date")
+    for extra_date in dates[1:]:
+        body.remove(extra_date)
+    if date in list(body):
+        body.remove(date)
+    body.insert(list(body).index(abstract), date)
+
+    contents = next(
+        (
+            paragraph
+            for paragraph in paragraphs
+            if is_contents_heading(paragraph_text(paragraph))
+        ),
+        None,
+    )
+    note = next(
+        (paragraph for paragraph in paragraphs if is_author_note(paragraph_text(paragraph))),
+        None,
+    )
+    if markers and note is None:
+        raise ValueError("author-note marker found, but the author-note text is missing")
+    if note is not None:
+        if contents is None:
+            raise ValueError("author note found, but the Contents/目录 heading is missing")
+        body.remove(note)
+        set_style_id(note, "FootnoteText")
+        space_author_note_marker(note)
+        separator = text_paragraph("", "FootnoteText")
+        contents_index = list(body).index(contents)
+        body.insert(contents_index, separator)
+        body.insert(contents_index + 1, note)
+
+    return paragraph_text(title)
+
+
+def derive_short_title(title: str) -> str:
+    normalized = normalized_text(title)
+    for delimiter in (":", "："):
+        if delimiter in normalized:
+            return normalized.split(delimiter, 1)[0].strip()
+    question = normalized.find("?")
+    if 0 < question < 80:
+        return normalized[: question + 1].strip()
+    return normalized
+
+
+def core_document_title(members: dict[str, bytes]) -> str | None:
+    member = "docProps/core.xml"
+    if member not in members:
+        return None
+    root = parse_xml(members[member], member)
+    title = root.find(qn(DC_NS, "title"))
+    if title is None or not normalized_text(title.text or ""):
+        return None
+    return normalized_text(title.text or "")
 
 
 def layout_document_body(root: ET.Element, *, latin: str, cjk: str) -> None:
@@ -762,6 +992,11 @@ def layout_document_body(root: ET.Element, *, latin: str, cjk: str) -> None:
     paragraphs = [child for child in body if child.tag == w("p")]
     if not paragraphs:
         raise ValueError("word/document.xml has no paragraphs")
+    bookmark_names = {
+        bookmark.get(w("name"))
+        for bookmark in root.iter(w("bookmarkStart"))
+        if bookmark.get(w("name"))
+    }
 
     title = paragraphs[0]
     set_style_id(title, "Title")
@@ -831,7 +1066,13 @@ def layout_document_body(root: ET.Element, *, latin: str, cjk: str) -> None:
             set_direct_runs(paragraph, latin=latin, cjk=cjk, size=24, bold=True, small_caps=True)
             continue
 
-        if abstract_open and current_style == "BlockText":
+        if abstract_open and current_style in {
+            "Abstract",
+            "BlockText",
+            "BodyText",
+            "Compact",
+            "FirstParagraph",
+        }:
             set_style_id(paragraph, "Abstract")
             set_paragraph_layout(
                 paragraph,
@@ -876,7 +1117,7 @@ def layout_document_body(root: ET.Element, *, latin: str, cjk: str) -> None:
                 first_line=0,
                 alignment="left",
             )
-            retarget_toc_links(paragraph)
+            retarget_toc_links(paragraph, bookmark_names)
             set_direct_runs(paragraph, latin=latin, cjk=cjk, size=20)
             continue
 
@@ -1138,7 +1379,7 @@ def header_paragraph(
     return paragraph
 
 
-def make_headers(*, year: str) -> dict[str, bytes]:
+def make_headers(*, year: str, short_title: str) -> dict[str, bytes]:
     root_attributes = {qn("http://www.w3.org/2000/xmlns/", "w"): W_NS, qn("http://www.w3.org/2000/xmlns/", "r"): R_NS}
     # ElementTree emits the namespace declarations from register_namespace; the
     # explicit dictionary is intentionally avoided because it creates duplicate
@@ -1155,7 +1396,7 @@ def make_headers(*, year: str) -> dict[str, bytes]:
 
     odd = ET.Element(w("hdr"))
     odd_line = header_paragraph(alignment=None, tabs=(("right", 6480),))
-    odd_line.append(text_run("Before the Merits", font="Garamond", size=21, italic=True))
+    odd_line.append(text_run(short_title, font="Garamond", size=21, italic=True))
     odd_line.append(tab_run(font="Garamond", size=21))
     odd_line.extend(page_field_runs(font="Garamond", size=21))
     odd.append(odd_line)
@@ -1272,6 +1513,131 @@ def configure_footnotes(footnotes: ET.Element, *, latin: str, cjk: str) -> None:
                 reorder_run_properties(rpr)
 
 
+def unwrap_converter_figure_tables(document: ET.Element) -> int:
+    """Replace TeX4ht's empty-cell/image-cell figure shim with one centered paragraph.
+
+    TeX4ht can emit a one-row, two-column ``FigureTable`` whose first cell is
+    empty and whose second cell contains the image.  In the journal's narrow
+    Word measure that clips the image to half the text width.  The table carries
+    no semantic content, so retain its bookmarks and move the drawing paragraph
+    directly into the document body.
+    """
+
+    body = document.find(w("body"))
+    if body is None:
+        raise ValueError("word/document.xml has no w:body")
+
+    changed = 0
+    for table in list(body):
+        if table.tag != w("tbl"):
+            continue
+        table_properties = table.find(w("tblPr"))
+        table_style = (
+            table_properties.find(w("tblStyle"))
+            if table_properties is not None
+            else None
+        )
+        if table_style is None or table_style.get(w("val")) != "FigureTable":
+            continue
+        rows = table.findall(w("tr"))
+        if len(rows) != 1:
+            continue
+        cells = rows[0].findall(w("tc"))
+        if len(cells) != 2:
+            continue
+        if any(cell.find(f".//{w('tbl')}") is not None for cell in cells):
+            continue
+        drawing_cells = [
+            cell for cell in cells if cell.find(f".//{w('drawing')}") is not None
+        ]
+        if len(drawing_cells) != 1:
+            continue
+        drawing_cell = drawing_cells[0]
+        empty_cell = cells[0] if cells[1] is drawing_cell else cells[1]
+        if paragraph_text(empty_cell):
+            continue
+        drawing_paragraphs = [
+            paragraph
+            for paragraph in drawing_cell.findall(w("p"))
+            if paragraph.find(f".//{w('drawing')}") is not None
+        ]
+        if len(drawing_paragraphs) != 1:
+            continue
+        drawing_paragraph = drawing_paragraphs[0]
+        drawing_properties = paragraph_properties(drawing_paragraph)
+        set_val(ensure_child(drawing_properties, w("jc")), "center")
+        reorder_paragraph_properties(drawing_properties)
+
+        insert_at = 1 if drawing_paragraph.find(w("pPr")) is not None else 0
+        for source_paragraph in empty_cell.findall(w("p")):
+            for child in list(source_paragraph):
+                if child.tag not in {w("bookmarkStart"), w("bookmarkEnd")}:
+                    continue
+                source_paragraph.remove(child)
+                drawing_paragraph.insert(insert_at, child)
+                insert_at += 1
+
+        drawing_cell.remove(drawing_paragraph)
+        table_index = list(body).index(table)
+        body.remove(table)
+        body.insert(table_index, drawing_paragraph)
+        changed += 1
+    return changed
+
+
+def configure_data_table_rows(document: ET.Element) -> None:
+    """Repeat table headings and keep converter-emitted rows intact across pages."""
+
+    nontext_content = {
+        w("bookmarkStart"),
+        w("bookmarkEnd"),
+        w("drawing"),
+        w("object"),
+        w("pict"),
+        w("tbl"),
+        w("footnoteReference"),
+        w("fldChar"),
+        w("instrText"),
+        w("sdt"),
+    }
+
+    for table in document.iter(w("tbl")):
+        table_properties = table.find(w("tblPr"))
+        table_style = (
+            table_properties.find(w("tblStyle"))
+            if table_properties is not None
+            else None
+        )
+        if table_style is None or table_style.get(w("val")) != "Table":
+            continue
+        rows = table.findall(w("tr"))
+        visible_rows = [normalized_text(paragraph_text(row)) for row in rows]
+        is_control_sheet = any(
+            all(label in text.casefold() for label in ("component", "required allocation", "front-door function"))
+            for text in visible_rows
+        )
+        if is_control_sheet:
+            for row in list(rows):
+                if paragraph_text(row):
+                    continue
+                if any(node.tag in nontext_content for node in row.iter()):
+                    continue
+                table.remove(row)
+            rows = table.findall(w("tr"))
+        header_index = next(
+            (index for index, row in enumerate(rows) if paragraph_text(row)),
+            None,
+        )
+        for index, row in enumerate(rows):
+            row_properties = row.find(w("trPr"))
+            if row_properties is None:
+                row_properties = ET.Element(w("trPr"))
+                row.insert(0, row_properties)
+            ensure_child(row_properties, w("cantSplit"))
+            if header_index is not None and index <= header_index:
+                ensure_child(row_properties, w("tblHeader"))
+
+
 def resize_inline_drawings(document: ET.Element) -> None:
     """Fit existing images inside the 4.5 inch body column without distorting them."""
 
@@ -1364,7 +1730,15 @@ def write_docx(path: Path, members: dict[str, bytes]) -> None:
             temporary_path.unlink(missing_ok=True)
 
 
-def apply_layout(path: Path, *, latin: str, cjk: str, year: str, check_only: bool) -> tuple[int, int]:
+def apply_layout(
+    path: Path,
+    *,
+    latin: str,
+    cjk: str,
+    year: str,
+    short_title: str | None = None,
+    check_only: bool = False,
+) -> tuple[int, int]:
     if not path.is_file():
         raise ValueError(f"DOCX not found: {path}")
     members = read_docx(path)
@@ -1385,9 +1759,15 @@ def apply_layout(path: Path, *, latin: str, cjk: str, year: str, check_only: boo
     relationships = parse_xml(members["word/_rels/document.xml.rels"], "word/_rels/document.xml.rels")
     content_types = parse_xml(members["[Content_Types].xml"], "[Content_Types].xml")
 
+    document_title = normalize_front_matter(
+        document,
+        expected_title=core_document_title(members),
+    )
     configure_styles(styles, latin=latin, cjk=cjk)
+    unwrap_converter_figure_tables(document)
     normalize_run_fonts(document, latin=latin, cjk=cjk)
     layout_document_body(document, latin=latin, cjk=cjk)
+    configure_data_table_rows(document)
     configure_section(document)
     resize_inline_drawings(document)
     configure_footnotes(footnotes, latin=latin, cjk=cjk)
@@ -1407,7 +1787,12 @@ def apply_layout(path: Path, *, latin: str, cjk: str, year: str, check_only: boo
     members["word/settings.xml"] = serialize(settings)
     members["word/_rels/document.xml.rels"] = serialize(relationships)
     members["[Content_Types].xml"] = serialize_content_types(content_types)
-    members.update(make_headers(year=year))
+    members.update(
+        make_headers(
+            year=year,
+            short_title=short_title or derive_short_title(document_title),
+        )
+    )
 
     after_references, after_notes = validate_members(members, path)
     if (before_references, before_notes) != (after_references, after_notes):
@@ -1440,6 +1825,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--latin-font", default="Garamond")
     parser.add_argument("--cjk-font", default="Songti SC")
     parser.add_argument("--year", default="2026")
+    parser.add_argument(
+        "--short-title",
+        help="running-head title; defaults to the text before the title's colon or question mark",
+    )
     parser.add_argument("--check", action="store_true", help="Validate a previously formatted DOCX without rewriting it.")
     return parser
 
@@ -1453,6 +1842,7 @@ def main(argv: list[str] | None = None) -> int:
                 latin=args.latin_font,
                 cjk=args.cjk_font,
                 year=args.year,
+                short_title=args.short_title,
                 check_only=args.check,
             )
             action = "validated" if args.check else "formatted"
