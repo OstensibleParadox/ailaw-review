@@ -635,6 +635,22 @@ terms:
     define_at: "05-record-infrastructure.tex (\\term)"
     banned: []
 
+  - id: correlation_identifier
+    canonical: "correlation identifier"
+    status: borrowed
+    define_at: "05-record-infrastructure.tex Part IV.B"
+    gloss: >-
+      The pattern formed by the deployment, component-version and event identifiers
+      together: a value propagated along the call path and bound to a fixed field set.
+    anchor:
+      family: "distributed tracing; propagated trace context"
+      cite: "W3C, Trace Context (Level 1), W3C Recommendation (Nov. 23, 2021)"
+      action: >-
+        Cite the W3C standard at first use. The standard names the propagation
+        mechanism (trace context); the Article names the legal field set that rides
+        on it. Do not rename what the standard already named.
+    banned: []
+
   # === The answer =========================================================
 
   - id: first_answer
