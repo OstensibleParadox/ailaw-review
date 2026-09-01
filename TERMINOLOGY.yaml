@@ -569,6 +569,33 @@ terms:
         why: "Does not currently appear in the source; banned pre-emptively because it is the natural drift target."
         severity: error
 
+  # === Ex ante duty architectures (Part IV.D, Digital Omnibus recital 2) ==
+
+  - id: approval_architecture
+    canonical: "approval architecture"
+    status: coined
+    define_at: "05-record-infrastructure.tex Part IV.D (\term)"
+    gloss: >-
+      An ex ante regime whose obligations are discharged through harmonised standards and
+      national conformity assessment, inert until both exist. The kind of duty Regulation
+      (EU) 2026/1744 recital 2 shows cannot be afforded on schedule.
+    style: >-
+      Always paired in contrast with 'record architecture'. Do not use either term outside
+      that contrast.
+    banned: []
+
+  - id: record_architecture
+    canonical: "record architecture"
+    status: coined
+    define_at: "05-record-infrastructure.tex Part IV.D (\term)"
+    gloss: >-
+      An ex ante regime whose obligations attach to recording defined facts before the
+      event, so that what compliance requires is knowable on the day the statute passes.
+      The front door's kind; the reason Part IV.D's comparators are record regimes rather
+      than conformity regimes.
+    style: "See approval_architecture; the two terms live only as a pair."
+    banned: []
+
   # === Identifiers ========================================================
 
   - id: event_identifier
