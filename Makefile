@@ -1,9 +1,9 @@
-MAIN := what-is-ai-for-courts
+MAIN := who-controls-who-answers
 BUILD := build
 OUTPUT := output/pdf
 DOCX_OUTPUT := output/docx
 DOCX_LAYOUT := scripts/apply_harvardjolt_docx_layout.py
-DOCX_FILES := $(DOCX_OUTPUT)/before-the-merits.docx $(DOCX_OUTPUT)/实体审理前.docx
+DOCX_FILES := $(DOCX_OUTPUT)/who-controls-who-answers.docx $(DOCX_OUTPUT)/谁控制谁回答.docx
 PYTHON ?= python3
 
 .PHONY: all pdf docx test-docx-layout test-docx-converter clean clean-docx
